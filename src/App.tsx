@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import PlayersList from './pages/PlayersList/PlayersList';
+import PlayersList from './pages/PlayersList';
 import Home from './pages/Home';
 import Nav from './components/Nav';
 const App: React.FC = () => {

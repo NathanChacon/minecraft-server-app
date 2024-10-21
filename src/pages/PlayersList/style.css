@@ -1,0 +1,58 @@
+.players{
+    height: 100vh;
+    color: white;
+    background-color: #221F26;
+    padding: 20px 18px 0px 18px;
+}
+
+.players__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.players__card {
+   width: 100%;
+   background-color: #39363D;
+   padding: 20px;
+   margin-bottom: 30px;
+}
+
+.players__card-header{
+    display: flex;
+}
+
+.players__card-name{
+    margin: 0;
+}
+
+.players__card-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.players__card-options{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.players__card-option{
+    display: flex;
+    align-items: center;
+}
+
+.players__card-option-img{
+    width: 30px;
+    height: 30px;
+}
+
+/* Responsive styling for larger screens */
+@media (min-width: 768px) {
+    
+}

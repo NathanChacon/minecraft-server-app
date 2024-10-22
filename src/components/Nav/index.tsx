@@ -17,7 +17,10 @@ const Nav: React.FC = () => {
             <Link to="/">Home</Link>
           </li>
           <li className='nav__link'>
-            <Link to="/servidores">Servidores</Link>
+            <Link to="/servers">Servidores</Link>
+          </li>
+          <li className='nav__link'>
+            <Link to="/login">Entrar</Link>
           </li>
         </ul>
       </div>

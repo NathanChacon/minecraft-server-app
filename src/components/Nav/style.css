@@ -30,5 +30,14 @@
 .nav__links a {
   text-decoration: none;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
+}
+
+@media (min-width: 768px) {
+
+    .nav__links a {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+      }
 }

@@ -1,15 +1,15 @@
 import { UserCredential } from 'firebase/auth'
 import {signUpWithGoogle, saveUser, getUserById} from '../../../api/services/user'
+import { useUser } from '../../../context/UserContext';
 
 const useSignIn = () => {
+    const { setUser } = useUser();
 
     const handleSaveUser = async (credential: UserCredential) => {
-        console.log("test", credential)
         try{
             const user = await getUserById(credential.user.uid)
 
             if(user){
-                // go to so
                 console.log("user already on database", user)
             }
             else{
@@ -17,6 +17,8 @@ const useSignIn = () => {
                 saveUser(credential)
             }
 
+            localStorage.setItem("user", JSON.stringify(user));
+            setUser(user);
         }
         catch(error){
             console.log("error login", error)
@@ -30,7 +32,6 @@ const useSignIn = () => {
             handleSaveUser(credential)
         })
         .catch((error) => {
-            //show a pop-up error
             console.log("error auth", error)
         })
     }

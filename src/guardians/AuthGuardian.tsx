@@ -1,15 +1,15 @@
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
 interface AuthGuardianProps {
-  element: JSX.Element;
+  children: ReactNode;
 }
 
-const AuthGuardian: React.FC<AuthGuardianProps> = ({ element }) => {
+const AuthGuardian: React.FC<AuthGuardianProps> = ({ children }) => {
   const isAuthenticated = !!localStorage.getItem("user"); // Check if user is in localStorage
 
-  return isAuthenticated ? element : <Navigate to="/login" />;
-}
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+};
 
 export default AuthGuardian;

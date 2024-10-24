@@ -6,7 +6,7 @@ interface IUser {
   defaultName: string | null;
   email: string | null;
   imageUrl?: string | null;
-  profileImg?: string
+  profileImg?: string | null;
 }
 
 interface UserContextType {

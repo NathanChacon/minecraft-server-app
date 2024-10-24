@@ -3,52 +3,53 @@ import './style.css'
 import minecraftPotion from '../../assets/minecraftPotion.png';
 import discord from '../../assets/discord.png'
 import { useRef, useState } from "react";
-import { uploadUserImage } from "../../api/services/user";
+import { deleteUserImage, uploadUserImage } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
-// Define the form data interface
+
 interface EditProfileFormData {
-  name: string; // required field
-  bio?: string; // optional field
+  name: string;
+  bio?: string;
 }
 
 const EditProfile: React.FC = () => {
   const {user, setUser} = useUser()
-  console.log("test 11", user)
-  const initialProfilePicture = user?.profileImg || discord
-  const [profilePicture, setProfilePicture] = useState(initialProfilePicture)
 
-  console.log(initialProfilePicture, profilePicture)
-  // Configure the useForm hook with the form data type
   const { register, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // The onSubmit handler with form data typed
   const onSubmit: SubmitHandler<EditProfileFormData> = data => {
     console.log(data);
   };
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Get the selected file
-    if (file && file.type.startsWith("image/") && user?.uid) { // Check if the file is an image
-      const imageUrl = await uploadUserImage(user.uid, file);
-
-
+    try{
+      const file = event.target.files?.[0]; // Get the selected file
+      if (file && file.type.startsWith("image/") && user?.uid) {
+        await deleteUserImage(user.uid)
+        const imageUrl = await uploadUserImage(user.uid, file);
+  
+  
+        const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
+        
+        userLocalStorage.profileImg = imageUrl;
+        localStorage.setItem("user", JSON.stringify(userLocalStorage));
+  
+        setUser({
+          ...user,
+          profileImg: imageUrl
+        })
+  
+      } 
+    }
+    catch(error){
       const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
-      
-      userLocalStorage.profileImg = imageUrl; // Assuming you store imagePath in local storage
+        
+      userLocalStorage.profileImg = null; // Assuming you store imagePath in local storage
       localStorage.setItem("user", JSON.stringify(userLocalStorage));
-      console.log("test 3", userLocalStorage)
 
       setUser({
-        ...user,
-        profileImg: imageUrl
+        ...userLocalStorage
       })
-
-      setProfilePicture(imageUrl)
-
-      
-    } else {
-      console.error("Please select a valid image file.");
     }
   };
 

@@ -1,8 +1,8 @@
 // src/api/user.ts
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential } from "firebase/auth";
 import { db, storage } from "../config/firebase"; // Firestore instance
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 // Initialize Firebase Auth and Google provider
 const auth = getAuth();
@@ -76,6 +76,22 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
   await setDoc(doc(db, 'users', userId), { profileImg: imageUrl }, { merge: true });
 
   return imageUrl;
+  };
+
+
+  export const deleteUserImage = async (userId: string): Promise<void> => {
+        const userDocRef = doc(db, 'users', userId);
+        const userDocSnapshot = await getDoc(userDocRef);
+  
+        const userData = userDocSnapshot.data();
+        const imagePath = userData?.profileImg;
+  
+        if (imagePath) {
+          const imageRef = ref(storage, imagePath);
+          await deleteObject(imageRef);
+          await updateDoc(userDocRef, { profileImg: null });
+        }
+
   };
 
   export const getImageByUserId = async (userId: string): Promise<string> => {

@@ -1,9 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import './style.css'
-import minecraftPotion from '../../assets/minecraftPotion.png';
 import discord from '../../assets/discord.png'
-import { useRef, useState } from "react";
-import { deleteUserImage, uploadUserImage } from "../../api/services/user";
+import { useRef} from "react";
+import { uploadUserImage } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 
 interface EditProfileFormData {
@@ -25,7 +24,6 @@ const EditProfile: React.FC = () => {
     try{
       const file = event.target.files?.[0]; // Get the selected file
       if (file && file.type.startsWith("image/") && user?.uid) {
-        await deleteUserImage(user.uid)
         const imageUrl = await uploadUserImage(user.uid, file);
   
   

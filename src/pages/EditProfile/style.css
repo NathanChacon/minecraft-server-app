@@ -4,8 +4,75 @@
 }
 
 .edit-profile__form{
+    padding-top: 30px;
     width: 100%;
     height: 100%;
     color: white;
     background-color: #221F26;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.edit-profile__user-picture-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+
+.edit-profile__user-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover; /* Ensures the image covers the entire area without distortion */
+    border-radius: 50%; /* Turns the image into a circle */
+}
+
+
+.edit-profile__form-input{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    padding-bottom: 60px;
+}
+
+.edit-profile__form-input input{
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.edit-profile__form-input-field{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.edit-profile__form-input-error{
+    font-size: 16px;
+    position: absolute;
+    bottom: -25px;
+    color: rgb(255, 0, 0);
+}
+
+
+.edit-profile__form-input-text{
+    margin: 0px 10px 0px 0px;
+}
+
+
+.edit-profile__form-btn{
+    width: 100%;
+    max-width: 225px;
+    font-size: 18px;
+    color: white;
+    padding: 20px;
+    outline: none;
+    border: none;
+    background-color: #39363D;
+    cursor: pointer;
+    border: 1px solid white;
 }

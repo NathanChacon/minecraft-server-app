@@ -1,5 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import './style.css'
+import minecraftPotion from '../../assets/minecraftPotion.png';
+import discord from '../../assets/discord.png'
 // Define the form data interface
 interface EditProfileFormData {
   name: string; // required field
@@ -19,22 +21,33 @@ const EditProfile: React.FC = () => {
     <section className="edit-profile">
         <form className="edit-profile__form" onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-profile__user-picture-container">
-                <img className="edit-profile__user-picture"></img>
-                <h4 className="edit-profile__user-picture">editar foto ou avatar</h4>
+                <img src={discord} className="edit-profile__user-picture"></img>
+                <h4 className="edit-profile__user-name">editar foto ou avatar</h4>
           </div>
-          <input 
-            defaultValue="test" 
-            {...register("name", { required: "Name is required"})} 
-            placeholder="Enter your name"
-          />
-          {errors.name && <span>{errors.name.message}</span>}
+          <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text">Seu Nome:</p>
+            <span className="edit-profile__form-input-field">
+              <input 
+                  defaultValue="" 
+                  {...register("name", { required: "Nome é obrigatório"})} 
+                  placeholder="Digite seu nome"
+                />
+              {errors.name && <span className="edit-profile__form-input-error">{errors.name.message}</span>}
+            </span>
 
-          <input 
-            {...register("bio")} 
-            placeholder="Enter your bio (optional)"
-          />
+          </div>
+          <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text">Sua Bio: </p>
+            <span className="edit-profile__form-input-field">
+              <input 
+                {...register("bio")} 
+                placeholder="Digite sua bio"
+              />
+              {errors.name && <span className="edit-profile__form-input-error">{errors.name.message}</span>}
+            </span>
+          </div>
           
-          <input type="submit" value="Save Profile" />
+          <input className="edit-profile__form-btn" type="submit" value="Salvar" />
         </form>
     </section>
   );

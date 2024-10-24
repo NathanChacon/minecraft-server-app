@@ -2,6 +2,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import './style.css'
 import minecraftPotion from '../../assets/minecraftPotion.png';
 import discord from '../../assets/discord.png'
+import { useRef, useState } from "react";
+import { uploadUserImage } from "../../api/services/user";
+import { useUser } from "../../context/UserContext";
 // Define the form data interface
 interface EditProfileFormData {
   name: string; // required field
@@ -9,20 +12,60 @@ interface EditProfileFormData {
 }
 
 const EditProfile: React.FC = () => {
+  const {user, setUser} = useUser()
+  console.log("test 11", user)
+  const initialProfilePicture = user?.profileImg || discord
+  const [profilePicture, setProfilePicture] = useState(initialProfilePicture)
+
+  console.log(initialProfilePicture, profilePicture)
   // Configure the useForm hook with the form data type
   const { register, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // The onSubmit handler with form data typed
   const onSubmit: SubmitHandler<EditProfileFormData> = data => {
     console.log(data);
   };
 
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]; // Get the selected file
+    if (file && file.type.startsWith("image/") && user?.uid) { // Check if the file is an image
+      const imageUrl = await uploadUserImage(user.uid, file);
+
+
+      const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
+      
+      userLocalStorage.profileImg = imageUrl; // Assuming you store imagePath in local storage
+      localStorage.setItem("user", JSON.stringify(userLocalStorage));
+      console.log("test 3", userLocalStorage)
+
+      setUser({
+        ...user,
+        profileImg: imageUrl
+      })
+
+      setProfilePicture(imageUrl)
+
+      
+    } else {
+      console.error("Please select a valid image file.");
+    }
+  };
+
   return (
     <section className="edit-profile">
         <form className="edit-profile__form" onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-profile__user-picture-container">
-                <img src={discord} className="edit-profile__user-picture"></img>
-                <h4 className="edit-profile__user-name">editar foto ou avatar</h4>
+                <img src={user?.profileImg || discord} className="edit-profile__user-picture"></img>
+                <h4 className="edit-profile__user-name" onClick={() => {fileInputRef.current?.click()}}>editar foto ou avatar</h4>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleImageChange} 
+                  className="edit-profile__file-input" 
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                />
           </div>
           <div className="edit-profile__form-input">
             <p className="edit-profile__form-input-text">Seu Nome:</p>

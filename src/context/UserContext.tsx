@@ -6,6 +6,7 @@ interface IUser {
   defaultName: string | null;
   email: string | null;
   imageUrl?: string | null;
+  profileImg?: string
 }
 
 interface UserContextType {
@@ -23,6 +24,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
+    console.log("test 2", savedUser)
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }

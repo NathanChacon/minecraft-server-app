@@ -27,9 +27,12 @@ const EditProfile: React.FC = () => {
           <div className="edit-profile__form-input">
             <p className="edit-profile__form-input-text">Seu Nome:</p>
             <span className="edit-profile__form-input-field">
-              <input 
-                  defaultValue="" 
-                  {...register("name", { required: "Nome é obrigatório"})} 
+              <input
+                  {...register("name", { 
+                    required: "Nome é obrigatório",               
+                    minLength: { value: 2, message: "minimo 2 caracteres" },
+                    maxLength: { value: 10, message: "maximo 10 caracteres" } 
+                  })} 
                   placeholder="Digite seu nome"
                 />
               {errors.name && <span className="edit-profile__form-input-error">{errors.name.message}</span>}
@@ -40,10 +43,13 @@ const EditProfile: React.FC = () => {
             <p className="edit-profile__form-input-text">Sua Bio: </p>
             <span className="edit-profile__form-input-field">
               <input 
-                {...register("bio")} 
+                {...register("bio", {
+                  minLength: { value: 10, message: "minimo 10 caracteres" },
+                  maxLength: { value: 60, message: "maximo 60 caracteres" }
+                })} 
                 placeholder="Digite sua bio"
               />
-              {errors.name && <span className="edit-profile__form-input-error">{errors.name.message}</span>}
+              {errors.bio && <span className="edit-profile__form-input-error">{errors.bio.message}</span>}
             </span>
           </div>
           

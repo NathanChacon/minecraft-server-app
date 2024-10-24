@@ -1,7 +1,8 @@
 // src/api/user.ts
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential } from "firebase/auth";
-import { db } from "../config/firebase"; // Firestore instance
+import { db, storage } from "../config/firebase"; // Firestore instance
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Initialize Firebase Auth and Google provider
 const auth = getAuth();
@@ -57,4 +58,36 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
       } else {
         return null;
       }
+  };
+
+
+  export const uploadUserImage = async (userId: string, file: File): Promise<string> => {
+
+  const fileName = `avatar.${file.type.split('/')[1]}`;
+  const imageRef = ref(storage, `userImages/${userId}/${fileName}`);
+
+
+  await uploadBytes(imageRef, file);
+
+
+  const imageUrl = await getDownloadURL(imageRef);
+
+
+  await setDoc(doc(db, 'users', userId), { profileImg: imageUrl }, { merge: true });
+
+  return imageUrl;
+  };
+
+  export const getImageByUserId = async (userId: string): Promise<string> => {
+    // Create a reference to the user's image in the storage
+    const imageRef = ref(storage, `userImages/${userId}/avatar.jpg`); // Adjust the file name as needed
+  
+    try {
+      // Get the download URL of the image
+      const imageUrl = await getDownloadURL(imageRef);
+      return imageUrl;
+    } catch (error) {
+      console.error("Error getting image URL:", error);
+      throw error; // Rethrow the error for handling in the calling function
+    }
   };

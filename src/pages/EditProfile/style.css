@@ -57,9 +57,9 @@
 }
 
 .edit-profile__checkbox {
-    width: 15px; /* Width of the checkbox */
-    height: 15px; /* Height of the checkbox */
-    transform: scale(1.5); /* Scale up the checkbox */
+    width: 15px;
+    height: 15px;
+    transform: scale(1.5);
   }
 
 .edit-profile__form-input-field{

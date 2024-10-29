@@ -22,12 +22,28 @@ const EditProfile: React.FC = () => {
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
 
+  console.log(user)
+
   const isToggleEnabled = !!(discordId || serverIp);
 
   const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
     if(user && user.uid){
       try{
         await updateUserData(user?.uid, data)
+
+
+        const newUserData = {
+          ...user, 
+          name: data.name,
+          bio: data?.bio || "",
+          discordId: data?.discordId || null,
+          serverIp: data?.serverIp || null,
+          isUserVisible: data?.isUserVisible || false
+        }
+        localStorage.setItem("user", JSON.stringify(newUserData));
+  
+        setUser(newUserData)
+  
         console.log("sucess")
       }
       catch{

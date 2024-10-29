@@ -9,6 +9,9 @@ interface IUser {
   email: string | null;
   imageUrl?: string | null;
   profileImg?: string | null;
+  discordId: string | null;
+  serverIp: string | null;
+  isUserVisible: boolean | null;
 }
 
 interface UserContextType {

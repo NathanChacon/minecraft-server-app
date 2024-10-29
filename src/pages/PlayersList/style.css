@@ -25,7 +25,11 @@
 .players__card-header{
     display: flex;
     padding-bottom: 16px;
+}
 
+.players__card-header-text{
+    display: flex;
+    flex-direction: column;
 }
 
 .players__card-name{
@@ -33,9 +37,19 @@
     font-size: 20px;
 }
 
+.players__card-bio{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
 .players__card-img{
     width: 60px;
     height: 60px;
+    min-width: 60px;
+    min-height: 60px;
     border-radius: 5px;
     margin-right: 10px;
 }
@@ -77,6 +91,8 @@
     .players__card-img{
         width: 90px;
         height: 90px;
+        min-width: 90px;
+        min-height: 90px;
         border-radius: 10px;
         margin-right: 10px;
     }

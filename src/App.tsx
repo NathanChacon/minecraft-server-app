@@ -15,7 +15,7 @@ const App: React.FC = () => {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/players" element={<PlayersList />} />
+          <Route path="/players" element={<AuthGuardian><PlayersList /></AuthGuardian>} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
         </Routes>

@@ -42,12 +42,25 @@
     padding-bottom: 60px;
 }
 
+.edit-profile__form-input-field--checkbox{
+    position: relative;
+    display: flex;
+    padding-bottom: 20px;
+    align-items: center;
+}
+
 .edit-profile__form-input input{
     font-size: 18px;
     padding: 10px;
     border: none;
     border-radius: 5px;
 }
+
+.edit-profile__checkbox {
+    width: 15px; /* Width of the checkbox */
+    height: 15px; /* Height of the checkbox */
+    transform: scale(1.5); /* Scale up the checkbox */
+  }
 
 .edit-profile__form-input-field{
     display: flex;

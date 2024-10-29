@@ -4,6 +4,8 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 interface IUser {
   uid: string;
   defaultName: string | null;
+  name: string | null;
+  bio: string | null;
   email: string | null;
   imageUrl?: string | null;
   profileImg?: string | null;

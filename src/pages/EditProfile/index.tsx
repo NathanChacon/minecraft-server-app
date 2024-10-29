@@ -1,23 +1,41 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler} from "react-hook-form";
 import './style.css'
 import discord from '../../assets/discord.png'
 import { useRef} from "react";
-import { uploadUserImage } from "../../api/services/user";
+import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 
 interface EditProfileFormData {
   name: string;
   bio?: string;
+  serverIp?: string;
+  discordId?: string;
+  isUserVisible?: boolean;
 }
 
 const EditProfile: React.FC = () => {
   const {user, setUser} = useUser()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>();
+  const { register, watch, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const onSubmit: SubmitHandler<EditProfileFormData> = data => {
-    console.log(data);
+  const discordId = watch("discordId");
+  const serverIp = watch("serverIp");
+
+  const isToggleEnabled = !!(discordId || serverIp);
+
+  const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
+    if(user && user.uid){
+      try{
+        await updateUserData(user?.uid, data)
+        console.log("sucess")
+      }
+      catch{
+        console.log("handle update user error")
+      }
+    }
+
+    console.log("test data", data);
   };
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +112,53 @@ const EditProfile: React.FC = () => {
               {errors.bio && <span className="edit-profile__form-input-error">{errors.bio.message}</span>}
             </span>
           </div>
+
+          <div className="edit-profile__form-input">
+          <p className="edit-profile__form-input-text">Discord ID:</p>
+          <span className="edit-profile__form-input-field">
+            <input 
+              {...register("discordId", {
+                pattern: {
+                  value: /^\d{18}$/,
+                  message: "Discord ID deve ter 18 dígitos numéricos",
+                },
+              })} 
+              placeholder="Digite seu Discord ID"
+            />
+            {errors.discordId && <span className="edit-profile__form-input-error">{errors.discordId.message}</span>}
+          </span>
+        </div>
+
+        {/* Server IP Field */}
+        <div className="edit-profile__form-input">
+          <p className="edit-profile__form-input-text">Server IP:</p>
+          <span className="edit-profile__form-input-field">
+            <input 
+              {...register("serverIp", {
+                pattern: {
+                  value: /^(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})|(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})(:\d{1,5})?$/,
+                  message: "IP ou domínio inválido para servidor Minecraft",
+                },
+              })} 
+              placeholder="Digite o IP do servidor"
+            />
+          </span>
+        </div>
+
+          <div className="edit-profile__form-input">
+          <span className="edit-profile__form-input-field--checkbox">
+          <p className="edit-profile__form-input-text">Ficar visível: </p>
+          
+            <input
+                  type="checkbox"
+                  className="edit-profile__checkbox"
+                  {...register("isUserVisible")}
+                  disabled={!isToggleEnabled}
+            />
+
+            {!isToggleEnabled && <span className="edit-profile__form-input-error">Discord ID ou IP do Servidor necessários.</span>}
+          </span>
+        </div>
           
           <input className="edit-profile__form-btn" type="submit" value="Salvar" />
         </form>

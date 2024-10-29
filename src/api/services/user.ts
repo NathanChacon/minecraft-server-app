@@ -15,7 +15,8 @@ interface IUser {
   uid: string;
   defaultName: string | null; // User name can be null if not provided
   email: string | null;
-  name: string;      // Email can be null if not provided
+  name: string; 
+  bio: string | null;    // Email can be null if not provided
 }
 
 
@@ -53,11 +54,17 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           uid: userSnapshot.data()?.uid,
           defaultName: userSnapshot.data()?.defaultName,
           email: userSnapshot.data()?.email,
-          name: userSnapshot.data()?.name
+          name: userSnapshot.data()?.name,
+          bio: userSnapshot.data()?.bio
         } as IUser; // Return the user data as IUser type
       } else {
         return null;
       }
+  };
+
+  export const updateUserData = async (uid: string, data: any): Promise<void> => {
+      const userRef = doc(db, "users", uid);
+      return updateDoc(userRef, data);
   };
 
 

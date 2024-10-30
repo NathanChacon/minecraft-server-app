@@ -22,6 +22,12 @@
    box-shadow: 0 4px 6px -2px rgba(5, 5, 5, 0.2);
 }
 
+.players__card-option-value-discord{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .players__card-header{
     display: flex;
     padding-bottom: 16px;
@@ -60,6 +66,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    font-size: 18px;
 }
 
 .players__card-option{
@@ -78,6 +85,21 @@
     margin-right: 10px;
     border-radius: 2px;
 }
+
+.players__card-option-icon{
+    width: 20px;
+    height: 20px;
+}
+
+
+.players__card-option-link {
+    color: #5865F2; /* Discord's brand color */
+    text-decoration: underline;
+  }
+  
+  .players__card-option-link:hover {
+    color: #7289DA;
+  }
 
 /* Responsive styling for larger screens */
 @media (min-width: 768px) {
@@ -112,7 +134,7 @@
     }
 
     .players__card {
-        max-width: 350px;
+        max-width: 500px;
         margin-right: 40px;
      }
 

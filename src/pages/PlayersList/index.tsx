@@ -4,6 +4,8 @@ import minecraftPotion from '../../assets/minecraftPotion.png';
 import minecraftServer from '../../assets/minecraftServer.png';
 import discord from '../../assets/discord.png'
 import { getVisibleUsers } from '../../api/services/user';
+import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
+
 const PlayersList: React.FC = () => {
   const [users, setUsers] = useState<Array<any>>([])
 
@@ -33,7 +35,7 @@ const PlayersList: React.FC = () => {
           <li className='players__card' key={uid}>
             <header className='players__card-header'>
                 <img src={profileImg} className='players__card-img'/>
-                <div className='players__card-header-text'>
+                <div className=''>
                 <h3 className='players__card-name'>
                   {name || defaultName}
                 </h3>
@@ -47,14 +49,18 @@ const PlayersList: React.FC = () => {
             <ul className='players__card-options'>
               <li className='players__card-option'>
                 <img src={minecraftServer} className='players__card-option-img'/>
-                <p className='players__card-option-text'>IP:</p>
+                <p className='players__card-option-text'>ip minecraft: </p>
                 <p className='players__card-option-value'>{serverIp}</p>
               </li>
 
               <li className='players__card-option'>
                 <img src={discord} className='players__card-option-img'/>
-                <p className='players__card-option-text'>DISCORD:</p>
-                <p className='players__card-option-value'>{discordId}</p>
+                <p className='players__card-option-text'>discord: </p>
+                <p className='players__card-option-value-discord'>
+                  {discordId}
+
+                  <CopyIcon className='players__card-option-icon'/>
+                </p>
               </li>
             </ul>
           </li>

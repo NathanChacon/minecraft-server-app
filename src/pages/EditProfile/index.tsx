@@ -15,14 +15,22 @@ interface EditProfileFormData {
 
 const EditProfile: React.FC = () => {
   const {user, setUser} = useUser()
+  const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const { register, watch, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>();
+  const { register, watch, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>({
+    defaultValues : {
+      name: userLocalStorage?.name || "",
+      bio: userLocalStorage?.bio || "",
+      discordId: userLocalStorage?.discordId || "",
+      serverIp: userLocalStorage?.serverIp || "",
+      isUserVisible: userLocalStorage?.isUserVisible || false,
+  }});
+
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
-
-  console.log(user)
 
   const isToggleEnabled = !!(discordId || serverIp);
 
@@ -135,10 +143,10 @@ const EditProfile: React.FC = () => {
             <input 
               {...register("discordId", {
                 pattern: {
-                  value: /^\d{18}$/,
-                  message: "Discord ID deve ter 18 dígitos numéricos",
+                  value: /^[a-zA-Z0-9._]{2,32}#[0-9]+$/, // Allows letters, numbers, underscores, dots, and any number of digits after '#'
+                  message: "Digite um Discord ID válido, no formato 'username#1234'"
                 },
-              })} 
+              })}
               placeholder="Digite seu Discord ID"
             />
             {errors.discordId && <span className="edit-profile__form-input-error">{errors.discordId.message}</span>}

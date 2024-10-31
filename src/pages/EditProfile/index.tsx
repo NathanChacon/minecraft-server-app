@@ -119,7 +119,7 @@ const EditProfile: React.FC = () => {
                   })} 
                   placeholder="Digite seu nome"
                 />
-              {errors.name && <span className="edit-profile__form-input-error">{errors.name.message}</span>}
+              <span className={`edit-profile__form-input-error ${errors.name ? 'visible' : 'hidden'}`}>{errors?.name?.message}</span>
             </span>
 
           </div>
@@ -133,7 +133,7 @@ const EditProfile: React.FC = () => {
                 })} 
                 placeholder="Digite sua bio"
               />
-              {errors.bio && <span className="edit-profile__form-input-error">{errors.bio.message}</span>}
+              <span className={`edit-profile__form-input-error ${errors.bio ? 'visible' : 'hidden'}`}>{errors?.bio?.message}</span>
             </span>
           </div>
 
@@ -149,7 +149,7 @@ const EditProfile: React.FC = () => {
               })}
               placeholder="Digite seu Discord ID"
             />
-            {errors.discordId && <span className="edit-profile__form-input-error">{errors.discordId.message}</span>}
+            <span className={`edit-profile__form-input-error ${errors.discordId ? 'visible' : 'hidden'}`}>{errors?.discordId?.message}</span>
           </span>
         </div>
 
@@ -166,22 +166,24 @@ const EditProfile: React.FC = () => {
               })} 
               placeholder="Digite o IP do servidor"
             />
+
+          <span className={`edit-profile__form-input-error ${errors.serverIp ? 'visible' : 'hidden'}`}>{errors?.serverIp?.message}</span>
           </span>
         </div>
 
           <div className="edit-profile__form-input">
-          <span className="edit-profile__form-input-field--checkbox">
+          <span className="edit-profile__form-input-field-checkbox">
           <p className="edit-profile__form-input-text">Ficar visível: </p>
-          
+         
             <input
-                  type="checkbox"
-                  className="edit-profile__checkbox"
-                  {...register("isUserVisible")}
-                  disabled={!isToggleEnabled}
-            />
-
-            {!isToggleEnabled && <span className="edit-profile__form-input-error">Discord ID ou IP do Servidor necessários.</span>}
+                    type="checkbox"
+                    className="edit-profile__checkbox"
+                    {...register("isUserVisible")}
+                    disabled={!isToggleEnabled}
+              />
+            
           </span>
+          <span className={`edit-profile__form-input-error ${!isToggleEnabled ? 'visible' : 'hidden'}`}>Discord ID ou IP do Servidor necessários.</span>
         </div>
           
           <input className="edit-profile__form-btn" type="submit" value="Salvar" />

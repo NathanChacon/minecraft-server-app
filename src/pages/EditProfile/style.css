@@ -37,16 +37,21 @@
 
 .edit-profile__form-input{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     font-size: 20px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
+    width: 100%;
+    max-width: 400px;
 }
 
-.edit-profile__form-input-field--checkbox{
-    position: relative;
+.edit-profile__form-input-field-checkbox{
     display: flex;
-    padding-bottom: 20px;
     align-items: center;
+}
+
+.edit-profile__form-input-field-checkbox-input{
+    display: flex;
+    flex-direction: column;
 }
 
 .edit-profile__form-input input{
@@ -65,14 +70,23 @@
 .edit-profile__form-input-field{
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
-.edit-profile__form-input-error{
-    font-size: 16px;
-    position: absolute;
-    bottom: -25px;
-    color: rgb(255, 0, 0);
+.edit-profile__form-input-error {
+    color: red;                /* Error text color */
+    font-size: 1rem;       /* Error text size */
+    min-height: 1em;
+    margin-top: 6px;           /* Reserve space for the error message */
+    opacity: 0;                /* Start hidden */
+    transition: opacity 0.3s ease;  /* Smooth fade-in transition */
+}
+
+.edit-profile__form-input-error.visible {
+    opacity: 1;                /* Make visible when there's an error */
+}
+
+.edit-profile__form-input-error.hidden {
+    opacity: 0;                /* Keep hidden when there’s no error */
 }
 
 

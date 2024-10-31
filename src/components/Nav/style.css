@@ -1,47 +1,75 @@
-.nav {
-  background-color: #39363D;
-  padding: 10px;
+/* Nav.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  z-index: 10000;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #39363D;
+  color: white;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 10; /* For dropdown positioning */
 }
 
-.nav__content {
+.navbar__brand {
   display: flex;
-  align-items: center;
+  align-items: center; /* Center the logo and text vertically */
 }
 
-/* Logo Styling */
-.logo img {
-  object-fit: cover;
-  width: 60px;
-  height: 60px; /* Adjust based on your logo size */
+.navbar__logo {
+  width: 40px; /* Set logo width */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 10px; /* Spacing between logo and text */
 }
 
-/* Navigation Links */
-.nav__links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+.navbar__burger {
+  display: none; /* Hidden by default, will show on mobile */
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
-.nav__links li {
-  margin: 0;
+/* Dropdown Menu */
+.navbar__dropdown {
+  display: flex; /* Display items in a row */
+  gap: 20px; /* Space between items */
 }
 
-.nav__links a {
-  text-decoration: none;
+.navbar__item {
   color: white;
-  font-size: 18px;
+  text-decoration: none;
 }
 
-@media (min-width: 768px) {
+.navbar__item:hover {
+  text-decoration: underline; /* Underline on hover */
+}
 
-    .nav__links a {
-        text-decoration: none;
-        color: white;
-        font-size: 20px;
-      }
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .navbar__dropdown {
+    display: none; /* Hide items on mobile */
+    flex-direction: column; /* Stack items vertically */
+    position: absolute; /* Position dropdown */
+    top: 60px; /* Adjust based on your navbar height */
+    right: 20px;
+    background-color: #39363D;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10; /* Ensures dropdown is above other content */
+  }
+
+  .navbar__dropdown.open {
+    display: flex; /* Show dropdown when open */
+  }
+
+  .navbar__burger {
+    display: block; /* Show burger menu on mobile */
+  }
+
+  .navbar__item {
+    padding: 8px 12px; /* Padding for dropdown items */
+    text-align: center; /* Center items */
+  }
 }

@@ -7,7 +7,7 @@
 
 .players__list {
   list-style: none;
-  margin: 0;
+  margin: 100px 0px 0px 0px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@
 
 .players__card-img{
     width: 60px;               
-    height: auto;
+    height: 60px;
     min-width: 60px;
     border-radius: 10px;
     margin-right: 10px;
@@ -112,7 +112,7 @@
 
     .players__card-img{
         width: 90px;               /* Set only width OR height */
-        height: auto;              /* Let height adjust automatically */
+        height: 90px;              /* Let height adjust automatically */
         min-width: 90px;
         border-radius: 10px;
         margin-right: 10px;
@@ -130,6 +130,7 @@
 
     .players__list {
         width: 100%;
+        margin: 0px;
         flex-direction: row;
     }
 

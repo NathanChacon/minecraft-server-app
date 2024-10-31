@@ -95,6 +95,18 @@
   color: white;
   text-decoration: none;
   transition: background-color 0.3s;
+  font-size: 16px;
+}
+
+.navbar__perfil-item--button{
+  background: none;
+  border: none;
+  margin: 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: white;
 }
 
 .navbar__perfil-item:hover {

@@ -25,7 +25,6 @@
 .players__card-option-value{
     display: flex;
     align-items: center;
-    cursor: pointer;
 }
 
 .players__card-header{
@@ -90,6 +89,7 @@
     width: 20px;
     height: 20px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 

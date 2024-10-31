@@ -10,8 +10,9 @@ import AuthGuardian from './guardians/AuthGuardian';
 
 const App: React.FC = () => {
   return (
-    <UserProvider>
+  
       <Router>
+        <UserProvider>
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -19,8 +20,11 @@ const App: React.FC = () => {
           <Route path="/login" element={<SignIn />} />
           <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
         </Routes>
+        </UserProvider>
       </Router>
-    </UserProvider>
+        
+
+
 
   );
 };

@@ -1,9 +1,10 @@
 import { UserCredential } from 'firebase/auth'
 import {signUpWithGoogle, saveUser, getUserById} from '../../../api/services/user'
 import { useUser } from '../../../context/UserContext';
-
+import { useNavigate } from 'react-router-dom';
 const useSignIn = () => {
     const { setUser } = useUser();
+    const navigate = useNavigate()
 
     const handleSaveUser = async (credential: UserCredential) => {
         try{
@@ -19,6 +20,8 @@ const useSignIn = () => {
 
             localStorage.setItem("user", JSON.stringify(user));
             setUser(user);
+
+            navigate("/players")
         }
         catch(error){
             console.log("error login", error)

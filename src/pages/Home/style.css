@@ -27,7 +27,7 @@
 
 .home__button{
     width: 100%;
-    max-width: 225px;
+    max-width: 500px;
     font-size: 18px;
     color: white;
     padding: 20px;
@@ -90,7 +90,6 @@
     
     .home__button{
         width: 100%;
-        max-width: 225px;
         font-size: 18px;
         color: white;
         padding: 20px;

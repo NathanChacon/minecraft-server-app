@@ -32,9 +32,9 @@
     color: white;
     padding: 20px;
     outline: none;
-    border: none;
     background-color: #39363D;
     cursor: pointer;
+    border: 1px solid white;
 }
 
 .home__right-content{
@@ -53,7 +53,7 @@
         text-align: left;
     }
 
-    .home__header {
+    .home__header h1 {
         font-size: 40px;
     }
     
@@ -94,7 +94,6 @@
         color: white;
         padding: 20px;
         outline: none;
-        border: none;
         background-color: #39363D;
         cursor: pointer;
     }

@@ -19,7 +19,8 @@ interface IUser {
   bio: string | null;
   discordId: string | null;
   serverIp: string | null;
-  isUserVisible: boolean | null;  // Email can be null if not provided
+  isUserVisible: boolean | null;
+  profileImg: string  // Email can be null if not provided
 }
 
 
@@ -59,6 +60,7 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           email: userSnapshot.data()?.email,
           name: userSnapshot.data()?.name,
           bio: userSnapshot.data()?.bio,
+          profileImg: userSnapshot.data()?.profileImg,
           discordId: userSnapshot.data()?.discordId,
           serverIp: userSnapshot.data()?.serverIp,
           isUserVisible: userSnapshot.data()?.isUserVisible

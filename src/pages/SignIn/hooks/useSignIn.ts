@@ -17,7 +17,8 @@ const useSignIn = () => {
                 console.log("saving user")
                 saveUser(credential)
             }
-
+            
+            console.log(user)
             localStorage.setItem("user", JSON.stringify(user));
             setUser(user);
 

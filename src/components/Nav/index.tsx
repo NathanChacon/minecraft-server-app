@@ -1,18 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import logo from '../../assets/logo.svg';
 import { useUser } from '../../context/UserContext';
+
 function Nav() {
   const [isOpen, setIsOpen] = useState(false); // State to manage main menu visibility
   const { user, logout } = useUser();
+  const navigate = useNavigate()
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar__brand">
+      <div className="navbar__brand" onClick={() => {navigate('/')}}>
         <img src={logo} alt="Logo" className="navbar__logo" />
       </div>
       <div className="navbar__burger" onClick={toggleMenu}>

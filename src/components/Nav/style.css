@@ -19,9 +19,11 @@
 }
 
 .navbar__logo {
-  width: 40px; /* Set logo width */
-  height: auto; /* Maintain aspect ratio */
-  margin-right: 10px; /* Spacing between logo and text */
+  width: 60px;
+  height: 60px;
+  object-fit: contain; /* Maintain aspect ratio */
+  margin-right: 10px;
+  cursor: pointer; /* Spacing between logo and text */
 }
 
 .navbar__burger {

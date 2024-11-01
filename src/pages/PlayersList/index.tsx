@@ -9,13 +9,12 @@ import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
 const PlayersList: React.FC = () => {
   const [users, setUsers] = useState<Array<any>>([])
 
-  const [copyMessage, setCopyMessage] = useState('');
+  const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
 
-  // Function to copy text to clipboard
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string, userId: string) => {
     navigator.clipboard.writeText(text).then(() => {
-      setCopyMessage('Copiado!');
-      setTimeout(() => setCopyMessage(''), 2000); // Clears message after 2 seconds
+      setCopyMessageCardId(userId); // Set the copied user's ID
+      setTimeout(() => setCopyMessageCardId(null), 2000); // Clear after 2 seconds
     });
   };
 
@@ -68,7 +67,7 @@ const PlayersList: React.FC = () => {
                 {serverIp || "IP do servidor não disponível"}
                 {serverIp && (
                   <CopyIcon 
-                    onClick={() => copyToClipboard(serverIp)} 
+                    onClick={() => copyToClipboard(serverIp, uid)} 
                     className='players__card-option-icon'
                   />
                 )}
@@ -83,14 +82,14 @@ const PlayersList: React.FC = () => {
                 {discordId || "Discord não disponível"}
                 {discordId && (
                   <CopyIcon 
-                    onClick={() => copyToClipboard(discordId)} 
+                    onClick={() => copyToClipboard(discordId, uid)} 
                     className='players__card-option-icon'
                   />
                 )}
               </p>
             </li>
           </ul>
-          {copyMessage && <span className="players__copy-message">{copyMessage}</span>}
+          {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
       ))}
     </ul>

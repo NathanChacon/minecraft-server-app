@@ -11,17 +11,18 @@ const useSignIn = () => {
             const user = await getUserById(credential.user.uid)
 
             if(user){
+                localStorage.setItem("user", JSON.stringify(user));
+                setUser(user);
                 console.log("user already on database", user)
             }
             else{
                 console.log("saving user")
-                saveUser(credential)
+                const newUser = await saveUser(credential)
+
+                localStorage.setItem("user", JSON.stringify(newUser));
+                setUser(newUser);
             }
             
-            console.log(user)
-            localStorage.setItem("user", JSON.stringify(user));
-            setUser(user);
-
             navigate("/players")
         }
         catch(error){

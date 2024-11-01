@@ -1,5 +1,5 @@
 .players{
-    height: 100vh;
+    min-height: 100vh;
     color: white;
     background-color: #221F26;
     padding: 20px 18px 0px 18px;

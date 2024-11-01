@@ -24,7 +24,7 @@ interface IUser {
 }
 
 
-export const saveUser = async (credential: UserCredential): Promise<void> => {
+export const saveUser = async (credential: UserCredential): Promise<any> => { // Change Promise<void> to Promise<any> for returning user data
   try {
     // Reference to the 'users' collection with the user's UID as the document ID
     const userRef = doc(db, "users", credential.user.uid);
@@ -37,8 +37,17 @@ export const saveUser = async (credential: UserCredential): Promise<void> => {
     });
 
     console.log("User saved successfully!");
+
+    // Return the user data after saving
+    return {
+      uid: credential.user.uid,
+      defaultName: credential.user.displayName,
+      email: credential.user.email,
+    };
   } catch (error) {
     console.error("Error saving user: ", error);
+    // Optionally, you can throw the error again to be handled by the caller
+    throw error;
   }
 };
 

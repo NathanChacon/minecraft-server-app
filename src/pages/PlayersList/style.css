@@ -112,7 +112,7 @@
 
   .players__card-option-text{
     margin-right: 4px;
-    }
+}
 
     .players__header{
         padding-top: 100px;
@@ -161,10 +161,6 @@
     .players__card-option-img{
         width: 40px;
         height: 40px;
-    }
-
-    .players__card-option-text{
-        font-size: 20px;
     }
 
     .players__list {

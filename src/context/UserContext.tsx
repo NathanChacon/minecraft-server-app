@@ -12,7 +12,7 @@ interface IUser {
   profileImg?: string | null;
   discordId: string | null;
   serverIp: string | null;
-  isUserVisible: boolean | null;
+  isUserVisible: boolean | null | undefined;
 }
 
 interface UserContextType {

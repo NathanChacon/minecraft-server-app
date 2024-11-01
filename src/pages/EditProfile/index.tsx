@@ -32,34 +32,33 @@ const EditProfile: React.FC = () => {
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
 
-  const isToggleEnabled = !!(discordId || serverIp);
+  const hasFilledRequiredFieldsToToggle = !!discordId || !!serverIp
+  const hasFieldsToEnableToggleError =  errors.discordId || errors.serverIp
+
+  const isToggleEnabled = hasFilledRequiredFieldsToToggle && !hasFieldsToEnableToggleError;
 
   const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
-    if(user && user.uid){
-      try{
-        await updateUserData(user?.uid, data)
+    if (user && user.uid) {
+      try {
+        const isUserVisible = isToggleEnabled ? data.isUserVisible : false;
 
+        await updateUserData(user.uid, { ...data, isUserVisible });
 
         const newUserData = {
-          ...user, 
+          ...user,
           name: data.name,
           bio: data?.bio || "",
           discordId: data?.discordId || null,
           serverIp: data?.serverIp || null,
-          isUserVisible: data?.isUserVisible || false
-        }
+          isUserVisible
+        };
+
         localStorage.setItem("user", JSON.stringify(newUserData));
-  
-        setUser(newUserData)
-  
-        console.log("sucess")
-      }
-      catch{
-        console.log("handle update user error")
+        setUser(newUserData);
+      } catch {
+        console.log("Handle update user error");
       }
     }
-
-    console.log("test data", data);
   };
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +97,7 @@ const EditProfile: React.FC = () => {
         <form className="edit-profile__form" onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-profile__user-picture-container">
                 <img src={user?.profileImg || discord} className="edit-profile__user-picture"></img>
-                <h4 className="edit-profile__user-name" onClick={() => {fileInputRef.current?.click()}}>editar foto ou avatar</h4>
+                <h4 className="edit-profile__img-inpt-txt" onClick={() => {fileInputRef.current?.click()}}>editar foto ou avatar</h4>
                 <input 
                   type="file" 
                   accept="image/*" 

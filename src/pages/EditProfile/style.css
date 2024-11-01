@@ -19,6 +19,15 @@
     justify-content: center;
 }
 
+.edit-profile__img-inpt-txt{
+    cursor: pointer;
+}
+
+.edit-profile__img-inpt-txt:hover{
+    text-decoration: underline;
+}
+
+
 
 .edit-profile__user-picture-container{
     display: flex;

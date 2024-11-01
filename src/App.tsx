@@ -10,7 +10,6 @@ import AuthGuardian from './guardians/AuthGuardian';
 
 const App: React.FC = () => {
   return (
-  
       <Router>
         <UserProvider>
         <Nav />

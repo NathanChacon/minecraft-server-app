@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style.css'
-import minecraftServer from '../../assets/minecraftServer.png';
+import minecraftServer from '../../assets/minecraftServer.jpg';
 import discord from '../../assets/discord.png'
 import { getVisibleUsers } from '../../api/services/user';
 import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'

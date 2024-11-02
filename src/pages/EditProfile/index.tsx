@@ -4,7 +4,7 @@ import discord from '../../assets/discord.png'
 import { useRef} from "react";
 import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
-
+import UserDefaultImage from "./components/UserDefaultImage";
 interface EditProfileFormData {
   name: string;
   bio?: string;
@@ -96,7 +96,10 @@ const EditProfile: React.FC = () => {
     <section className="edit-profile">
         <form className="edit-profile__form" onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-profile__user-picture-container">
-                <img src={user?.profileImg || discord} className="edit-profile__user-picture"></img>
+              {
+                user?.profileImg ? <img src={user?.profileImg} className="edit-profile__user-picture"></img> : <UserDefaultImage name={user?.name || user?.defaultName || "?"}/>
+              }
+                
                 <h4 className="edit-profile__img-inpt-txt" onClick={() => {fileInputRef.current?.click()}}>editar foto ou avatar</h4>
                 <input 
                   type="file" 
@@ -182,7 +185,7 @@ const EditProfile: React.FC = () => {
               />
             
           </span>
-          <span className={`edit-profile__form-input-error ${!isToggleEnabled ? 'visible' : 'hidden'}`}>Discord ID ou IP do Servidor necessários.</span>
+          <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID ou IP do Servidor necessários.</span>
         </div>
           
           <input className="edit-profile__form-btn" type="submit" value="Salvar" />

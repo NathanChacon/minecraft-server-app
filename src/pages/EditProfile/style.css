@@ -39,8 +39,8 @@
 .edit-profile__user-picture {
     width: 120px;
     height: 120px;
-    object-fit: cover; /* Ensures the image covers the entire area without distortion */
-    border-radius: 50%; /* Turns the image into a circle */
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 
@@ -82,20 +82,38 @@
 }
 
 .edit-profile__form-input-error {
-    color: red;                /* Error text color */
-    font-size: 1rem;       /* Error text size */
+    color: red;
+    font-size: 14px;     
     min-height: 1em;
-    margin-top: 6px;           /* Reserve space for the error message */
-    opacity: 0;                /* Start hidden */
-    transition: opacity 0.3s ease;  /* Smooth fade-in transition */
+    margin-top: 6px;
+    opacity: 0;                
+    transition: opacity 0.3s ease;
+}
+
+.edit-profile__form-input-disclaimer {
+    color: #F0F0F0;
+    font-size: 14px;     
+    min-height: 1em;
+    margin-top: 6px;
+    opacity: 0;                
+    transition: opacity 0.3s ease;
+}
+
+.edit-profile__form-input-disclaimer.visible {
+    opacity: 1;
+}
+
+
+.edit-profile__form-input-disclaimer.hidden {
+    opacity: 0;        
 }
 
 .edit-profile__form-input-error.visible {
-    opacity: 1;                /* Make visible when there's an error */
+    opacity: 1;
 }
 
 .edit-profile__form-input-error.hidden {
-    opacity: 0;                /* Keep hidden when there’s no error */
+    opacity: 0;        
 }
 
 

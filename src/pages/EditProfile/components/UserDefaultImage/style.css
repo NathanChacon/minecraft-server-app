@@ -1,0 +1,13 @@
+.user-default-image {
+    width: 120px;
+    height: 120px;
+    background-color: #87CEEB;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    font-weight: bold;
+    border-radius: 50%;
+    object-fit: cover;
+  }

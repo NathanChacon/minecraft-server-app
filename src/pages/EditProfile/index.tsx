@@ -4,6 +4,7 @@ import { useRef} from "react";
 import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "./components/UserDefaultImage";
+import { useNavigate } from "react-router-dom";
 interface EditProfileFormData {
   name: string;
   bio?: string;
@@ -14,6 +15,7 @@ interface EditProfileFormData {
 
 const EditProfile: React.FC = () => {
   const {user, setUser} = useUser()
+  const navigate = useNavigate()
   const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
 
   const { register, watch, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>({
@@ -54,6 +56,8 @@ const EditProfile: React.FC = () => {
 
         localStorage.setItem("user", JSON.stringify(newUserData));
         setUser(newUserData);
+        navigate("/players")
+        
       } catch {
         console.log("Handle update user error");
       }

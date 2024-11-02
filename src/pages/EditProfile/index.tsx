@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler} from "react-hook-form";
 import './style.css'
-import discord from '../../assets/discord.png'
 import { useRef} from "react";
 import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";

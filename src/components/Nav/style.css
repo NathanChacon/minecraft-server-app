@@ -1,9 +1,9 @@
-/* Nav.css */
+/* General Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   align-items: center;
+  width: 100%;
   padding: 10px 20px;
   background-color: #39363D;
   color: #F0F0F0;
@@ -11,184 +11,154 @@
   top: 0;
   left: 0;
   z-index: 10;
-  font-size: 14px; /* For dropdown positioning */
+  font-size: 14px;
 }
 
 .navbar__brand {
   display: flex;
-  align-items: center; /* Center the logo and text vertically */
+  align-items: center;
 }
 
 .navbar__logo {
   width: 60px;
   height: 60px;
-  object-fit: contain; /* Maintain aspect ratio */
+  object-fit: contain;
   margin-right: 10px;
-  cursor: pointer; /* Spacing between logo and text */
+  cursor: pointer;
 }
 
 .navbar__burger {
-  display: none; /* Hidden by default, will show on mobile */
+  display: block;
   cursor: pointer;
   font-size: 1.5rem;
 }
 
 /* Dropdown Menu */
 .navbar__dropdown {
-  display: flex; /* Display items in a row */
-  gap: 20px; /* Space between items */
+  display: none; /* Hide on mobile */
 }
 
-.navbar__item {
+/* Sidebar for Mobile */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Hidden off-screen by default */
+  height: 100vh;
+  width: 250px;
+  background-color: #39363D;
+  padding-top: 60px;
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.sidebar.open {
+  left: 0; /* Slide in when open */
+}
+
+.sidebar__item {
   color: #F0F0F0;
   text-decoration: none;
+  padding: 15px 20px;
+  font-size: 16px;
 }
 
-.navbar__item:hover {
-  text-decoration: underline; /* Underline on hover */
+.sidebar__item:hover {
+  background-color: #4e4b52;
 }
 
-/* Perfil Dropdown Styles */
-.navbar__perfil {
-  position: relative;
-  cursor: pointer;
+/* Perfil Section in Sidebar */
+.sidebar__perfil {
+  padding: 15px 20px;
   color: #F0F0F0;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
-.navbar__perfil:hover .navbar__perfil-dropdown {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
+.sidebar__perfil-toggle {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px; /* Make it stand out */
 }
 
-/* Arrow for Dropdown */
-.navbar__perfil::after {
-  content: "▼";
-  margin-left: 6px;
-  font-size: 0.8rem;
-  transition: transform 0.3s;
-}
-
-.navbar__perfil:hover::after {
-  transform: rotate(180deg);
-}
-
-/* Dropdown Menu */
-.navbar__perfil-dropdown {
-  display: none;
-  position: absolute;
-  top: 110%;
-  left: -10px;
-  background-color: #39363D;
-  border-radius: 5px;
-  padding: 8px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  min-width: 150px;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 10;
-}
-
-.navbar__perfil-item {
-  display: block;
-  padding: 10px 15px;
+.sidebar__perfil-item {
+  padding: 10px 10px 10px 5px;
   color: #F0F0F0;
   text-decoration: none;
-  transition: background-color 0.3s;
+  font-size: 14px;
+  margin-left: 0px; /* Indent to show hierarchy */
 }
 
-.navbar__perfil-item--button{
+.sidebar__perfil-item--button {
   background: none;
   border: none;
-  margin: 0;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  text-decoration: none;
   color: #F0F0F0;
+  text-align: left;
+  cursor: pointer; /* Indent to show hierarchy */
 }
 
-.navbar__perfil-item:hover {
+.sidebar__perfil-item:hover {
   background-color: #4e4b52;
-  color: #f0f0f0;
 }
 
-/* Arrow Pointer on Dropdown */
-.navbar__perfil-dropdown::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #39363D;
-}
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-  .navbar__dropdown {
-    display: none; /* Hide items on mobile */
-    flex-direction: column; /* Stack items vertically */
-    position: absolute; /* Position dropdown */
-    top: 60px; /* Adjust based on your navbar height */
-    right: 20px;
-    background-color: #39363D;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 10; /* Ensures dropdown is above other content */
-  }
+/* Desktop Styles */
+@media (min-width: 769px) {
 
-  .navbar__dropdown.open {
-    display: flex; /* Show dropdown when open */
+  .navbar__perfil-item--button{
+    padding: 10px 15px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
   .navbar__burger {
-    display: block; /* Show burger menu on mobile */
+    display: none; /* Hide burger on desktop */
+  }
+
+  /* Show the navbar dropdown for desktop */
+  .navbar__dropdown {
+    display: flex; /* Show menu items on desktop */
+    gap: 20px;
+    align-items: center;
   }
 
   .navbar__item {
-    padding: 8px 12px; /* Padding for dropdown items */
-    text-align: center; /* Center items */
+    color: #F0F0F0;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .navbar__item:hover {
+    text-decoration: underline;
+  }
+
+  /* Perfil Dropdown in Navbar */
+  .navbar__perfil {
+    position: relative;
+    cursor: pointer;
   }
 
   .navbar__perfil-dropdown {
     position: absolute;
-    top: 100%; 
-    left: -10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 10;
+    display: none;
+    top: 100%;
+    left: -15px;
+    background-color: #39363D;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   .navbar__perfil:hover .navbar__perfil-dropdown {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Adjust padding and alignment for mobile */
-  .navbar__perfil-item {
-    padding: 10px;
-    text-align: left;
-  }
-
-  /* Arrow for Dropdown */
-  .navbar__perfil-dropdown::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: 20px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid #39363D;
+  .sidebar.open {
+    left: -100%; /* Slide in when open */
   }
 }

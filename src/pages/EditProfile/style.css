@@ -10,7 +10,7 @@
     padding: 120px 20px 20px 20px;
     width: 100%;
     min-height: 100vh;
-    color: white;
+    color:#F0F0F0;
     background-color: #221F26;
     display: flex;
     flex-direction: column;
@@ -108,7 +108,7 @@
     width: 100%;
     max-width: 225px;
     font-size: 18px;
-    color: white;
+    color: #F0F0F0;
     padding: 20px;
     outline: none;
     border: none;

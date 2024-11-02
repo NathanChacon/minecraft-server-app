@@ -10,7 +10,6 @@ import { firebaseConfig as prodConfig } from "./firebaseconfig.prod";
 
 const firebaseConfig = process.env.REACT_APP_ENV === "production" ? prodConfig : devConfig;
 
-
 const app = initializeApp(firebaseConfig);
 
 

@@ -23,7 +23,7 @@ function Nav() {
       <div className={`navbar__dropdown ${isOpen ? 'open' : ''}`}>
         <Link to="/" className="navbar__item">HOME</Link>
         <Link to="/players" className="navbar__item">JOGADORES</Link>
-        <Link to="/help" className="navbar__item">DUVIDAS</Link>
+        <Link to="/help" className="navbar__item">AJUDA</Link>
         
         {user ? (
           <>

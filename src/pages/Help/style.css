@@ -1,0 +1,31 @@
+.help{
+    min-height: 100vh;
+    padding: 120px 10px 0px 10px;
+    color: #F0F0F0;
+    background-color: #221F26;
+}
+
+.help__header{
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+}
+
+.help__text{
+    font-size: 20px;
+}
+
+@media (min-width: 768px) {
+    .help{
+        padding: 100px 70px 0px 70px;
+    }
+
+    .help__header{
+        font-size: 40px;
+    }
+
+    .help__text{
+        font-size: 24px;
+    }
+
+}

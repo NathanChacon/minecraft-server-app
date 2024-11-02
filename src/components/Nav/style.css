@@ -6,7 +6,7 @@
   align-items: center;
   padding: 10px 20px;
   background-color: #39363D;
-  color: white;
+  color: #F0F0F0;
   position: fixed;
   top: 0;
   left: 0;
@@ -40,7 +40,7 @@
 }
 
 .navbar__item {
-  color: white;
+  color: #F0F0F0;
   text-decoration: none;
 }
 
@@ -52,7 +52,7 @@
 .navbar__perfil {
   position: relative;
   cursor: pointer;
-  color: white;
+  color: #F0F0F0;
   display: flex;
   align-items: center;
 }
@@ -95,7 +95,7 @@
 .navbar__perfil-item {
   display: block;
   padding: 10px 15px;
-  color: white;
+  color: #F0F0F0;
   text-decoration: none;
   transition: background-color 0.3s;
 }
@@ -108,7 +108,7 @@
   width: 100%;
   text-align: left;
   text-decoration: none;
-  color: white;
+  color: #F0F0F0;
 }
 
 .navbar__perfil-item:hover {

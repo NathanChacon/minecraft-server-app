@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import EditProfile from './pages/EditProfile';
 import { UserProvider } from './context/UserContext';
 import AuthGuardian from './guardians/AuthGuardian';
+import Help from './pages/Help';
 
 const App: React.FC = () => {
   return (
@@ -18,13 +19,10 @@ const App: React.FC = () => {
           <Route path="/players" element={<AuthGuardian><PlayersList /></AuthGuardian>} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
+          <Route path="/help" element={<Help />} />
         </Routes>
         </UserProvider>
       </Router>
-        
-
-
-
   );
 };
 

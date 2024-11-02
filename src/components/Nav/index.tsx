@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import logo from '../../assets/logo.svg';
@@ -9,6 +9,8 @@ function Nav() {
   const [isPerfilOpen, setIsPerfilOpen] = useState(false); // State to manage "Perfil" dropdown visibility
   const { user, logout } = useUser();
   const navigate = useNavigate();
+  
+  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref for the sidebar
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -17,6 +19,19 @@ function Nav() {
   const togglePerfilDropdown = () => {
     setIsPerfilOpen(!isPerfilOpen);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [sidebarRef]);
 
   return (
     <nav className="navbar">
@@ -49,7 +64,7 @@ function Nav() {
       </div>
 
       {/* Sidebar for Mobile */}
-      <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <div className={`sidebar ${isOpen ? 'open' : ''}`} ref={sidebarRef}>
         <Link to="/" className="sidebar__item">HOME</Link>
         <Link to="/players" className="sidebar__item">JOGADORES</Link>
         <Link to="/help" className="sidebar__item">AJUDA</Link>

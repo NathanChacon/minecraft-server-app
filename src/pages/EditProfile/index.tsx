@@ -148,8 +148,8 @@ const EditProfile: React.FC = () => {
             <input 
               {...register("discordId", {
                 pattern: {
-                  value: /^[a-zA-Z0-9._]{2,32}#[0-9]+$/, // Allows letters, numbers, underscores, dots, and any number of digits after '#'
-                  message: "Digite um Discord ID válido, no formato 'username#1234'"
+                  value: /^(@[a-z0-9._]{2,32}|[a-zA-Z0-9._]{2,32}#[0-9]{4,19})$/,
+                  message: "Digite um Discord ID válido: @username ou username#1234"
                 },
               })}
               placeholder="Digite seu Discord ID"

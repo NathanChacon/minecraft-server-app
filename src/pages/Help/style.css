@@ -1,6 +1,6 @@
 .help{
     min-height: 100vh;
-    padding: 120px 10px 0px 10px;
+    padding: 120px 10px 20px 10px;
     color: #F0F0F0;
     background-color: #221F26;
 }
@@ -17,7 +17,7 @@
 
 @media (min-width: 768px) {
     .help{
-        padding: 100px 70px 0px 70px;
+        padding: 100px 70px 20px 70px;
     }
 
     .help__header{

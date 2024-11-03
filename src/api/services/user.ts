@@ -20,7 +20,8 @@ interface IUser {
   discordId: string | null;
   serverIp: string | null;
   isUserVisible: boolean | null;
-  profileImg: string  // Email can be null if not provided
+  profileImg: string,
+  gameModes: Array<string> | null;  // Email can be null if not provided
 }
 
 
@@ -35,8 +36,6 @@ export const saveUser = async (credential: UserCredential): Promise<any> => { //
       defaultName: credential.user.displayName,
       email: credential.user.email,
     });
-
-    console.log("User saved successfully!");
 
     // Return the user data after saving
     return {
@@ -72,7 +71,8 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           profileImg: userSnapshot.data()?.profileImg,
           discordId: userSnapshot.data()?.discordId,
           serverIp: userSnapshot.data()?.serverIp,
-          isUserVisible: userSnapshot.data()?.isUserVisible
+          isUserVisible: userSnapshot.data()?.isUserVisible,
+          gameModes: userSnapshot.data()?.gameModes
         } as IUser; // Return the user data as IUser type
       } else {
         return null;

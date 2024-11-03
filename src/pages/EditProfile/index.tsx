@@ -5,12 +5,15 @@ import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "./components/UserDefaultImage";
 import { useNavigate } from "react-router-dom";
+import Select from "./components/Select";
+
 interface EditProfileFormData {
   name: string;
   bio?: string;
   serverIp?: string;
   discordId?: string;
   isUserVisible?: boolean;
+  gameModes?: Array<string>;
 }
 
 const EditProfile: React.FC = () => {
@@ -25,6 +28,7 @@ const EditProfile: React.FC = () => {
       discordId: userLocalStorage?.discordId || "",
       serverIp: userLocalStorage?.serverIp || "",
       isUserVisible: userLocalStorage?.isUserVisible || false,
+      gameModes: userLocalStorage?.gameModes || [] 
   }});
 
 
@@ -32,6 +36,7 @@ const EditProfile: React.FC = () => {
 
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
+
 
   const hasFilledRequiredFieldsToToggle = !!discordId || !!serverIp
   const hasFieldsToEnableToggleError =  errors.discordId || errors.serverIp
@@ -51,6 +56,7 @@ const EditProfile: React.FC = () => {
           bio: data?.bio || "",
           discordId: data?.discordId || null,
           serverIp: data?.serverIp || null,
+          gameModes: data?.gameModes || [],
           isUserVisible
         };
 
@@ -190,6 +196,14 @@ const EditProfile: React.FC = () => {
           </span>
           <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID ou IP do Servidor necessários.</span>
         </div>
+
+        <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Modo de Jogo:</p>
+            <Select
+              register={register("gameModes")}
+              options={["PVP", "Criativo", "Sobrevivência"]}
+            />
+          </div>
           
           <input className="edit-profile__form-btn" type="submit" value="Salvar" />
         </form>

@@ -26,7 +26,10 @@
     text-decoration: underline;
 }
 
+.edit-profile__form-input-text.edit-profile__form-input-text--select{
+    margin: 0px 10px 10px 0px;
 
+}
 
 .edit-profile__user-picture-container{
     display: flex;
@@ -124,6 +127,7 @@
 
 .edit-profile__form-btn{
     width: 100%;
+    margin-top: 20px;
     max-width: 225px;
     font-size: 18px;
     color: #F0F0F0;

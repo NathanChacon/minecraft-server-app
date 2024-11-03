@@ -62,6 +62,7 @@ const PlayersList: React.FC = () => {
           bio,
           discordId,
           serverIp,
+          gameModes,
       }) => (
         <li className='players__card' key={uid}>
           <header className='players__card-header'>
@@ -107,6 +108,15 @@ const PlayersList: React.FC = () => {
               </p>
             </li>
           </ul>
+          <div className="players__card-game-modes">
+            {
+             
+             gameModes?.map((mode: string) => {
+              return <span className="players__card-game-modes-tag">{mode}</span>
+             })   
+              
+            }
+          </div>
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
       ))}

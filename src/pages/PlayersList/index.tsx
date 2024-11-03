@@ -11,11 +11,29 @@ const PlayersList: React.FC = () => {
 
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
 
-  const copyToClipboard = (text: string, userId: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopyMessageCardId(userId); // Set the copied user's ID
-      setTimeout(() => setCopyMessageCardId(null), 2000); // Clear after 2 seconds
-    });
+  const copyToClipboard = async (text: string, userId: string) => {
+
+    try{
+      if(navigator?.clipboard?.writeText){
+        await navigator.clipboard.writeText(text);
+        setCopyMessageCardId(userId);
+        setTimeout(() => setCopyMessageCardId(null), 2000)
+      }
+      else{
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        setCopyMessageCardId(userId);
+        setTimeout(() => setCopyMessageCardId(null), 2000);
+      }
+
+    }
+    catch(error){
+      console.error("Copy to clipboard failed:", error);
+    }
   };
 
   const handleUsers = async () => {

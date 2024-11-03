@@ -5,12 +5,12 @@ import logo from '../../assets/logo.svg';
 import { useUser } from '../../context/UserContext';
 
 function Nav() {
-  const [isOpen, setIsOpen] = useState(false); // State to manage sidebar visibility
-  const [isPerfilOpen, setIsPerfilOpen] = useState(false); // State to manage "Perfil" dropdown visibility
+  const [isOpen, setIsOpen] = useState(false); 
+  const [isPerfilOpen, setIsPerfilOpen] = useState(false); 
   const { user, logout } = useUser();
   const navigate = useNavigate();
   
-  const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref for the sidebar
+  const sidebarRef = useRef<HTMLDivElement | null>(null); 
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
 
   const toggleSidebar = () => {
@@ -67,7 +67,7 @@ function Nav() {
         )}
       </div>
 
-      {/* Sidebar for Mobile */}
+
       <div className={`sidebar ${isOpen ? 'open' : ''}`} ref={sidebarRef}>
         <Link to="/" className="sidebar__item">HOME</Link>
         <Link to="/players" className="sidebar__item">JOGADORES</Link>

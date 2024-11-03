@@ -11,6 +11,7 @@ function Nav() {
   const navigate = useNavigate();
   
   const sidebarRef = useRef<HTMLDivElement | null>(null); // Ref for the sidebar
+  const dropdownRef = useRef<HTMLDivElement | null>(null); 
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -22,7 +23,10 @@ function Nav() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+      const isClickingOnSidebar = sidebarRef?.current?.contains(event.target as Node)
+      const isClickingOnBurguer = dropdownRef?.current?.contains(event.target as Node)
+
+      if (sidebarRef.current && !isClickingOnSidebar && !isClickingOnBurguer) {
         setIsOpen(false);
       }
     };
@@ -38,7 +42,7 @@ function Nav() {
       <div className="navbar__brand" onClick={() => { navigate('/') }}>
         <img src={logo} alt="Logo" className="navbar__logo" />
       </div>
-      <div className="navbar__burger" onClick={toggleSidebar}>
+      <div ref={dropdownRef} className="navbar__burger" onClick={toggleSidebar}>
         {isOpen ? '✖' : '☰'}
       </div>
 

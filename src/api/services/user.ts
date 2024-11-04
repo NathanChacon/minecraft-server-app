@@ -8,12 +8,10 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
 const auth = getAuth();
 const googleProvider = new GoogleAuthProvider();
 
-/**
- * Type definition for user data.
- */
+
 interface IUser {
   uid: string;
-  defaultName: string | null; // User name can be null if not provided
+  defaultName: string | null; 
   email: string | null;
   name: string; 
   bio: string | null;
@@ -21,7 +19,7 @@ interface IUser {
   serverIp: string | null;
   isUserVisible: boolean | null;
   profileImg: string,
-  gameModes: Array<string> | null;  // Email can be null if not provided
+  gameModes: Array<string> | null;  
 }
 
 
@@ -119,33 +117,29 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
   };
 
   export const getImageByUserId = async (userId: string): Promise<string> => {
-    // Create a reference to the user's image in the storage
-    const imageRef = ref(storage, `userImages/${userId}/avatar.jpg`); // Adjust the file name as needed
+   
+    const imageRef = ref(storage, `userImages/${userId}/avatar.jpg`); 
   
     try {
-      // Get the download URL of the image
       const imageUrl = await getDownloadURL(imageRef);
       return imageUrl;
     } catch (error) {
       console.error("Error getting image URL:", error);
-      throw error; // Rethrow the error for handling in the calling function
+      throw error; 
     }
   };
 
 
-  // src/services/UserService.ts
-
-// Function to fetch all users with `isUserVisible` set to true
-export const getVisibleUsers = async (additionalFilters: QueryConstraint[] = []): Promise<IUser[]> => {
+export const getVisibleUsers = async (): Promise<IUser[]> => {
   const usersRef = collection(db, "users");
 
-  // Add the required `isUserVisible` filter
+
   const baseFilter = [where("isUserVisible", "==", true)];
 
-  // Merge `isUserVisible` filter with any additional filters provided
-  const usersQuery = query(usersRef, ...baseFilter, ...additionalFilters);
 
-  // Execute the query and return the results as an array of IUser
+  const usersQuery = query(usersRef, ...baseFilter);
+
+
   const querySnapshot = await getDocs(usersQuery);
   return querySnapshot.docs.map((doc) => doc.data() as IUser);
 };

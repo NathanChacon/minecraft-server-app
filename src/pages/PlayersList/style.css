@@ -162,6 +162,48 @@
         border-radius: 4px;
       }
 
+      .players__filters .select{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .players__filters .select__option{
+        margin-right: 20px;
+      } 
+
+      .players__filters .select__custom-checkbox{
+        margin: 0px 4px 0px 0px;
+      }
+
+      .players__filters .select__label-text{
+        margin: 0px
+      }
+
+      .players__filters-title{
+        font-size: 20px;
+        font-weight: normal;
+        padding: 0;
+        margin-bottom: 14px;
+      }
+
+
+      .players__filters button {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 16px;
+        padding: 5px;
+      }
+      
+
+      .players__filters button:hover {
+        background-color: #B8B8B8;
+        border-color: #8E8E8E;
+        box-shadow: 4px 4px 0px #2A2A2A; 
+        transform: translate(-2px, -2px);
+      }
+    
+
 @media (min-width: 768px) {
     .players__header{
         padding-top: 0px;

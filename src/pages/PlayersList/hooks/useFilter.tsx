@@ -1,16 +1,19 @@
 import { useForm, SubmitHandler} from "react-hook-form";
 import { where} from "firebase/firestore";
 import { getVisibleUsers } from "../../../api/services/user";
+import { useState } from "react";
 
-const useFilter = () => {
+const useFilter = ({users}: any) => {
     const filters = [
-        { type: 'gamemode', filterKey: 'pvp', query: where('gameModes', 'array-contains', "pvp")},
-        { type: 'gamemode', filterKey: 'criativo', query: where('gameModes', 'array-contains', "criativo") },
-        { type: 'gamemode', filterKey: 'sobrevivencia', query: where('gameModes', 'array-contains', "sobrevivencia")},
-        { type: 'general', filterKey: 'bio', query: where('bio', '!=', '')},
-        { type: 'general', filterKey: 'discord', query: where('discordId', '!=', '')},
-        { type: 'general', filterKey: 'serverIp', query: where('serverIp', '!=', '')},
-    ]
+        { type: 'gamemode', filterKey: 'pvp', field: 'gameModes', operator: 'array-contains', value: 'pvp' },
+        { type: 'gamemode', filterKey: 'criativo', field: 'gameModes', operator: 'array-contains', value: 'criativo' },
+        { type: 'gamemode', filterKey: 'sobrevivência', field: 'gameModes', operator: 'array-contains', value: 'sobrevivência' },
+        { type: 'general', filterKey: 'bio', field: 'bio', operator: '!=', value: '' },
+        { type: 'general', filterKey: 'discord', field: 'discordId', operator: '!=', value: '' },
+        { type: 'general', filterKey: 'serverIp', field: 'serverIp', operator: '!=', value: '' },
+    ];
+
+    const [filteredUsers, setFilteredUsers] = useState([])
 
     const { register, watch } = useForm<any>({
         defaultValues : {
@@ -20,23 +23,37 @@ const useFilter = () => {
       const activatedFilters = watch("activatedFilters")
 
     const handleOnFilter = async () => {
-        const formattedFilters = activatedFilters.map((value: string) => {
+        const activeFilters = activatedFilters.map((value: string) => {
             return filters.find(({filterKey}) => filterKey === value) 
         })
 
-        const queries = formattedFilters.map(({query}:any) => query)
+        const filteredUsers = users.filter((user: any) => {
+            return activeFilters.every(({ field, operator, value }:any) => {
+              switch (operator) {
+                case 'array-contains':
+                  return Array.isArray(user[field]) && user[field].some((item: string) => item.toLowerCase().includes(value.toLowerCase()))
+                case '!=':
+                  return user[field] !== value;
+                case '==':
+                  return user[field] === value;
+                default:
+                  return true;
+              }
+            });
+          });
 
-        const filteredUsers = await getVisibleUsers(queries)
+          setFilteredUsers(filteredUsers)
+    
+        };
 
-        console.log(filteredUsers)
-    }
 
 
     return {
         filters,
         register,
         watch,
-        handleOnFilter
+        handleOnFilter,
+        filteredUsers
     }
 }
 

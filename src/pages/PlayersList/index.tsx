@@ -8,11 +8,16 @@ import PlayerProfileImage from './components/PlayerProfileImage';
 import useFilter from './hooks/useFilter';
 
 import Select from "../../components/Select";
+import Button from '../../components/Button';
 
 const PlayersList: React.FC = () => {
-  const {filters, register, handleOnFilter} = useFilter()
+  
   const [users, setUsers] = useState<Array<any>>([])
 
+  const {filters, register, handleOnFilter, filteredUsers} = useFilter({users, setUsers})
+
+
+  const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
 
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
 
@@ -58,15 +63,16 @@ const PlayersList: React.FC = () => {
       <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
       <h4 className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</h4>
     </header>
-    <div>
+    <div className='players__filters'>
+      <h5 className='players__filters-title'>Filtre por usuários que tem: </h5>
       <Select
           register={register("activatedFilters")}
           options={filters.map(({filterKey}) => filterKey)}
       />
-      <button onClick={handleOnFilter}>Filtrar</button>
+      <Button onClick={handleOnFilter}>aplicar</Button>
     </div>
     <ul className='players__list'>
-      {users.map(({
+      {formattedUsers.map(({
           uid,
           defaultName,
           name,
@@ -90,7 +96,6 @@ const PlayersList: React.FC = () => {
           </header>
           
           <ul className='players__card-options'>
-            {/* Minecraft Server IP Field */}
             <li className='players__card-option'>
               <img src={minecraftServer} className='players__card-option-img'/>
               <p className='players__card-option-text'>IP Minecraft: </p>
@@ -105,7 +110,6 @@ const PlayersList: React.FC = () => {
               </p>
             </li>
 
-            {/* Discord ID Field */}
             <li className='players__card-option'>
               <img src={discord} className='players__card-option-img'/>
               <p className='players__card-option-text'>Discord: </p>

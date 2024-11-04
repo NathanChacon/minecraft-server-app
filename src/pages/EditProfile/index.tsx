@@ -6,6 +6,7 @@ import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "./components/UserDefaultImage";
 import { useNavigate } from "react-router-dom";
 import Select from "./components/Select";
+import Button from "../../components/Button";
 
 interface EditProfileFormData {
   name: string;
@@ -204,8 +205,7 @@ const EditProfile: React.FC = () => {
               options={["PVP", "Criativo", "Sobrevivência"]}
             />
           </div>
-          
-          <input className="edit-profile__form-btn" type="submit" value="Salvar" />
+          <Button type="submit"> Salvar </Button>
         </form>
     </section>
   );

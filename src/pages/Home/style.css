@@ -25,16 +25,11 @@
     padding: 40px;
 }
 
-.home__button{
+.home__button-container .custom-button{
     width: 100%;
     max-width: 500px;
     font-size: 18px;
-    color: #F0F0F0;
-    padding: 20px;
-    outline: none;
-    background-color: #39363D;
-    cursor: pointer;
-    border: 1px solid white;
+    padding: 20px 6px 20px 6px;
 }
 
 .home__right-content{
@@ -86,15 +81,13 @@
         justify-content: normal;
         padding: 40px 0px 0px 0px;
     }
-    
-    .home__button{
-        width: 100%;
-        font-size: 16px;
-        padding: 20px;
-        outline: none;
-        background-color: #39363D;
-        cursor: pointer;
+
+
+    .home__button-container .custom-button{
+        padding: 20px 10px 20px 10px;
     }
+    
+
     
     
 }

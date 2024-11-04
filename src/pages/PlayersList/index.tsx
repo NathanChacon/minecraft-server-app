@@ -5,9 +5,14 @@ import discord from '../../assets/discord.png'
 import { getVisibleUsers } from '../../api/services/user';
 import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
 import PlayerProfileImage from './components/PlayerProfileImage';
+import useFilter from './hooks/useFilter';
+
+import Select from "../../components/Select";
 
 const PlayersList: React.FC = () => {
+  const {filters, register, handleOnFilter} = useFilter()
   const [users, setUsers] = useState<Array<any>>([])
+
 
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
 
@@ -53,6 +58,13 @@ const PlayersList: React.FC = () => {
       <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
       <h4 className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</h4>
     </header>
+    <div>
+      <Select
+          register={register("activatedFilters")}
+          options={filters.map(({filterKey}) => filterKey)}
+      />
+      <button onClick={handleOnFilter}>Filtrar</button>
+    </div>
     <ul className='players__list'>
       {users.map(({
           uid,

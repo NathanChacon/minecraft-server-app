@@ -1,5 +1,5 @@
 // src/api/user.ts
-import { doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs, QueryConstraint} from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential } from "firebase/auth";
 import { db, storage } from "../config/firebase"; // Firestore instance
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
@@ -136,17 +136,16 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
   // src/services/UserService.ts
 
 // Function to fetch all users with `isUserVisible` set to true
-export const getVisibleUsers = async (): Promise<IUser[]> => {
-  const users: IUser[] = [];
-  
-    const usersRef = collection(db, "users");
+export const getVisibleUsers = async (additionalFilters: QueryConstraint[] = []): Promise<IUser[]> => {
+  const usersRef = collection(db, "users");
 
-    // Create a query to find users where `isUserVisible` is true
-    const visibleUsersQuery = query(usersRef, where("isUserVisible", "==", true));
+  // Add the required `isUserVisible` filter
+  const baseFilter = [where("isUserVisible", "==", true)];
 
-    // Execute the query
-    const querySnapshot = await getDocs(visibleUsersQuery);
-    
-    return querySnapshot.docs.map((doc) =>  doc.data() as IUser)
-    // Loop through the results and push to the users array
+  // Merge `isUserVisible` filter with any additional filters provided
+  const usersQuery = query(usersRef, ...baseFilter, ...additionalFilters);
+
+  // Execute the query and return the results as an array of IUser
+  const querySnapshot = await getDocs(usersQuery);
+  return querySnapshot.docs.map((doc) => doc.data() as IUser);
 };

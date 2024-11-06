@@ -88,10 +88,32 @@
     height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 18px;
-    padding-left: 10px;
-    cursor: pointer
+    padding: 0 10px 0px 10px;
+    cursor: pointer;
+    position: relative;
 }
+
+.chat-item__header-left{
+    display: flex;
+    align-items: center;
+}
+
+.chat-item__header-close{
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-item__header-close:hover{
+    background-color: #4e4b52;
+}
+
 
 .chat-item__header .user-default-image{
     width: 30px;
@@ -119,7 +141,15 @@
     width: 100%;
     padding: 4px;
     border: none;
+    outline: none;
 }
+
+.chat-item__form .custom-button:hover{
+    transition: none;
+    transform: none;
+}
+
+
 .chat-sidebar.chat-sidebar--active{
     right: 0;
 }

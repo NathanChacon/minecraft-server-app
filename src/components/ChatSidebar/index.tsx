@@ -4,6 +4,7 @@ import { loadMessages, sendMessage } from "../../api/services/chat";
 import "./style.css"
 import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "../UserDefaultImage";
+import Button from "../Button";
 
 
 const Message = ({targetUserChat, text, user, senderId}:any) => {
@@ -83,6 +84,11 @@ const ChatSideBar = () => {
     setIsActiveChatHidden((value) => !value)
   }
 
+  const handleOnCloseActiveChat = () => {
+    setActiveChat(null)
+    setMessages([])
+  }
+
     return (
         <section className="chat-container">
             <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>
@@ -103,10 +109,17 @@ const ChatSideBar = () => {
                 {activeChat && 
                 <div className={`chat-item ${isActiveChatHidden ? 'chat-item--hidden' : ''}`}>
                     <header className="chat-item__header" onClick={onToggleActiveChat}>
-                    {
-                        targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.name || targetUserChat?.defaultName || "?"}/>
-                      }
+                      <div className="chat-item__header-left">
+                        {
+                          targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.name || targetUserChat?.defaultName || "?"}/>
+                        }
                         <h5 className="chat-item__header-title">{targetUserChat?.name || targetUserChat?.defaultName}</h5>
+                      </div>
+
+                        <span onClick={(e) => {
+                          e.stopPropagation()
+                          handleOnCloseActiveChat()
+                          }} className="chat-item__header-close">{'✖'}</span>
                     </header>
                     <ul className="chat-item__body">
                       {messages.map((msg: any) => (
@@ -119,9 +132,14 @@ const ChatSideBar = () => {
                           type="text"
                           placeholder="Digite sua mensagem"
                           value={message}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleSendMessage();
+                            }
+                          }}
                           onChange={(e) => setMessage(e.target.value)}
                         />
-                        <button onClick={handleSendMessage}>Enviar</button>
+                        <Button onClick={handleSendMessage}>Enviar</Button>
                     </div>
                     
                 </div>}

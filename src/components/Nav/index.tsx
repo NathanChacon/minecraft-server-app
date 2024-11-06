@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import logo from '../../assets/logo.svg';
 import { useUser } from '../../context/UserContext';
-
+import { useChatContext } from '../../context/ChatContext';
 function Nav() {
   const [isOpen, setIsOpen] = useState(false); 
   const [isPerfilOpen, setIsPerfilOpen] = useState(false); 
   const { user, logout } = useUser();
   const navigate = useNavigate();
+
+  const {chatRooms, setIsOpen: setIsChatOpen} = useChatContext()
   
   const sidebarRef = useRef<HTMLDivElement | null>(null); 
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
@@ -51,6 +53,7 @@ function Nav() {
         <Link to="/" className="navbar__item">HOME</Link>
         <Link to="/players" className="navbar__item">JOGADORES</Link>
         <Link to="/help" className="navbar__item">AJUDA</Link>
+        <button onClick={() => {setIsChatOpen(true)}} className="navbar__item navbar__perfil-item--button">Mensagens</button>
 
         {user ? (
           <div className="navbar__perfil" onClick={togglePerfilDropdown}>

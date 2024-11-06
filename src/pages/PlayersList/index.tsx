@@ -6,7 +6,7 @@ import { getVisibleUsers } from '../../api/services/user';
 import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
 import PlayerProfileImage from './components/PlayerProfileImage';
 import useFilter from './hooks/useFilter';
-
+import useChat from './hooks/useChat';
 import Select from "../../components/Select";
 import Button from '../../components/Button';
 
@@ -16,7 +16,8 @@ const PlayersList: React.FC = () => {
 
   const {filters, register, handleOnFilter, filteredUsers} = useFilter({users, setUsers})
 
-
+  const {handleStartChat} = useChat()
+  
   const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
 
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
@@ -133,6 +134,8 @@ const PlayersList: React.FC = () => {
               
             }
           </div>
+
+          <button onClick={() => {handleStartChat(uid)}}>Conversar</button>
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
       ))}

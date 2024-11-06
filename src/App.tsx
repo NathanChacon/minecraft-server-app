@@ -8,19 +8,25 @@ import EditProfile from './pages/EditProfile';
 import { UserProvider } from './context/UserContext';
 import AuthGuardian from './guardians/AuthGuardian';
 import Help from './pages/Help';
+import { ChatProvider } from './context/ChatContext';
+import ChatSideBar from './components/ChatSidebar';
 
 const App: React.FC = () => {
   return (
       <Router>
         <UserProvider>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/players" element={<AuthGuardian><PlayersList /></AuthGuardian>} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
-          <Route path="/help" element={<Help />} />
-        </Routes>
+          <ChatProvider>
+          <Nav />
+          <ChatSideBar/>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/players" element={<AuthGuardian><PlayersList /></AuthGuardian>} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
+            <Route path="/help" element={<Help />} />
+          </Routes>
+          </ChatProvider>
+
         </UserProvider>
       </Router>
   );

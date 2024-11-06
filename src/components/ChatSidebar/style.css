@@ -12,7 +12,7 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     z-index: 20;
     transition: right 0.3s ease;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 60px;
     color: #F0F0F0;
 }
@@ -56,10 +56,11 @@
 .chats{
     position: fixed;
     bottom: 0px;
-    right: 310px;
+    right: 0px;
     display: flex;
     justify-content: flex-end;
     z-index: 100;
+    width: 100%;
 
 }
 
@@ -69,7 +70,7 @@
 }
 
 .chat-item{
-    width: 300px;
+    width: 100%;
     background-color: #221F26;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
@@ -198,4 +199,28 @@
 .chat-item__message-user-name{
     margin-left: 5px;
     font-weight: bold;
+}
+
+@media (min-width: 769px) {
+
+    .chats{
+        position: fixed;
+        bottom: 0px;
+        right: 310px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 100;
+    
+    }
+    
+    .chat-item{
+        width: 300px;
+        background-color: #221F26;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        color: #F0F0F0;
+        font-size: 14px;
+        overflow: hidden;
+        transition: height 0.3s ease;
+    }
 }

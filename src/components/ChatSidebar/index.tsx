@@ -71,7 +71,10 @@ const ChatSideBar = () => {
   }
 
   const openChat = (chat: any) => {
+    setIsOpen(false)
     setActiveChat(chat);
+    setIsActiveChatHidden(false)
+
     if (chat) {
       const unsubscribe = loadMessages(chat.id, (messages) => { 
         setMessages(messages)

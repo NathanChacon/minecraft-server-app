@@ -18,24 +18,50 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
+    z-index: 100;
 }
 
 .chat-item{
     width: 300px;
-    background-color: #39363D;
+    background-color: #221F26;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     color: #F0F0F0;
 }
 
 .chat-item__header{
     width: 100%;
     height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.chat-item__header .user-default-image{
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    margin-right: 6px;
 }
 
 .chat-item__body{
     background-color: white;
     height: 300px;
+    padding-top: 10px;
+    background-color: #39363D;
 }
 
+.chat-item__form{
+    display: flex;
+}
+
+
+.chat-item__form input{
+    width: 100%;
+    padding: 4px;
+    border: none;
+}
 .chat-sidebar.chat-sidebar--active{
     right: 0;
 }

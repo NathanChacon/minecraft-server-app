@@ -3,7 +3,7 @@ import './style.css'
 import { useRef} from "react";
 import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
-import UserDefaultImage from "./components/UserDefaultImage";
+import UserDefaultImage from "../../components/UserDefaultImage";
 import { useNavigate } from "react-router-dom";
 import Select from "./components/Select";
 import Button from "../../components/Button";

@@ -1,16 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { useChatContext } from "../../context/ChatContext"
-import { loadMessages } from "../../api/services/chat";
-
+import { loadMessages, sendMessage } from "../../api/services/chat";
 import "./style.css"
 import { useUser } from "../../context/UserContext";
+import UserDefaultImage from "../UserDefaultImage";
+
+
+const Message = ({senderId, text, user}:any) => {
+
+  return (
+    <li>
+
+    </li>
+  ) 
+}
+
 const ChatSideBar = () => {
     const {user} = useUser()
    const {chatRooms, setIsOpen, isOpen} = useChatContext()
    const [messages, setMessages] = useState<any>([])
+   const [message, setMessage] = useState<string>("");
    const sidebarRef = useRef<HTMLDivElement | null>(null);
    const [activeChat, setActiveChat] = useState<any>(null)
  
+    const targetUserChat = activeChat?.targetUser
+
+    console.log(targetUserChat)
 
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -27,23 +42,22 @@ const ChatSideBar = () => {
     };
   }, [sidebarRef]);
 
+  const handleSendMessage = async () => {
+    if (!message) return;
+    await sendMessage(user?.uid || "", activeChat.id, message);
+    setMessage(""); 
+  }
+
   const openChat = (chat: any) => {
-    console.log("test", chat)
-    const targetUser = chat.participants.find(({userId}: any) => userId !== user?.uid)
-    console.log(targetUser)
-    setActiveChat({
-        ...chat,
-        targetUser
-    });
+    setActiveChat(chat);
     if (chat) {
       const unsubscribe = loadMessages(chat.id, (messages) => { 
-        console.log("test", messages) 
         setMessages(messages)
     })
       return () => unsubscribe();
     }
   };
-
+  console.log("test 444", messages)
     return (
         <section className="chat-container">
             <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>
@@ -58,12 +72,26 @@ const ChatSideBar = () => {
                 {activeChat && 
                 <div className="chat-item">
                     <header className="chat-item__header">
-                        {activeChat?.targetUser?.userName}
+                    {
+                        targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.userName || targetUserChat?.defaultName || "?"}/>
+                      }
+                        <h5>{targetUserChat?.userName}</h5>
                     </header>
-                    <div className="chat-item__body"></div>
+                    <div className="chat-item__body">
+                    {messages.map((msg: any) => (
+                                <div key={msg.id} className="chat-message">
+                                    <p>{msg.message}</p>
+                                </div>
+                      ))}
+                    </div>
                     <div className="chat-item__form" >
-                        <input type="text" placeholder="Digite sua mensagem"/>
-                        <button>Enviar</button>
+                        <input  
+                          type="text"
+                          placeholder="Digite sua mensagem"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                        />
+                        <button onClick={handleSendMessage}>Enviar</button>
                     </div>
                     
                 </div>}

@@ -37,10 +37,11 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
             };
           })
         );
-        //add targetUser here
+        const targetUser = usersData.find(({userId}: any) => userId !== user?.uid)
         return {
           ...room,
           participants: usersData,
+          targetUser
         };
       })
     );

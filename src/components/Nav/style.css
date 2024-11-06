@@ -57,7 +57,7 @@
 }
 
 .sidebar.open {
-  left: 0; /* Slide in when open */
+  left: 0;
 }
 
 .sidebar__item {
@@ -65,6 +65,14 @@
   text-decoration: none;
   padding: 15px 20px;
   font-size: 16px;
+}
+
+.sidebar__item.sidebar__item--button {
+  border: none;
+  background-color: #221F26;
+  cursor: pointer;
+  text-align: left;
+  
 }
 
 .sidebar__item:hover {

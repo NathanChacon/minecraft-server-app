@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
 import logo from '../../assets/logo.svg';
@@ -10,7 +10,7 @@ function Nav() {
   const { user, logout } = useUser();
   const navigate = useNavigate();
 
-  const {chatRooms, setIsOpen: setIsChatOpen} = useChatContext()
+  const {setIsOpen: setIsChatOpen} = useChatContext()
   
   const sidebarRef = useRef<HTMLDivElement | null>(null); 
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
@@ -22,6 +22,11 @@ function Nav() {
   const togglePerfilDropdown = () => {
     setIsPerfilOpen(!isPerfilOpen);
   };
+
+  const handleClickMessages = () => {
+    setIsOpen(false)
+    setIsChatOpen(true)
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,18 +58,21 @@ function Nav() {
         <Link to="/" className="navbar__item">HOME</Link>
         <Link to="/players" className="navbar__item">JOGADORES</Link>
         <Link to="/help" className="navbar__item">AJUDA</Link>
-        <button onClick={() => {setIsChatOpen(true)}} className="navbar__item navbar__perfil-item--button">Mensagens</button>
 
         {user ? (
-          <div className="navbar__perfil" onClick={togglePerfilDropdown}>
-            PERFIL
-            {isPerfilOpen && (
-              <div className="navbar__perfil-dropdown">
-                <Link to="/edit-profile" className="navbar__item">Editar</Link>
-                <button onClick={logout} className="navbar__item navbar__perfil-item--button">Sair</button>
-              </div>
-            )}
-          </div>
+          <Fragment>
+            <button onClick={handleClickMessages} className="navbar__item navbar__perfil-item--button">MENSAGENS</button>
+            <div className="navbar__perfil" onClick={togglePerfilDropdown}>
+              PERFIL
+              {isPerfilOpen && (
+                <div className="navbar__perfil-dropdown">
+                  <Link to="/edit-profile" className="navbar__item">Editar</Link>
+                  <button onClick={logout} className="navbar__item navbar__perfil-item--button">Sair</button>
+                </div>
+              )}
+            </div>
+          </Fragment>
+
         ) : (
           <Link to="/login" className="navbar__item">ENTRAR</Link>
         )}
@@ -77,11 +85,15 @@ function Nav() {
         <Link to="/help" className="sidebar__item">AJUDA</Link>
 
         {user ? (
-          <div className="sidebar__perfil">
-            <div className="sidebar__perfil-toggle">PERFIL</div>
-            <Link to="/edit-profile" className="sidebar__perfil-item">Editar</Link>
-            <button onClick={logout} className="sidebar__perfil-item sidebar__perfil-item--button">Sair</button>
-          </div>
+          <Fragment>
+            <button onClick={handleClickMessages}  className="sidebar__item sidebar__item--button">MENSAGENS</button>
+            <div className="sidebar__perfil">
+              <div className="sidebar__perfil-toggle">PERFIL</div>
+              <Link to="/edit-profile" className="sidebar__perfil-item">Editar</Link>
+              <button onClick={logout} className="sidebar__perfil-item sidebar__perfil-item--button">Sair</button>
+            </div>
+          </Fragment>
+
         ) : (
           <Link to="/login" className="sidebar__item">ENTRAR</Link>
         )}

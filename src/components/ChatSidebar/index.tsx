@@ -1,11 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChatContext } from "../../context/ChatContext"
+import { loadMessages } from "../../api/services/chat";
+
 import "./style.css"
+import { useUser } from "../../context/UserContext";
 const ChatSideBar = () => {
+    const {user} = useUser()
    const {chatRooms, setIsOpen, isOpen} = useChatContext()
+   const [messages, setMessages] = useState<any>([])
    const sidebarRef = useRef<HTMLDivElement | null>(null);
-   console.log(isOpen)
-   console.log("test", chatRooms)
+   const [activeChat, setActiveChat] = useState<any>(null)
+ 
+
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const isClickingOnSidebar = sidebarRef?.current?.contains(event.target as Node)
@@ -21,14 +27,50 @@ const ChatSideBar = () => {
     };
   }, [sidebarRef]);
 
+  const openChat = (chat: any) => {
+    console.log("test", chat)
+    const targetUser = chat.participants.find(({userId}: any) => userId !== user?.uid)
+    console.log(targetUser)
+    setActiveChat({
+        ...chat,
+        targetUser
+    });
+    if (chat) {
+      const unsubscribe = loadMessages(chat.id, (messages) => { 
+        console.log("test", messages) 
+        setMessages(messages)
+    })
+      return () => unsubscribe();
+    }
+  };
+
     return (
-        <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>
-            <ul className="chat-sidebar__list">
-                {chatRooms.map(() => {
-                    return <li className="chat-sidebar__item">test</li>
-                })}
-            </ul>
-        </div>
+        <section className="chat-container">
+            <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>
+                <ul className="chat-sidebar__list">
+                    {chatRooms.map((room) => {
+                        return <li onClick={() => {openChat(room)}} className="chat-sidebar__item">test</li>
+                    })}
+                </ul>
+            </div>
+
+            <div className="chats">
+                {activeChat && 
+                <div className="chat-item">
+                    <header className="chat-item__header">
+                        {activeChat?.targetUser?.userName}
+                    </header>
+                    <div className="chat-item__body"></div>
+                    <div className="chat-item__form" >
+                        <input type="text" placeholder="Digite sua mensagem"/>
+                        <button>Enviar</button>
+                    </div>
+                    
+                </div>}
+            </div>
+
+        </section>
+  
     )
 }
 

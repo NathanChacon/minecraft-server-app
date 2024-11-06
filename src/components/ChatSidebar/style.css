@@ -1,3 +1,5 @@
+
+
 .chat-sidebar{
     position: fixed;
     height: 100vh;
@@ -9,9 +11,30 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     z-index: 20;
-    transition: left 0.3s ease;
+    transition: right 0.3s ease;
 }
 
+.chats{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+.chat-item{
+    width: 300px;
+    background-color: #39363D;
+    color: #F0F0F0;
+}
+
+.chat-item__header{
+    width: 100%;
+    height: 50px;
+}
+
+.chat-item__body{
+    background-color: white;
+    height: 300px;
+}
 
 .chat-sidebar.chat-sidebar--active{
     right: 0;

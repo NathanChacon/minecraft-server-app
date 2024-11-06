@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { collection, query, where, getDocs, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, serverTimestamp, onSnapshot, orderBy} from 'firebase/firestore';
 
 export const getOrCreateChatRoom = async (userId1: string, userId2: string) => {
     const chatRoomsRef = collection(db, 'chatRooms');
@@ -37,11 +37,11 @@ export const observeChats = (userId:string, callback: (rooms: Array<any>, snapsh
   const unsubscribe = onSnapshot(q, (snapshot) => {
     const rooms = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     
-    // Call the callback function to update the component's state
+    
     callback(rooms, snapshot);
   });
 
-  // Return the unsubscribe function so it can be cleaned up in the component
+  
   return unsubscribe;
 };
 
@@ -58,3 +58,16 @@ export const sendMessage = async (senderId:string, chatId:string, message:string
       createdAt: serverTimestamp(),
     });
 };
+
+export const loadMessages = (chatRoomId: string, onMessagesUpdate: (messages: any[]) => void) => {
+    const messagesRef = collection(db, 'chatRooms', chatRoomId, 'messages');
+    const q = query(messagesRef, orderBy('createdAt', 'asc'));
+  
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+        console.log("chamado", snapshot)
+      const messages = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      onMessagesUpdate(messages);
+    });
+  
+    return unsubscribe;
+  };

@@ -37,7 +37,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
             };
           })
         );
-  
+        //add targetUser here
         return {
           ...room,
           participants: usersData,

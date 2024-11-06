@@ -95,11 +95,11 @@ const ChatSideBar = () => {
                 <ul className="chat-sidebar__list">
                     {chatRooms.map((room) => {
                       const targetUserRoom = room.participants.find(({uid}:any) =>  uid !== user?.uid)
-                        return <li onClick={() => {openChat(room)}} className="chat-sidebar__item">
+                        return <li onClick={() => {openChat(room)}} className="chat-sidebar__item" key={room.id}>
                                 {
                                   targetUserRoom?.profileImg ? <img src={targetUserRoom?.profileImg} className="chat-sidebar__item-image" /> : <UserDefaultImage name={targetUserRoom?.name || targetUserRoom?.defaultName || "?"}/>
                                 }
-                                <p className="chat-sidebar__item-title">{targetUserRoom?.name || targetUserChat?.defaultName}</p>
+                                <p className="chat-sidebar__item-title">{targetUserRoom?.name || targetUserRoom?.defaultName}</p>
                               </li>
                     })}
                 </ul>

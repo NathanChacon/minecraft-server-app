@@ -30,14 +30,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const usersData = await Promise.all(
           room.participants.map(async (userId: string) => {
             const userData = await getUserById(userId);
-            return {
-              userId,
-              profileImg: userData?.profileImg,
-              userName: userData?.name || userData?.defaultName,
-            };
+            return userData
           })
         );
-        const targetUser = usersData.find(({userId}: any) => userId !== user?.uid)
+        const targetUser = usersData.find(({uid}: any) => uid !== user?.uid)
         return {
           ...room,
           participants: usersData,

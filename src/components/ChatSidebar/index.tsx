@@ -6,26 +6,41 @@ import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "../UserDefaultImage";
 
 
-const Message = ({senderId, text, user}:any) => {
+const Message = ({targetUserChat, text, user, senderId}:any) => {
+ 
+  const isTargetUser = senderId === targetUserChat.uid
+
+  const userSendindMessage = isTargetUser ? targetUserChat : user
 
   return (
-    <li>
+    <li className="chat-item__message">
 
+        <div className="chat-item__message-header">
+          {
+            userSendindMessage?.profileImg ? <img src={userSendindMessage?.profileImg} className="chat-item__message-image" /> : <UserDefaultImage name={userSendindMessage?.userName || userSendindMessage?.defaultName || "?"}/>
+          }
+           <p className="chat-item__message-user-name">{userSendindMessage.name || userSendindMessage.defaultName}</p>
+        </div>
+       
+
+          
+          <p className="chat-item__message-text">{text}</p>
+    
     </li>
   ) 
 }
 
 const ChatSideBar = () => {
-    const {user} = useUser()
+  const {user} = useUser()
    const {chatRooms, setIsOpen, isOpen} = useChatContext()
    const [messages, setMessages] = useState<any>([])
    const [message, setMessage] = useState<string>("");
    const sidebarRef = useRef<HTMLDivElement | null>(null);
    const [activeChat, setActiveChat] = useState<any>(null)
- 
-    const targetUserChat = activeChat?.targetUser
+   const [isActiveChatHidden, setIsActiveChatHidden] = useState<boolean>(false)
+   const messagesEndRef = useRef<HTMLDivElement | null>(null); 
+  const targetUserChat = activeChat?.targetUser
 
-    console.log(targetUserChat)
 
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -42,6 +57,12 @@ const ChatSideBar = () => {
     };
   }, [sidebarRef]);
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleSendMessage = async () => {
     if (!message) return;
     await sendMessage(user?.uid || "", activeChat.id, message);
@@ -57,33 +78,42 @@ const ChatSideBar = () => {
       return () => unsubscribe();
     }
   };
-  console.log("test 444", messages)
+
+  const onToggleActiveChat = () => {
+    setIsActiveChatHidden((value) => !value)
+  }
+
     return (
         <section className="chat-container">
             <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>
                 <ul className="chat-sidebar__list">
                     {chatRooms.map((room) => {
-                        return <li onClick={() => {openChat(room)}} className="chat-sidebar__item">test</li>
+                      const targetUserRoom = room.participants.find(({uid}:any) =>  uid !== user?.uid)
+                        return <li onClick={() => {openChat(room)}} className="chat-sidebar__item">
+                                {
+                                  targetUserRoom?.profileImg ? <img src={targetUserRoom?.profileImg} className="chat-sidebar__item-image" /> : <UserDefaultImage name={targetUserRoom?.name || targetUserRoom?.defaultName || "?"}/>
+                                }
+                                <p className="chat-sidebar__item-title">{targetUserRoom?.name || targetUserChat?.defaultName}</p>
+                              </li>
                     })}
                 </ul>
             </div>
 
             <div className="chats">
                 {activeChat && 
-                <div className="chat-item">
-                    <header className="chat-item__header">
+                <div className={`chat-item ${isActiveChatHidden ? 'chat-item--hidden' : ''}`}>
+                    <header className="chat-item__header" onClick={onToggleActiveChat}>
                     {
-                        targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.userName || targetUserChat?.defaultName || "?"}/>
+                        targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.name || targetUserChat?.defaultName || "?"}/>
                       }
-                        <h5>{targetUserChat?.userName}</h5>
+                        <h5 className="chat-item__header-title">{targetUserChat?.name || targetUserChat?.defaultName}</h5>
                     </header>
-                    <div className="chat-item__body">
-                    {messages.map((msg: any) => (
-                                <div key={msg.id} className="chat-message">
-                                    <p>{msg.message}</p>
-                                </div>
+                    <ul className="chat-item__body">
+                      {messages.map((msg: any) => (
+                          <Message key={msg.id} text={msg.message} user={user} targetUserChat={targetUserChat} senderId={msg.senderId}/>
                       ))}
-                    </div>
+                      <div ref={messagesEndRef} />
+                    </ul>
                     <div className="chat-item__form" >
                         <input  
                           type="text"

@@ -5,7 +5,7 @@ const ChatSideBar = () => {
    const {chatRooms, setIsOpen, isOpen} = useChatContext()
    const sidebarRef = useRef<HTMLDivElement | null>(null);
    console.log(isOpen)
-   
+   console.log("test", chatRooms)
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const isClickingOnSidebar = sidebarRef?.current?.contains(event.target as Node)

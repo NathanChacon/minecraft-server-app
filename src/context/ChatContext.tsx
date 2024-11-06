@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useUser } from './UserContext';
 import { observeChats, sendMessage } from '../api/services/chat';
+import { getUserById } from '../api/services/user';
 
 interface ChatContextType {
   chatRooms: any[];
@@ -22,15 +23,39 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [notifications, setNotifications] = useState<{ [key: string]: boolean }>({});
 
-  const handleChatData = (rooms: any[], snapshot: any) => {
-    setChatRooms(rooms);
-
-    snapshot.docChanges().forEach((change:any) => {
+  const handleChatData = async (rooms: any[], snapshot: any) => {
+    
+    const formattedRooms = await Promise.all(
+      rooms.map(async (room) => {
+        const usersData = await Promise.all(
+          room.participants.map(async (userId: string) => {
+            const userData = await getUserById(userId);
+            return {
+              userId,
+              profileImg: userData?.profileImg,
+              userName: userData?.name || userData?.defaultName,
+            };
+          })
+        );
+  
+        return {
+          ...room,
+          participants: usersData,
+        };
+      })
+    );
+  
+   
+    setChatRooms(formattedRooms);
+  
+  
+    snapshot.docChanges().forEach((change: any) => {
       if (change.type === 'modified' && change.doc.id !== activeChat?.id) {
         setNotifications((prev) => ({ ...prev, [change.doc.id]: true }));
       }
     });
   };
+
 
   useEffect(() => {
     if (!user) return;

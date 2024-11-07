@@ -9,9 +9,9 @@ import useFilter from './hooks/useFilter';
 import useChat from './hooks/useChat';
 import Select from "../../components/Select";
 import Button from '../../components/Button';
-
+import { useUser } from "../../context/UserContext"
 const PlayersList: React.FC = () => {
-  
+  const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
 
   const {filters, register, handleOnFilter, filteredUsers} = useFilter({users, setUsers})
@@ -20,7 +20,7 @@ const PlayersList: React.FC = () => {
   
   const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
 
-  const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null); // Track the user id for the copy message
+  const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null);
 
   const copyToClipboard = async (text: string, userId: string) => {
 
@@ -126,16 +126,21 @@ const PlayersList: React.FC = () => {
             </li>
           </ul>
           <div className="players__card-game-modes">
-            {
-             
-             gameModes?.map((mode: string) => {
-              return <span className="players__card-game-modes-tag">{mode}</span>
-             })   
-              
-            }
+          {gameModes && gameModes.length > 0 ? (
+            gameModes.map((mode: string, index: number) => (
+                    <span key={index} className="players__card-game-modes-tag">
+                      {mode}
+                    </span>
+                  ))
+                ) : (
+                  <span className="players__card-game-modes-placeholder">
+                    Modo de jogo indisponível
+                  </span>
+              )}
           </div>
-
-          <button onClick={() => {handleStartChat(uid)}}>Conversar</button>
+          <div className='players__card-button-container'>
+            {user?.uid !== uid && <Button onClick={() => {handleStartChat(uid)}}>CONVERSAR</Button>}
+          </div>
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
       ))}

@@ -8,6 +8,9 @@
 .help__header{
     margin: 0;
     padding: 0;
+}
+
+.help__title{
     font-size: 30px;
 }
 
@@ -20,7 +23,7 @@
         padding: 100px 70px 20px 70px;
     }
 
-    .help__header{
+    .help__title{
         font-size: 40px;
     }
 

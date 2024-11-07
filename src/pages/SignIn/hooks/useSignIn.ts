@@ -13,10 +13,8 @@ const useSignIn = () => {
             if(user){
                 localStorage.setItem("user", JSON.stringify(user));
                 setUser(user);
-                console.log("user already on database", user)
             }
             else{
-                console.log("saving user")
                 const newUser = await saveUser(credential)
 
                 localStorage.setItem("user", JSON.stringify(newUser));

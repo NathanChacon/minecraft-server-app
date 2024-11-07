@@ -29,7 +29,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-    console.log("test 2", savedUser);
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -39,7 +38,6 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null); // Clear the user from context
     localStorage.removeItem("user"); // Remove user data from local storage
 
-    console.log("chamado")
     navigate('/'); // Redirect to home page after logout
   };
 

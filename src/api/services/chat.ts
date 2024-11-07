@@ -64,7 +64,6 @@ export const loadMessages = (chatRoomId: string, onMessagesUpdate: (messages: an
     const q = query(messagesRef, orderBy('createdAt', 'asc'));
   
     const unsubscribe = onSnapshot(q, (snapshot) => {
-        console.log("chamado", snapshot)
       const messages = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       onMessagesUpdate(messages);
     });

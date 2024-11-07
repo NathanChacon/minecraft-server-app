@@ -92,6 +92,11 @@ const ChatSideBar = () => {
     setMessages([])
   }
 
+  if(!user){
+    return null
+  }
+
+
     return (
         <section className="chat-container">
             <div className={`chat-sidebar ${isOpen ? 'chat-sidebar--active' : ''}`} ref={sidebarRef}>

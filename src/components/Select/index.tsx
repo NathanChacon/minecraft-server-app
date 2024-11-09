@@ -4,17 +4,17 @@ import './style.css';
 
 interface SelectProps {
   register: any
-  options: string[];
+  options: any[];
 }
 
 const Select: React.FC<SelectProps> = ({ register, options }) => {
   return (
     <div className="select">
-      {options.map((option) => (
-        <label key={option} className="select__option">
-          <input type="checkbox" value={option} {...register} className="select__checkbox" />
+      {options.map(({label, value}) => (
+        <label key={value} className="select__option">
+          <input type="checkbox" value={value} {...register} className="select__checkbox" />
           <span className="select__custom-checkbox"></span>
-          <span className="select__label-text">{option}</span>
+          <span className="select__label-text">{label}</span>
         </label>
       ))}
     </div>

@@ -66,10 +66,7 @@ const PlayersList: React.FC = () => {
     </header>
     <div className='players__filters'>
       <h5 className='players__filters-title'>Filtre por usuários que tem: </h5>
-      <Select
-          register={register("activatedFilters")}
-          options={filters.map(({filterKey}) => filterKey)}
-      />
+
       <Button onClick={handleOnFilter}>aplicar</Button>
     </div>
     <ul className='players__list'>

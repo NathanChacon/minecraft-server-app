@@ -1,6 +1,4 @@
-import { useForm, SubmitHandler} from "react-hook-form";
-import { where} from "firebase/firestore";
-import { getVisibleUsers } from "../../../api/services/user";
+import { useForm} from "react-hook-form";
 import { useState } from "react";
 
 const useFilter = ({users}: any) => {

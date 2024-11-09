@@ -8,7 +8,7 @@ import MultiSelectDropdown from "../../components/MultiSelectDropdown";
 import { useNavigate } from "react-router-dom";
 import Select from "./components/Select";
 import Button from "../../components/Button";
-
+import { daysOfWeek, gameModes } from "../../constants";
 interface EditProfileFormData {
   name: string;
   bio?: string;
@@ -40,25 +40,12 @@ const EditProfile: React.FC = () => {
 
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
-  const availableDays = watch("availableDays")
-
-  console.log("test", availableDays)
 
 
   const hasFilledRequiredFieldsToToggle = !!discordId || !!serverIp
   const hasFieldsToEnableToggleError =  errors.discordId || errors.serverIp
 
   const isToggleEnabled = hasFilledRequiredFieldsToToggle && !hasFieldsToEnableToggleError;
-
-  const daysOfWeek = [
-    { label: "Segunda-feira", value: "monday" },
-    { label: "Terça-feira", value: "tuesday" },
-    { label: "Quarta-feira", value: "wednesday" },
-    { label: "Quinta-feira", value: "thursday" },
-    { label: "Sexta-feira", value: "friday" },
-    { label: "Sábado", value: "saturday" },
-    { label: "Domingo", value: "sunday" },
-  ];
 
   const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
     if (user && user.uid) {
@@ -109,7 +96,7 @@ const EditProfile: React.FC = () => {
     catch(error){
       const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
         
-      userLocalStorage.profileImg = null; // Assuming you store imagePath in local storage
+      userLocalStorage.profileImg = null;
       localStorage.setItem("user", JSON.stringify(userLocalStorage));
 
       setUser({
@@ -181,7 +168,6 @@ const EditProfile: React.FC = () => {
           </span>
         </div>
 
-        {/* Server IP Field */}
         <div className="edit-profile__form-input">
           <p className="edit-profile__form-input-text">Server IP:</p>
           <span className="edit-profile__form-input-field">
@@ -211,10 +197,12 @@ const EditProfile: React.FC = () => {
         </div>
 
         <div className="edit-profile__form-input">
-            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Modo de Jogo:</p>
-            <Select
-              register={register("gameModes")}
-              options={["PVP", "Criativo", "Sobrevivência"]}
+            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Modos de Jogo:</p>
+            <MultiSelectDropdown
+              title="Selecione os modos de jogo"
+              register={register}
+              options={gameModes}
+              formName="gameModes"
             />
         </div>
 

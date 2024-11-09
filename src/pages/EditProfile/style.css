@@ -6,6 +6,9 @@
     background-position: center;
 }
 
+.edit-profile .multi-select{
+    margin-bottom: 1em;
+}
 .edit-profile__form{
     padding: 120px 20px 20px 20px;
     width: 100%;

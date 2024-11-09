@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './style.css';
 
 interface Option {
@@ -16,6 +16,21 @@ interface SelectProps {
 const MultiSelectDropdown: React.FC<SelectProps> = ({ title = "Selecione", formName,  register, options }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -31,10 +46,12 @@ const MultiSelectDropdown: React.FC<SelectProps> = ({ title = "Selecione", formN
   };
 
   return (
-    <div className="multi-select">
+    <div className="multi-select"  ref={dropdownRef}>
       <div className="multi-select__header" onClick={toggleDropdown}>
-        <span className="multi-select__selected-count">
-          {selectedValues.length > 0 ? `${selectedValues.length} selecionados` : title}
+      <span className="multi-select__selected-count">
+          {selectedValues.length > 0
+            ? `${selectedValues.length} selecionado${selectedValues.length > 1 ? 's' : ''}`
+            : title}
         </span>
         <span className={`multi-select__arrow ${isOpen ? "multi-select__arrow--open" : ""}`}>
           {isOpen ? "▲" : "▼"}
@@ -49,7 +66,7 @@ const MultiSelectDropdown: React.FC<SelectProps> = ({ title = "Selecione", formN
                 type="checkbox"
                 value={option.value}
                 {...register(formName, {
-                    onChange: handleCheckboxChange // Use register's onChange with our custom handler
+                    onChange: handleCheckboxChange
                 })}
                
                 className="multi-select__checkbox"

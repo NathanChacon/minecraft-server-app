@@ -19,7 +19,8 @@ interface IUser {
   serverIp: string | null;
   isUserVisible: boolean | null;
   profileImg: string,
-  gameModes: Array<string> | null;  
+  gameModes: Array<string> | null;
+  availableDays: Array<string> | null;
 }
 
 
@@ -70,7 +71,8 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           discordId: userSnapshot.data()?.discordId,
           serverIp: userSnapshot.data()?.serverIp,
           isUserVisible: userSnapshot.data()?.isUserVisible,
-          gameModes: userSnapshot.data()?.gameModes
+          gameModes: userSnapshot.data()?.gameModes,
+          availableDays: userSnapshot.data()?.availableDays,
         } as IUser; // Return the user data as IUser type
       } else {
         return null;

@@ -66,8 +66,6 @@ const PlayersList: React.FC = () => {
       <h4 className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</h4>
     </header>
     <div className='players__filters'>
-      <h5 className='players__filters-title'>Filtre por usuários que tem: </h5>
-
       <Button onClick={() => {
         setIsFiltersOpen((value) => !value)
       }}>Ver Filtros</Button>

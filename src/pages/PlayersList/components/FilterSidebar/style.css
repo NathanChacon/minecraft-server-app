@@ -19,6 +19,20 @@
     overflow: auto;
 }
 
+.filter-sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .filter-sidebar__close-button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #F0F0F0;
+  }
+
 .filter-sidebar.filter-sidebar--open{
     left: 0;
 }

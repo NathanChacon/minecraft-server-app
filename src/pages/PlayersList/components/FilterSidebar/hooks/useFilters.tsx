@@ -1,26 +1,36 @@
 import { gameModes, daysOfWeek } from "../../../../../constants"
 import { useForm} from "react-hook-form";
 
-const useFilters = () => {
+const useFilters = ({onFilter}: any) => {
     const { register, watch } = useForm<any>({
         defaultValues : {
           activeFilters: []
       }});
-
+    
+    const activeFilters = watch("activeFilters")
 
     const generalFilters = [
         {
             label: "bio",
-            value: false
+            value: "bio",
+            userField: "bio"
         },
         {
             label: "discord",
-            value: false
+            value: "discord",
+            userField: "discordId"
         },
         {
             label: "ip do servidor",
-            value: false
+            value: "serverIp",
+            userField: "serverIp"
         },
+    ]
+
+    const allRawFilters = [
+        ...gameModes,
+        ...daysOfWeek,
+        ...generalFilters
     ]
 
     const filtersList = [
@@ -43,9 +53,26 @@ const useFilters = () => {
 
     ]
 
+    const handleOnFilter = () => {
+        const formattedFilters = activeFilters.map((activeValue: any) => {
+            const isGameMode = gameModes.some(({value}) => {return value === activeValue})
+            const isDays = daysOfWeek.some(({value}) => {return value === activeValue})
+            const isArray = isGameMode || isDays
+
+            const filterConfig = allRawFilters.find(({value}) => {return value === activeValue})
+            return {
+                ...filterConfig,
+                filterMode: isArray ? "contains" : "boolean",
+            }
+        })
+
+        onFilter(formattedFilters)
+    }
+
     return {
         filtersList,
-        register
+        register,
+        handleOnFilter
     }
 }
 

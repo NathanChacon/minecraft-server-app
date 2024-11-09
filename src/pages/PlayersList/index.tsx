@@ -7,15 +7,16 @@ import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
 import PlayerProfileImage from './components/PlayerProfileImage';
 import useFilter from './hooks/useFilter';
 import useChat from './hooks/useChat';
-import Select from "../../components/Select";
 import Button from '../../components/Button';
 import { useUser } from "../../context/UserContext"
+import FilterSidebar from './components/FilterSidebar';
+import { gameModes as localGameModes} from '../../constants';
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
 
-  const {filters, register, handleOnFilter, filteredUsers} = useFilter({users, setUsers})
-
+  const {handleOnFilter, filteredUsers} = useFilter({users, setUsers})
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const {handleStartChat} = useChat()
   
   const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
@@ -67,7 +68,9 @@ const PlayersList: React.FC = () => {
     <div className='players__filters'>
       <h5 className='players__filters-title'>Filtre por usuários que tem: </h5>
 
-      <Button onClick={handleOnFilter}>aplicar</Button>
+      <Button onClick={() => {
+        setIsFiltersOpen((value) => !value)
+      }}>Ver Filtros</Button>
     </div>
     <ul className='players__list'>
       {formattedUsers.map(({
@@ -79,8 +82,12 @@ const PlayersList: React.FC = () => {
           discordId,
           serverIp,
           gameModes,
-      }) => (
-        <li className='players__card' key={uid}>
+      }) => {
+        const formattedGameModes = gameModes?.map((gameMode: any) => {
+            return localGameModes.find(({value}) => value === gameMode)
+        })
+        return (
+          <li className='players__card' key={uid}>
           <header className='players__card-header'>
               <PlayerProfileImage profileImg={profileImg}  name={name || defaultName}/>
               <div className=''>
@@ -123,10 +130,10 @@ const PlayersList: React.FC = () => {
             </li>
           </ul>
           <div className="players__card-game-modes">
-          {gameModes && gameModes.length > 0 ? (
-            gameModes.map((mode: string, index: number) => (
+          {formattedGameModes && formattedGameModes.length > 0 ? (
+            formattedGameModes.map((mode: any, index: number) => (
                     <span key={index} className="players__card-game-modes-tag">
-                      {mode}
+                      {mode?.label}
                     </span>
                   ))
                 ) : (
@@ -140,8 +147,12 @@ const PlayersList: React.FC = () => {
           </div>
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
-      ))}
+      )
+      })
+      }
+
     </ul>
+    <FilterSidebar onFilter={(filters:any) => {handleOnFilter(filters)}} setIsOpen={setIsFiltersOpen} isOpen={isFiltersOpen}/>
   </section>
 );
 };

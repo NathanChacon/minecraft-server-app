@@ -10,7 +10,8 @@ import useChat from './hooks/useChat';
 import Button from '../../components/Button';
 import { useUser } from "../../context/UserContext"
 import FilterSidebar from './components/FilterSidebar';
-import { gameModes as localGameModes} from '../../constants';
+import { gameModes as localGameModes, daysOfWeek} from '../../constants';
+import TagList from './components/TagsList';
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
@@ -79,11 +80,16 @@ const PlayersList: React.FC = () => {
           bio,
           discordId,
           serverIp,
-          gameModes,
+          gameModes = [],
+          availableDays = []
       }) => {
         const formattedGameModes = gameModes?.map((gameMode: any) => {
             return localGameModes.find(({value}) => value === gameMode)
         })
+
+        const formattedAvailableDays = availableDays?.map((day: any) => {
+          return daysOfWeek.find(({value}) => value === day)
+      })
         return (
           <li className='players__card' key={uid}>
           <header className='players__card-header'>
@@ -127,19 +133,18 @@ const PlayersList: React.FC = () => {
               </p>
             </li>
           </ul>
-          <div className="players__card-game-modes">
-          {formattedGameModes && formattedGameModes.length > 0 ? (
-            formattedGameModes.map((mode: any, index: number) => (
-                    <span key={index} className="players__card-game-modes-tag">
-                      {mode?.label}
-                    </span>
-                  ))
-                ) : (
-                  <span className="players__card-game-modes-placeholder">
-                    Modo de jogo indisponível
-                  </span>
-              )}
+
+          <div>
+            <h4>Modos de jogo</h4>
+            <TagList tags={formattedGameModes?.map((mode:any) => mode.label) || [] } maxVisible={3} />
           </div>
+
+          <div>
+            <h4>Dias disponível</h4>
+            <TagList tags={formattedAvailableDays?.map((day:any) => day.label) || [] } maxVisible={3} />
+          </div>
+          
+
           <div className='players__card-button-container'>
             {user?.uid !== uid && <Button onClick={() => {handleStartChat(uid)}}>CONVERSAR</Button>}
           </div>

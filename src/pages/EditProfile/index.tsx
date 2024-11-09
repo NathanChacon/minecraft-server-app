@@ -4,6 +4,7 @@ import { useRef} from "react";
 import { uploadUserImage, updateUserData } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "../../components/UserDefaultImage";
+import MultiSelectDropdown from "../../components/MultiSelectDropdown";
 import { useNavigate } from "react-router-dom";
 import Select from "./components/Select";
 import Button from "../../components/Button";
@@ -15,6 +16,7 @@ interface EditProfileFormData {
   discordId?: string;
   isUserVisible?: boolean;
   gameModes?: Array<string>;
+  availableDays?: Array<string>;
 }
 
 const EditProfile: React.FC = () => {
@@ -29,7 +31,8 @@ const EditProfile: React.FC = () => {
       discordId: userLocalStorage?.discordId || "",
       serverIp: userLocalStorage?.serverIp || "",
       isUserVisible: userLocalStorage?.isUserVisible || false,
-      gameModes: userLocalStorage?.gameModes || [] 
+      gameModes: userLocalStorage?.gameModes || [],
+      availableDays: userLocalStorage?.availableDays || []
   }});
 
 
@@ -37,12 +40,25 @@ const EditProfile: React.FC = () => {
 
   const discordId = watch("discordId");
   const serverIp = watch("serverIp");
+  const availableDays = watch("availableDays")
+
+  console.log("test", availableDays)
 
 
   const hasFilledRequiredFieldsToToggle = !!discordId || !!serverIp
   const hasFieldsToEnableToggleError =  errors.discordId || errors.serverIp
 
   const isToggleEnabled = hasFilledRequiredFieldsToToggle && !hasFieldsToEnableToggleError;
+
+  const daysOfWeek = [
+    { label: "Segunda-feira", value: "monday" },
+    { label: "Terça-feira", value: "tuesday" },
+    { label: "Quarta-feira", value: "wednesday" },
+    { label: "Quinta-feira", value: "thursday" },
+    { label: "Sexta-feira", value: "friday" },
+    { label: "Sábado", value: "saturday" },
+    { label: "Domingo", value: "sunday" },
+  ];
 
   const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
     if (user && user.uid) {
@@ -183,7 +199,26 @@ const EditProfile: React.FC = () => {
           </span>
         </div>
 
-          <div className="edit-profile__form-input">
+        
+        <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Dias disponíveis:</p>
+            <MultiSelectDropdown
+              title="Selecione os dias"
+              formName="availableDays"
+              register={register}
+              options={daysOfWeek}
+            />
+        </div>
+
+        <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Modo de Jogo:</p>
+            <Select
+              register={register("gameModes")}
+              options={["PVP", "Criativo", "Sobrevivência"]}
+            />
+        </div>
+
+        <div className="edit-profile__form-input">
           <span className="edit-profile__form-input-field-checkbox">
           <p className="edit-profile__form-input-text">Ficar visível: </p>
          
@@ -197,14 +232,6 @@ const EditProfile: React.FC = () => {
           </span>
           <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID ou IP do Servidor necessários.</span>
         </div>
-
-        <div className="edit-profile__form-input">
-            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Modo de Jogo:</p>
-            <Select
-              register={register("gameModes")}
-              options={["PVP", "Criativo", "Sobrevivência"]}
-            />
-          </div>
           <Button type="submit"> Salvar </Button>
         </form>
     </section>

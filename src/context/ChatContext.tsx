@@ -8,9 +8,10 @@ interface ChatContextType {
   activeChat: any | null;
   setActiveChat: (chat: any | null) => void;
   onSendMessage: (message: string) => Promise<void>;
-  notifications: { [key: string]: boolean };
   isOpen:  boolean;
   setIsOpen: any;
+  roomsNotifications: any;
+  setRoomsNotifications: any
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -20,11 +21,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [chatRooms, setChatRooms] = useState<any[]>([]);
   const [activeChat, setActiveChat] = useState<any | null>(null);
   const [isOpen, setIsOpen] = useState(false)
+  const [roomsNotifications, setRoomsNotifications] = useState<any>(null)
 
-  const [notifications, setNotifications] = useState<{ [key: string]: boolean }>({});
 
-  const handleChatData = async (rooms: any[], snapshot: any) => {
-    
+  const handleChatData = async (rooms: any[]) => {
     const formattedRooms = await Promise.all(
       rooms.map(async (room) => {
         const usersData = await Promise.all(
@@ -44,15 +44,31 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
    
     setChatRooms(formattedRooms);
-  
-  
-    snapshot.docChanges().forEach((change: any) => {
-      if (change.type === 'modified' && change.doc.id !== activeChat?.id) {
-        setNotifications((prev) => ({ ...prev, [change.doc.id]: true }));
-      }
-    });
+
   };
 
+  const handleNotifications = () => {
+    const newNotificationsMap = roomsNotifications ? { ...roomsNotifications } : {};
+  
+    chatRooms.forEach(({ id, lastMessage }: any) => {
+      const isFromCurrentUser = user?.uid === lastMessage?.senderId
+      const isVisualized = isFromCurrentUser || lastMessage?.visualized === true;
+  
+      newNotificationsMap[id] = {
+        lastMessage,
+        hasNotification: !isVisualized,
+      };
+    });
+  
+    setRoomsNotifications((prevMap: any) => ({
+      ...prevMap,
+      ...newNotificationsMap,
+    }));
+  };
+
+  useEffect(() => {
+    handleNotifications()
+  }, [chatRooms])
 
   useEffect(() => {
     if (!user) return;
@@ -69,7 +85,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <ChatContext.Provider value={{ chatRooms, activeChat, setActiveChat, onSendMessage, notifications, isOpen, setIsOpen }}>
+    <ChatContext.Provider value={{ chatRooms, activeChat, setActiveChat, onSendMessage, isOpen, setIsOpen, roomsNotifications, setRoomsNotifications}}>
       {children}
     </ChatContext.Provider>
   );

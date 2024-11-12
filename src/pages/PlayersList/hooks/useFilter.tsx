@@ -7,7 +7,6 @@ const useFilter = ({users}: any) => {
 
     const handleOnFilter = async (filters: any) => {
         const filteredUsers = users.filter((user: any) => {
-            console.log("test", user)
             return filters.every(({value, filterMode, userField}:any) => {
               switch (filterMode) {
                 case 'contains':

@@ -1,5 +1,5 @@
 import { db } from '../config/firebase';
-import { collection, query, where, getDocs, addDoc, serverTimestamp, onSnapshot, orderBy} from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, serverTimestamp, onSnapshot, orderBy, doc, updateDoc} from 'firebase/firestore';
 
 export const getOrCreateChatRoom = async (userId1: string, userId2: string) => {
     const chatRoomsRef = collection(db, 'chatRooms');
@@ -45,18 +45,38 @@ export const observeChats = (userId:string, callback: (rooms: Array<any>, snapsh
   return unsubscribe;
 };
 
+export const saveLastMessage = async (roomId: string, messageData: any) => {
+  const chatRoomRef = doc(db, 'chatRooms', roomId);
+  
+  await updateDoc(chatRoomRef, {
+    lastMessage: {
+      text: messageData.message,
+      senderId: messageData.senderId,
+      createdAt: messageData.createdAt,
+      visualized: false
+    }
+  });
+};
+
 
 export const sendMessage = async (senderId:string, chatId:string, message:string) => {
     if (!chatId || !senderId || !message) {
       throw new Error('Invalid parameters: senderId, chatId, and message are required.');
     }
-  
-    const messagesRef = collection(db, 'chatRooms', chatId, 'messages');
-    await addDoc(messagesRef, {
+
+    const messageData = {
       senderId,
       message,
       createdAt: serverTimestamp(),
+    }
+  
+    const messagesRef = collection(db, 'chatRooms', chatId, 'messages');
+
+    await addDoc(messagesRef, {
+      ...messageData
     });
+
+    await saveLastMessage(chatId, messageData)
 };
 
 export const loadMessages = (chatRoomId: string, onMessagesUpdate: (messages: any[]) => void) => {
@@ -69,4 +89,13 @@ export const loadMessages = (chatRoomId: string, onMessagesUpdate: (messages: an
     });
   
     return unsubscribe;
+  };
+
+
+
+  export const markLastMessageAsVisualized = async (chatRoomId:string) => {  
+    const chatRoomRef = doc(db, "chatRooms", chatRoomId);
+    await updateDoc(chatRoomRef, {
+        "lastMessage.visualized": true
+      });
   };

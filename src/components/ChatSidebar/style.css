@@ -53,15 +53,6 @@
     font-size: 18px;
 }
 
-.chat-sidebar__notification-circle{
-    width: 10px;
-    height: 10px;
-    background-color: #FF4D4D;
-    border-radius: 50%;
-    box-shadow: 0px 0px 4px rgba(255, 77, 77, 0.6), 
-    inset 0px 0px 2px rgba(0, 0, 0, 0.3);
-}
-
 .chats{
     position: fixed;
     bottom: 0px;
@@ -189,6 +180,7 @@
 
 .chat-item__header-title{
     margin-left: 5px;
+    margin-right: 10px;
 }
 
 .chat-item__message-header .user-default-image{

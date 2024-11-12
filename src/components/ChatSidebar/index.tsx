@@ -5,6 +5,7 @@ import "./style.css"
 import { useUser } from "../../context/UserContext";
 import UserDefaultImage from "../UserDefaultImage";
 import Button from "../Button";
+import NotificationCircle from "../NotificationCircle";
 
 
 const Message = ({targetUserChat, text, user, senderId, isLastMessage, chatId}:any) => {
@@ -64,7 +65,7 @@ const ChatSideBar = () => {
    const [isActiveChatHidden, setIsActiveChatHidden] = useState<boolean>(false)
    const messagesEndRef = useRef<HTMLDivElement | null>(null); 
    const targetUserChat = activeChat?.targetUser
-
+   const showActiveChatNotification = roomsNotifications && roomsNotifications[activeChat?.id]?.hasNotification && isActiveChatHidden
 
    useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -139,7 +140,7 @@ const ChatSideBar = () => {
                 
                                   <p className="chat-sidebar__item-title">{targetUserRoom?.name || targetUserRoom?.defaultName}</p>
 
-                                  {hasNotification && <span className="chat-sidebar__notification-circle" />}
+                                  {hasNotification && <NotificationCircle/>}
                               </li>
                     })}
                 </ul>
@@ -154,6 +155,7 @@ const ChatSideBar = () => {
                           targetUserChat?.profileImg ? <img src={targetUserChat?.profileImg} className="chat-item__header-image" /> : <UserDefaultImage name={targetUserChat?.name || targetUserChat?.defaultName || "?"}/>
                         }
                         <h5 className="chat-item__header-title">{targetUserChat?.name || targetUserChat?.defaultName}</h5>
+                        {showActiveChatNotification && <NotificationCircle/>}
                       </div>
 
                         <span onClick={(e) => {

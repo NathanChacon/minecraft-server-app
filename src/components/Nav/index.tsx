@@ -4,6 +4,7 @@ import './style.css';
 import logo from '../../assets/logo.svg';
 import { useUser } from '../../context/UserContext';
 import { useChatContext } from '../../context/ChatContext';
+import NotificationCircle from '../NotificationCircle';
 function Nav() {
   const [isOpen, setIsOpen] = useState(false); 
   const [isPerfilOpen, setIsPerfilOpen] = useState(false); 
@@ -14,6 +15,14 @@ function Nav() {
   
   const sidebarRef = useRef<HTMLDivElement | null>(null); 
   const dropdownRef = useRef<HTMLDivElement | null>(null); 
+  const {roomsNotifications} = useChatContext()
+
+
+  const hasNotification = roomsNotifications && Object.values(roomsNotifications)?.some(
+      (room:any) => room?.hasNotification === true
+    );
+
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -61,7 +70,7 @@ function Nav() {
 
         {user ? (
           <Fragment>
-            <button onClick={handleClickMessages} className="navbar__item navbar__perfil-item--button">MENSAGENS</button>
+            <button onClick={handleClickMessages} className="navbar__item navbar__perfil-item--button navbar__perfil-item--notification">MENSAGENS {hasNotification && <NotificationCircle/>}</button>
             <div className="navbar__perfil" onClick={togglePerfilDropdown}>
               PERFIL
               {isPerfilOpen && (
@@ -86,7 +95,7 @@ function Nav() {
 
         {user ? (
           <Fragment>
-            <button onClick={handleClickMessages}  className="sidebar__item sidebar__item--button">MENSAGENS</button>
+            <button onClick={handleClickMessages}  className="sidebar__item sidebar__item--button">MENSAGENS {hasNotification && <NotificationCircle/>}</button>
             <div className="sidebar__perfil">
               <div className="sidebar__perfil-toggle">PERFIL</div>
               <Link to="/edit-profile" className="sidebar__perfil-item">Editar</Link>

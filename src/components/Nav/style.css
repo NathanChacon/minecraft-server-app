@@ -19,6 +19,15 @@
   align-items: center;
 }
 
+.navbar__item.navbar__perfil-item--notification{
+  display: flex;
+  align-items: center;
+}
+
+.navbar__item.navbar__perfil-item--notification .notification-circle{
+  margin-left: 10px;
+}
+
 .navbar__logo {
   width: 60px;
   height: 60px;
@@ -72,8 +81,16 @@
   background-color: #221F26;
   cursor: pointer;
   text-align: left;
+  display: flex;
+  align-items: center;
   
 }
+
+.sidebar__item.sidebar__item--button .notification-circle {
+
+  margin-left: 10px;  
+}
+
 
 .sidebar__item:hover {
   background-color: #4e4b52;

@@ -12,10 +12,11 @@ import { useUser } from "../../context/UserContext"
 import FilterSidebar from './components/FilterSidebar';
 import { gameModes as localGameModes, daysOfWeek} from '../../constants';
 import TagList from './components/TagsList';
+import { useNavigate } from 'react-router-dom';
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
-
+  const navigate = useNavigate()
   const {handleOnFilter, filteredUsers} = useFilter({users, setUsers})
   const [isFiltersOpen, setIsFiltersOpen] = useState(false)
   const {handleStartChat} = useChat()
@@ -64,7 +65,9 @@ const PlayersList: React.FC = () => {
     <section className='players'>
     <header className='players__header'>
       <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
-      <h4 className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</h4>
+      <p className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</p>
+      <p className="players__header-subtitle"> Para aparecer na lista de jogadores e ser encontrado por outros minecrafters, basta ir até o seu perfil e selecionar a opção <strong>"Ficar Visível"</strong>. Assim, você se tornará visível para outros usuários e poderá começar a fazer novas amizades no jogo!</p>
+      <Button onClick={() => {navigate("/edit-profile")}}>FICAR VISÍVEL</Button>
     </header>
     <div className='players__filters'>
       <Button onClick={() => {

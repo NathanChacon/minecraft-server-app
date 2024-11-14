@@ -13,6 +13,7 @@ import FilterSidebar from './components/FilterSidebar';
 import { gameModes as localGameModes, daysOfWeek} from '../../constants';
 import TagList from './components/TagsList';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
@@ -62,7 +63,12 @@ const PlayersList: React.FC = () => {
 
 
   return (
-    <section className='players'>
+    <>
+      <Helmet>
+        <title>Jogadores</title>
+      </Helmet>
+
+      <section className='players'>
     <header className='players__header'>
       <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
       <p className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</p>
@@ -160,6 +166,8 @@ const PlayersList: React.FC = () => {
     </ul>
     <FilterSidebar onFilter={(filters:any) => {handleOnFilter(filters)}} setIsOpen={setIsFiltersOpen} isOpen={isFiltersOpen}/>
   </section>
+    </>
+
 );
 };
 export default PlayersList;

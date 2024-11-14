@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "./components/Select";
 import Button from "../../components/Button";
 import { daysOfWeek, gameModes } from "../../constants";
+import { Helmet } from "react-helmet";
 interface EditProfileFormData {
   name: string;
   bio?: string;
@@ -106,7 +107,12 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <section className="edit-profile">
+    <>
+      <Helmet>
+        <title>Editar Perfil</title>
+      </Helmet>
+
+      <section className="edit-profile">
         <form className="edit-profile__form" onSubmit={handleSubmit(onSubmit)}>
           <div className="edit-profile__user-picture-container">
               {
@@ -223,6 +229,8 @@ const EditProfile: React.FC = () => {
           <Button type="submit"> Salvar </Button>
         </form>
     </section>
+    </>
+
   );
 };
 

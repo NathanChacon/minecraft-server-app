@@ -36,7 +36,7 @@
 
 
 
-/* Responsive styling for larger screens */
+
 @media (min-width: 1050px) {
     .home{
         display: flex;

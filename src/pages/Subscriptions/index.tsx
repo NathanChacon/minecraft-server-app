@@ -1,17 +1,37 @@
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button'
 import { useUser } from '../../context/UserContext';
 import './style.css'
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { useNavigate } from 'react-router-dom';
+import { getUserById } from '../../api/services/user';
 const Subscriptions = () => {
     const {user} = useUser()
     const navigate = useNavigate();
+    const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleUserSubscriptionData = async () => {
+        const userData = await getUserById(user?.uid || "")
+        setUserSubscriptionData(userData?.subscription)
+    }
+
+    useEffect(() => {
+        if(user){
+            handleUserSubscriptionData()
+        }
+       
+    }, [user])
+
+
 
     const handleCreateCheckoutSession = async () => {
         if (!user) {
             navigate("/login")
             return
         }
+
+        setIsLoading(true)
     
         const functions = getFunctions();
         const createPaymentLink = httpsCallable(functions, 'createStripeSession');
@@ -22,10 +42,34 @@ const Subscriptions = () => {
           const paymentLink = result.data.paymentLink;
     
           window.location.href = paymentLink;
+          setIsLoading(false)
         } catch (error) {
+          setIsLoading(false)
           console.error('Error creating payment link:', error);
         }
       };
+
+      const handleCancelSubscription = async () => {    
+        if (!user) {
+          return;
+        }
+
+        setIsLoading(true)
+    
+        const functions = getFunctions();
+        const handleCancelSubscription = httpsCallable(functions, 'handleCancelSubscription');
+    
+        try{
+          await handleCancelSubscription({subscriptionId: userSubscriptionData.subscriptionId})
+
+          setUserSubscriptionData(null)
+          setIsLoading(false)
+        }
+        catch(error){   
+        setIsLoading(false)
+          console.log(error)
+        }
+      }
 
 
     return (
@@ -38,7 +82,10 @@ const Subscriptions = () => {
                     </h2>
                 </header>
                 <div className='subscriptions__card-btn-container'>
-                    <Button onClick={handleCreateCheckoutSession}>Assinar</Button>
+                    {
+                        !userSubscriptionData ? <Button isLoading={isLoading} onClick={handleCreateCheckoutSession}>Assinar</Button> : <Button isLoading={isLoading} onClick={handleCancelSubscription }>Cancelar Assinatura</Button>
+                    }
+                    
                 </div>
                 <div className='subscriptions__card-body'>
                     <p className='subscriptions__card-body-text'>Por apenas R$20/mês, você garante que o seu servidor de Minecraft seja listado em nossa página exclusiva. Tenha mais visibilidade, atraia novos jogadores e expanda sua comunidade!</p>

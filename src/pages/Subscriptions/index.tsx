@@ -96,6 +96,13 @@ const Subscriptions = () => {
                     </ul>    
                 </div>
             </div>
+
+            <footer className="subscriptions__footer">
+            <p>
+                Problemas ou dúvidas? Entre em contato com 
+                <a href="mailto:suporte@mineconexao.online" className="subscriptions__footer-link"> suporte@mineconexao.online</a>.
+            </p>
+        </footer>
         </section>
     )
 }

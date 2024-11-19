@@ -21,6 +21,7 @@ interface IUser {
   profileImg: string,
   gameModes: Array<string> | null;
   availableDays: Array<string> | null;
+  subscription: {} | null;
 }
 
 
@@ -73,6 +74,7 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           isUserVisible: userSnapshot.data()?.isUserVisible,
           gameModes: userSnapshot.data()?.gameModes,
           availableDays: userSnapshot.data()?.availableDays,
+          subscription: userSnapshot.data()?.subscription,
         } as IUser; // Return the user data as IUser type
       } else {
         return null;

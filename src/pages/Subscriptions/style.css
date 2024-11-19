@@ -1,0 +1,71 @@
+.subscriptions{
+    min-height: 100vh;
+    color: #F0F0F0;
+    background-color: #221F26;
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subscriptions__card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #39363D;
+    border-radius: 20px;
+}
+
+.subscriptions__card-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.subscriptions__card-btn-container .custom-button{
+    padding: 10px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.subscriptions__card-header{
+    text-align: center;
+}
+
+.subscriptions__card-title{
+    font-size: 18px;
+}
+
+.subscriptions__card-subtitle{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.subscriptions__card-subtitle p{
+    padding: 0;
+    margin: 0;
+}
+
+.subscriptions__card-subtitle--highlight{
+    font-size: 30px;
+}
+
+.subscriptions__card-body{
+    background-color: #4A464D; /* Slightly lighter shade of the card background */
+    border: 2px solid #838383; /* Soft orange border for a subtle highlight */
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.subscriptions__card-body-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

@@ -11,6 +11,7 @@ import Help from './pages/Help';
 import { ChatProvider } from './context/ChatContext';
 import ChatSideBar from './components/ChatSidebar';
 import Servers from './pages/Servers';
+import Subscriptions from './pages/Subscriptions';
 
 const App: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const App: React.FC = () => {
             <Route path="/edit-profile" element={<AuthGuardian><EditProfile /></AuthGuardian>} />
             <Route path="/help" element={<Help />} />
             <Route path="/servers" element={<Servers/>} />
+            <Route path="/subscriptions" element={<Subscriptions/>} />
           </Routes>
           </ChatProvider>
 

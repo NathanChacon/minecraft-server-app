@@ -136,6 +136,38 @@
     padding: 20px;
 }
 
+.server-form__file-input {
+    display: none;
+  }
+
+  .server-form__select-banner-text{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .server-form__select-banner-text span {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  .server-form__select-banner-text span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .server-form__image-preview {
+    text-align: center;
+  }
+  
+  .server-form__image-preview-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+
 
 @media (min-width: 768px) {
     .server-form{

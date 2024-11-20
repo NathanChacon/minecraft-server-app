@@ -1,5 +1,5 @@
 import { db, storage } from '../config/firebase';
-import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, getDocs, where, query} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const saveServer = async (
@@ -48,3 +48,30 @@ export const saveServer = async (
     throw error; // Propagate the error to the caller
   }
 };
+
+export const getServersByUserId = async (userId: string): Promise<any[]> => {
+    try {
+      // Reference to the "servers" collection
+      const serversCollectionRef = collection(db, "servers");
+  
+      // Create a query to filter servers by userId
+      const q = query(serversCollectionRef, where("userId", "==", userId));
+  
+      // Fetch the documents matching the query
+      const querySnapshot = await getDocs(q);
+  
+      // Create an array to store the server data
+      const servers: any[] = [];
+  
+      // Loop through the documents and extract the data
+      querySnapshot.forEach((doc) => {
+        servers.push({ id: doc.id, ...doc.data() });
+      });
+  
+      // Return the list of servers
+      return servers;
+    } catch (error) {
+      console.error("Error fetching servers by userId: ", error);
+      throw error; // Propagate the error to the caller
+    }
+  };

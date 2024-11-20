@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import Button from "../../components/Button";
 import { Helmet } from "react-helmet";
 import defaultServerImg from '../../assets/defaultServerImg.webp'
+import { saveServer } from "../../api/services/server";
+import { useUser } from "../../context/UserContext";
 interface ServerFormData {
   serverAddress: string;
   serverTitle: string;
@@ -12,37 +14,43 @@ interface ServerFormData {
 }
 
 const ServerForm: React.FC = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<ServerFormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<ServerFormData>();
   const [file, setFile] = useState<any>(null)
   const [formattedSelectedFile, setFormattedSelectedFile] = useState<any>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const serverBanner = watch("serverBanner");
-
-  const onSubmit: SubmitHandler<ServerFormData> = async (data) => {
-    try {
-      console.log("Dados do servidor enviados:", data);
-
-      if (data.serverBanner?.[0]) {
-        const bannerFile = data.serverBanner[0];
-        console.log("Arquivo do banner do servidor:", bannerFile);
-        // Lidar com o upload do banner
-      }
-    } catch (error) {
-      console.error("Falha ao enviar os dados do servidor:", error);
-    }
-  };
+  const [isLoadingSaveServer, setIsLoadingSaveServer] = useState(false)
+  const {user} = useUser()
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0]; // Get the selected file
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      // Create a local URL for the selected file to display it without uploading
       const imageUrl = URL.createObjectURL(selectedFile);
       setFormattedSelectedFile(imageUrl);
-      setFile(selectedFile); // Store the file to upload later
+      setFile(selectedFile);
     }
   };
 
-  console.log("test", serverBanner)
+
+  const handleSubmitServer: SubmitHandler<ServerFormData> = async (data) => {
+    setIsLoadingSaveServer(true)
+    try {
+      const serverData = await saveServer({
+        ip: data.serverAddress,
+        title: data.serverTitle,
+        description: data.serverDescription,
+        imageFile: file,
+        userId: user?.uid || ""
+      });
+      setIsLoadingSaveServer(false)
+      console.log("Server created successfully:", serverData);
+      // Handle success, e.g., redirect to the server page or show success message
+
+    } catch (error) {
+      setIsLoadingSaveServer(false)
+      console.error("Error creating server:", error);
+      // Handle error, e.g., show an error message
+    }
+  };
 
 
   return (
@@ -51,7 +59,7 @@ const ServerForm: React.FC = () => {
         <title>Criar servidor</title>
       </Helmet>
       <section className="server-form">
-        <form className="server-form__form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="server-form__form" onSubmit={handleSubmit(handleSubmitServer)}>
         <div className="server-form__form-input">
             <span className="server-form__form-input-field">
               <div className="server-form__image-preview">
@@ -123,7 +131,7 @@ const ServerForm: React.FC = () => {
               </span>
             </span>
           </div>
-          <Button type="submit" className="server-form__form-button">Criar</Button>
+          <Button isLoading={isLoadingSaveServer} type="submit">Criar</Button>
         </form>
       </section>
     </>

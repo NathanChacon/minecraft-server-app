@@ -1,11 +1,13 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import './style.css';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button";
 import { Helmet } from "react-helmet";
 import defaultServerImg from '../../assets/defaultServerImg.webp'
 import { saveServer } from "../../api/services/server";
 import { useUser } from "../../context/UserContext";
+import { getUserById } from "../../api/services/user";
+import { useNavigate } from "react-router-dom";
 interface ServerFormData {
   serverAddress: string;
   serverTitle: string;
@@ -18,8 +20,31 @@ const ServerForm: React.FC = () => {
   const [file, setFile] = useState<any>(null)
   const [formattedSelectedFile, setFormattedSelectedFile] = useState<any>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null)
   const [isLoadingSaveServer, setIsLoadingSaveServer] = useState(false)
+  const [isLoadingUserSubscription, setIsLoadingUserSubscription] = useState(true)
+  const navigate = useNavigate()
   const {user} = useUser()
+
+
+  const handleUserSubscriptionData = async () => {
+    const userData = await getUserById(user?.uid || "")
+    setUserSubscriptionData(userData?.subscription)
+    setIsLoadingUserSubscription(false)
+}
+
+  useEffect(() => {
+    if(user){
+        handleUserSubscriptionData()
+    }
+   
+}, [user])
+
+  useEffect(() => {
+    if(!isLoadingUserSubscription && !userSubscriptionData){
+        navigate('/subscriptions')
+    }
+  }, [userSubscriptionData, isLoadingUserSubscription])
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -43,12 +68,9 @@ const ServerForm: React.FC = () => {
       });
       setIsLoadingSaveServer(false)
       console.log("Server created successfully:", serverData);
-      // Handle success, e.g., redirect to the server page or show success message
-
     } catch (error) {
       setIsLoadingSaveServer(false)
       console.error("Error creating server:", error);
-      // Handle error, e.g., show an error message
     }
   };
 
@@ -83,7 +105,7 @@ const ServerForm: React.FC = () => {
                 {...register("serverBanner")}
                 ref={fileInputRef}
                 className="server-form__file-input"
-                onChange={handleImageChange} // Handle image selection
+                onChange={handleImageChange}
               />
             </span>
           </div>

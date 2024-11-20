@@ -5,24 +5,22 @@ import logo from '../../assets/logo.svg';
 import { useUser } from '../../context/UserContext';
 import { useChatContext } from '../../context/ChatContext';
 import NotificationCircle from '../NotificationCircle';
+
 function Nav() {
-  const [isOpen, setIsOpen] = useState(false); 
-  const [isPerfilOpen, setIsPerfilOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPerfilOpen, setIsPerfilOpen] = useState(false);
   const { user, logout } = useUser();
   const navigate = useNavigate();
 
-  const {setIsOpen: setIsChatOpen} = useChatContext()
-  
-  const sidebarRef = useRef<HTMLDivElement | null>(null); 
-  const dropdownRef = useRef<HTMLDivElement | null>(null); 
-  const {roomsNotifications} = useChatContext()
+  const { setIsOpen: setIsChatOpen } = useChatContext();
 
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { roomsNotifications } = useChatContext();
 
-  const hasNotification = roomsNotifications && Object.values(roomsNotifications)?.some(
-      (room:any) => room?.hasNotification === true
-    );
-
-
+  const hasNotification =
+    roomsNotifications &&
+    Object.values(roomsNotifications)?.some((room: any) => room?.hasNotification === true);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -33,14 +31,14 @@ function Nav() {
   };
 
   const handleClickMessages = () => {
-    setIsOpen(false)
-    setIsChatOpen(true)
-  }
+    setIsOpen(false);
+    setIsChatOpen(true);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const isClickingOnSidebar = sidebarRef?.current?.contains(event.target as Node)
-      const isClickingOnBurguer = dropdownRef?.current?.contains(event.target as Node)
+      const isClickingOnSidebar = sidebarRef?.current?.contains(event.target as Node);
+      const isClickingOnBurguer = dropdownRef?.current?.contains(event.target as Node);
 
       if (sidebarRef.current && !isClickingOnSidebar && !isClickingOnBurguer) {
         setIsOpen(false);
@@ -55,7 +53,7 @@ function Nav() {
 
   return (
     <nav className="navbar">
-      <div className="navbar__brand" onClick={() => { navigate('/') }}>
+      <div className="navbar__brand" onClick={() => navigate('/')}>
         <img src={logo} alt="Logo" className="navbar__logo" />
       </div>
       <div ref={dropdownRef} className="navbar__burger" onClick={toggleSidebar}>
@@ -66,22 +64,29 @@ function Nav() {
       <div className="navbar__dropdown">
         <Link to="/" className="navbar__item">HOME</Link>
         <Link to="/players" className="navbar__item">JOGADORES</Link>
+        <Link to="/servers" className="navbar__item">SERVIDORES</Link>
+        <Link to="/subscriptions" className="navbar__item">PLANOS</Link>
         <Link to="/help" className="navbar__item">AJUDA</Link>
-
         {user ? (
           <Fragment>
-            <button onClick={handleClickMessages} className="navbar__item navbar__perfil-item--button navbar__perfil-item--notification">MENSAGENS {hasNotification && <NotificationCircle/>}</button>
+            <button
+              onClick={handleClickMessages}
+              className="navbar__item navbar__perfil-item--button navbar__perfil-item--notification"
+            >
+              MENSAGENS {hasNotification && <NotificationCircle />}
+            </button>
             <div className="navbar__perfil" onClick={togglePerfilDropdown}>
               PERFIL
               {isPerfilOpen && (
                 <div className="navbar__perfil-dropdown">
                   <Link to="/edit-profile" className="navbar__item">Editar</Link>
-                  <button onClick={logout} className="navbar__item navbar__perfil-item--button">Sair</button>
+                  <button onClick={logout} className="navbar__item navbar__perfil-item--button">
+                    Sair
+                  </button>
                 </div>
               )}
             </div>
           </Fragment>
-
         ) : (
           <Link to="/login" className="navbar__item">ENTRAR</Link>
         )}
@@ -91,18 +96,25 @@ function Nav() {
       <div className={`sidebar ${isOpen ? 'open' : ''}`} ref={sidebarRef}>
         <Link to="/" className="sidebar__item">HOME</Link>
         <Link to="/players" className="sidebar__item">JOGADORES</Link>
+        <Link to="/servers" className="sidebar__item">SERVIDORES</Link>
+        <Link to="/subscriptions" className="sidebar__item">PLANOS</Link>
         <Link to="/help" className="sidebar__item">AJUDA</Link>
-
         {user ? (
           <Fragment>
-            <button onClick={handleClickMessages}  className="sidebar__item sidebar__item--button">MENSAGENS {hasNotification && <NotificationCircle/>}</button>
+            <button
+              onClick={handleClickMessages}
+              className="sidebar__item sidebar__item--button"
+            >
+              MENSAGENS {hasNotification && <NotificationCircle />}
+            </button>
             <div className="sidebar__perfil">
               <div className="sidebar__perfil-toggle">PERFIL</div>
               <Link to="/edit-profile" className="sidebar__perfil-item">Editar</Link>
-              <button onClick={logout} className="sidebar__perfil-item sidebar__perfil-item--button">Sair</button>
+              <button onClick={logout} className="sidebar__perfil-item sidebar__perfil-item--button">
+                Sair
+              </button>
             </div>
           </Fragment>
-
         ) : (
           <Link to="/login" className="sidebar__item">ENTRAR</Link>
         )}

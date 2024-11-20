@@ -1,27 +1,38 @@
 import { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
-import { getFunctions, httpsCallable } from "firebase/functions";
 import Button from "../../components/Button";
 import './style.css'
 import { getUserById } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 const Servers = () => {
   const {user} = useUser()
+  const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null)
+  const navigate = useNavigate();
+  const handleUserSubscriptionData = async () => {
+    const userData = await getUserById(user?.uid || "")
+    setUserSubscriptionData(userData?.subscription)
+}
 
-  const handleUserData = async () => {
-    /*const userData = await getUserById(user?.uid || "")
-
-    setUserCurrentSubscription(userData?.subscription)
-    */
-  }
-
-
-  useEffect( () => {
+useEffect(() => {
     if(user){
-      handleUserData()
+        handleUserSubscriptionData()
     }
    
-  }, [user])
+}, [user])
+
+  const handleOnClickPublishServer = () => {
+        if(!user){
+          navigate('/login')
+          return
+        }
+
+        if(userSubscriptionData && userSubscriptionData?.subscription){
+          //pagina meus servidores
+        }
+        else{
+          navigate('/subscriptions')
+        }
+  }
 
   return (
     <section className="servers">
@@ -37,7 +48,7 @@ const Servers = () => {
           Tem um servidor? Publique-o agora e alcance novos jogadores, fortalecendo sua comunidade com facilidade!
           </p>
           <div className="servers__about-button-container">
-            <Button>PUBLICAR SERVIDOR</Button>
+            <Button onClick={handleOnClickPublishServer}>PUBLICAR SERVIDOR</Button>
           </div>
           
         </div>

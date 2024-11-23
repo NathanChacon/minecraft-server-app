@@ -79,6 +79,7 @@ function Nav() {
               PERFIL
               {isPerfilOpen && (
                 <div className="navbar__perfil-dropdown">
+                  <Link to="/my-server" className="navbar__item">Meu Servidor</Link>
                   <Link to="/edit-profile" className="navbar__item">Editar</Link>
                   <button onClick={logout} className="navbar__item navbar__perfil-item--button">
                     Sair
@@ -109,6 +110,7 @@ function Nav() {
             </button>
             <div className="sidebar__perfil">
               <div className="sidebar__perfil-toggle">PERFIL</div>
+              <Link to="/my-server" className="sidebar__perfil-item">Meu Servidor</Link>
               <Link to="/edit-profile" className="sidebar__perfil-item">Editar</Link>
               <button onClick={logout} className="sidebar__perfil-item sidebar__perfil-item--button">
                 Sair

@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Button from '../../components/Button'
 import { useUser } from '../../context/UserContext';
 import './style.css'
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { useNavigate } from 'react-router-dom';
 import { getUserById } from '../../api/services/user';
+import { Helmet } from 'react-helmet';
+
 const Subscriptions = () => {
     const {user} = useUser()
     const navigate = useNavigate();
@@ -76,7 +78,11 @@ const Subscriptions = () => {
 
 
     return (
-        <section className="subscriptions">
+        <Fragment>
+            <Helmet>
+                <title>Planos</title>
+            </Helmet>
+            <section className="subscriptions">
             <div className='subscriptions__card'>
                 <header className='subscriptions__card-header'>
                     <h1 className='subscriptions__card-title'>Plano Básico</h1>
@@ -107,6 +113,8 @@ const Subscriptions = () => {
             </p>
         </footer>
         </section>
+        </Fragment>
+
     )
 }
 

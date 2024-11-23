@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Button";
 import { Helmet } from "react-helmet";
 import defaultServerImg from '../../assets/defaultServerImg.webp'
-import { saveServer } from "../../api/services/server";
+import { editServer, getServerById, saveServer } from "../../api/services/server";
 import { useUser } from "../../context/UserContext";
 import { getUserById } from "../../api/services/user";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import isValidSubscription from "../../utils/subscription";
 import Toggle from "../../components/Toggle";
 
@@ -20,11 +20,12 @@ interface EditServerData {
 }
 
 const EditServer: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<EditServerData>({
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm<EditServerData>({
     defaultValues: {
       isVisible: true,
     }
   });
+
   const [file, setFile] = useState<any>(null)
   const [formattedSelectedFile, setFormattedSelectedFile] = useState<any>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -33,11 +34,25 @@ const EditServer: React.FC = () => {
   const [isLoadingUserSubscription, setIsLoadingUserSubscription] = useState(true)
   const navigate = useNavigate()
   const {user} = useUser()
+  const { serverId } = useParams<{ serverId: string }>();
 
   const handleUserSubscriptionData = async () => {
     const userData = await getUserById(user?.uid || "")
     setUserSubscriptionData(userData?.subscription)
     setIsLoadingUserSubscription(false)
+  }
+
+  const handleGetServerData = async () => {
+    const server = await getServerById(serverId || "")
+
+    setValue("serverAddress", server.ip);
+    setValue("serverTitle", server.title);
+    setValue("serverDescription", server.description);
+    setValue("isVisible", server.isVisible);
+
+    if (server.imageUrl) {
+      setFormattedSelectedFile(server.imageUrl);
+    }
   }
 
   useEffect(() => {
@@ -49,6 +64,9 @@ const EditServer: React.FC = () => {
   useEffect(() => {
     if(!isLoadingUserSubscription && !isValidSubscription(userSubscriptionData)){
         navigate('/subscriptions')
+    }
+    else if(isValidSubscription(userSubscriptionData)){
+      handleGetServerData()
     }
   }, [userSubscriptionData, isLoadingUserSubscription])
 
@@ -64,13 +82,12 @@ const EditServer: React.FC = () => {
   const handleSubmitServer: SubmitHandler<EditServerData> = async (data) => {
     setIsLoadingSaveServer(true)
     try {
-      const serverData = await saveServer({
+      const serverData = await editServer(serverId ||"", {
         ip: data.serverAddress,
         title: data.serverTitle,
         description: data.serverDescription,
         isVisible: data.isVisible,
         imageFile: file,
-        userId: user?.uid || ""
       });
       setIsLoadingSaveServer(false)
       console.log("Server created successfully:", serverData);
@@ -173,7 +190,7 @@ const EditServer: React.FC = () => {
           </div>
 
           
-          <Button isLoading={isLoadingSaveServer} type="submit">Criar</Button>
+          <Button isLoading={isLoadingSaveServer} type="submit">Editar</Button>
         </form>
       </section>
     </>

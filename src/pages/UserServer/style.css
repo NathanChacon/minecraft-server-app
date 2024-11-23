@@ -38,6 +38,7 @@
 .user-server__item {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: 100%;
     padding: 10px;
     border-radius: 10px;

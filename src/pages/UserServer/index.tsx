@@ -26,7 +26,7 @@ const UserServer = () => {
 
     useEffect(() => {
         handleUserServer();
-    }, []);
+    }, [user]);
 
     return (
         <section className="user-server">
@@ -42,6 +42,9 @@ const UserServer = () => {
                         </li>
                         <li className="user-server__item">
                             <p>Ip:</p> <p>{server?.ip}</p>
+                        </li>
+                        <li className="user-server__item">
+                            <p>Status:</p> <p>{server?.isVisible ?  "Visível" : "Invisível"}</p>
                         </li>
                     </ul>
                     <div className="user-server__actions">

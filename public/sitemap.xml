@@ -7,6 +7,19 @@
     <priority>1.0</priority>
   </url>
 
+  <url>
+    <loc>https://mineconexao.online/subscriptions</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+    <url>
+    <loc>https://mineconexao.online/servers</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+
   <!-- Help page -->
   <url>
     <loc>https://mineconexao.online/help</loc>

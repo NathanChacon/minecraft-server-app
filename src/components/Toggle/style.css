@@ -1,8 +1,8 @@
 .toggle-switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 40px;
+    height: 24px; 
   }
   
   .toggle-switch-checkbox {
@@ -26,11 +26,11 @@
   .toggle-switch-slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 18px;
+    width: 18px;
     border-radius: 50%;
-    left: 4px;
-    bottom: 4px;
+    left: 3px; 
+    bottom: 3px; 
     background-color: white;
     transition: 0.4s;
   }
@@ -40,5 +40,5 @@
   }
   
   .toggle-switch-checkbox:checked + .toggle-switch-slider:before {
-    transform: translateX(26px);
+    transform: translateX(16px); 
   }

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import isValidSubscription from "../../utils/subscription";
 import Toggle from "../../components/Toggle";
 
-interface CreateServerData {
+interface EditServerData {
   serverAddress: string;
   serverTitle: string;
   serverDescription: string;
@@ -19,10 +19,10 @@ interface CreateServerData {
   isVisible: boolean;
 }
 
-const CreateServer: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<CreateServerData>({
+const EditServer: React.FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<EditServerData>({
     defaultValues: {
-      isVisible: true, // Default value for 'isVisible' is true
+      isVisible: true,
     }
   });
   const [file, setFile] = useState<any>(null)
@@ -61,7 +61,7 @@ const CreateServer: React.FC = () => {
     }
   };
 
-  const handleSubmitServer: SubmitHandler<CreateServerData> = async (data) => {
+  const handleSubmitServer: SubmitHandler<EditServerData> = async (data) => {
     setIsLoadingSaveServer(true)
     try {
       const serverData = await saveServer({
@@ -83,20 +83,20 @@ const CreateServer: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Criar servidor</title>
+        <title>Editar servidor</title>
       </Helmet>
-      <section className="server-form">
-        <form className="server-form__form" onSubmit={handleSubmit(handleSubmitServer)}>
-          <div className="server-form__form-input">
-            <span className="server-form__form-input-field">
-              <div className="server-form__image-preview">
+      <section className="edit-server">
+        <form className="edit-server__form" onSubmit={handleSubmit(handleSubmitServer)}>
+          <div className="edit-server__form-input">
+            <span className="edit-server__form-input-field">
+              <div className="edit-server__image-preview">
                 <img
                   src={formattedSelectedFile || defaultServerImg}
                   alt="Banner do servidor"
-                  className="server-form__image-preview-img"
+                  className="edit-server__image-preview-img"
                 />
               </div>
-              <p className="server-form__select-banner-text">
+              <p className="edit-server__select-banner-text">
                 <span onClick={() => {fileInputRef.current?.click()}}>Selecione um banner</span>
               </p>
               <input
@@ -105,15 +105,15 @@ const CreateServer: React.FC = () => {
                 accept="image/*"
                 {...register("serverBanner")}
                 ref={fileInputRef}
-                className="server-form__file-input"
+                className="edit-server__file-input"
                 onChange={handleImageChange}
               />
             </span>
           </div>
 
-          <div className="server-form__form-input">
-            <p className="server-form__form-input-text">IP do Servidor:</p>
-            <span className="server-form__form-input-field">
+          <div className="edit-server__form-input">
+            <p className="edit-server__form-input-text">IP do Servidor:</p>
+            <span className="edit-server__form-input-field">
               <input
                 {...register("serverAddress", {
                   required: "O endereço do servidor é obrigatório.",
@@ -124,15 +124,15 @@ const CreateServer: React.FC = () => {
                 })}
                 placeholder="Digite o endereço do servidor"
               />
-              <span className={`server-form__form-input-error ${errors.serverAddress ? 'visible' : 'hidden'}`}>
+              <span className={`edit-server__form-input-error ${errors.serverAddress ? 'visible' : 'hidden'}`}>
                 {errors.serverAddress?.message}
               </span>
             </span>
           </div>
 
-          <div className="server-form__form-input">
-            <p className="server-form__form-input-text">Nome do Servidor:</p>
-            <span className="server-form__form-input-field">
+          <div className="edit-server__form-input">
+            <p className="edit-server__form-input-text">Nome do Servidor:</p>
+            <span className="edit-server__form-input-field">
               <input
                 {...register("serverTitle", { 
                   required: "O nome do servidor é obrigatório.",
@@ -143,15 +143,15 @@ const CreateServer: React.FC = () => {
                 })}
                 placeholder="Digite o nome do servidor"
               />
-              <span className={`server-form__form-input-error ${errors.serverTitle ? 'visible' : 'hidden'}`}>
+              <span className={`edit-server__form-input-error ${errors.serverTitle ? 'visible' : 'hidden'}`}>
                 {errors.serverTitle?.message}
               </span>
             </span>
           </div>
 
-          <div className="server-form__form-input">
-            <p className="server-form__form-input-text">Descrição do Servidor:</p>
-            <span className="server-form__form-input-field">
+          <div className="edit-server__form-input">
+            <p className="edit-server__form-input-text">Descrição do Servidor:</p>
+            <span className="edit-server__form-input-field">
               <input
                 {...register("serverDescription", { 
                   required: "A descrição do servidor é obrigatória.",
@@ -162,13 +162,13 @@ const CreateServer: React.FC = () => {
                 })}
                 placeholder="Digite a descrição do servidor"
               />
-              <span className={`server-form__form-input-error ${errors.serverDescription ? 'visible' : 'hidden'}`}>
+              <span className={`edit-server__form-input-error ${errors.serverDescription ? 'visible' : 'hidden'}`}>
                 {errors.serverDescription?.message}
               </span>
             </span>
           </div>
-          <div className="server-form__form-input server-form__form-input--toggle">
-            <p className="server-form__form-input-text">Visível para o público:</p>
+          <div className="edit-server__form-input edit-server__form-input--toggle">
+            <p className="edit-server__form-input-text">Visível para o público:</p>
             <Toggle formName="isVisible" register={register}/>
           </div>
 
@@ -180,4 +180,4 @@ const CreateServer: React.FC = () => {
   );
 };
 
-export default CreateServer;
+export default EditServer;

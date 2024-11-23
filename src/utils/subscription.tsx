@@ -1,7 +1,6 @@
 const isValidSubscription = (subscription: any) => {
     if (subscription) {
         const { status, end } = subscription;
-        console.log("test", subscription)
         const isStatusValid = status !== "canceled";
 
         if(isStatusValid) {

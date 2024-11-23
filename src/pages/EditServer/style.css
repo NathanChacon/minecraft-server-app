@@ -1,0 +1,219 @@
+.edit-server{
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('../../assets/editProfileBg.png');
+    background-size: cover; 
+    background-position: center;
+}
+
+.edit-server .multi-select{
+    margin-bottom: 1em;
+}
+.edit-server__form{
+    padding: 120px 20px 20px 20px;
+    width: 100%;
+    min-height: 100vh;
+    color:#F0F0F0;
+    background-color: #221F26;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-server__img-inpt-txt{
+    cursor: pointer;
+}
+
+.edit-server__img-inpt-txt:hover{
+    text-decoration: underline;
+}
+
+.edit-server__form-input-text.edit-server__form-input-text--select{
+    margin: 0px 10px 10px 0px;
+
+}
+
+.edit-server__form-input.edit-server__form-input--toggle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.edit-server__user-picture-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+
+.edit-server__user-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.edit-server__form-input{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    padding-bottom: 14px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.edit-server__form-input-field-checkbox{
+    display: flex;
+    align-items: center;
+}
+
+.edit-server__form-input-field-checkbox-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-server__form-input input{
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.edit-server__checkbox {
+    width: 15px;
+    height: 15px;
+    transform: scale(1.5);
+  }
+
+.edit-server__form-input-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-server__form-input-error {
+    color: red;
+    font-size: 14px;     
+    min-height: 1em;
+    margin-top: 6px;
+    opacity: 0;                
+    transition: opacity 0.3s ease;
+}
+
+.edit-server__form-input-disclaimer {
+    color: #F0F0F0;
+    font-size: 14px;     
+    min-height: 1em;
+    margin-top: 6px;
+    opacity: 0;                
+    transition: opacity 0.3s ease;
+}
+
+.edit-server__form-input-disclaimer.visible {
+    opacity: 1;
+}
+
+
+.edit-server__form-input-disclaimer.hidden {
+    opacity: 0;        
+}
+
+.edit-server__form-input-error.visible {
+    opacity: 1;
+}
+
+.edit-server__form-input-error.hidden {
+    opacity: 0;        
+}
+
+
+.edit-server__form-input-text{
+    margin: 0px 10px 0px 0px;
+}
+
+
+.edit-server__form .custom-button{
+    width: 100%;
+    margin-top: 20px;
+    max-width: 225px;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.edit-server__file-input {
+    display: none;
+  }
+
+  .edit-server__select-banner-text{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .edit-server__select-banner-text span {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  .edit-server__select-banner-text span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .edit-server__image-preview {
+    text-align: center;
+  }
+  
+  .edit-server__image-preview-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+
+
+@media (min-width: 768px) {
+    .edit-server{
+        width: 100%;
+        min-height: 100vh;
+        padding-top: 120px;
+        padding-bottom: 100px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        overflow: auto;
+    }
+
+    .edit-server::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+    
+    .edit-server__form{
+        width: 100%;
+        max-width: 900px;
+        height: auto;
+        min-height: auto;
+        padding: 30px;
+        border-radius: 20px;
+        z-index: 3;
+    }
+
+    .edit-server__form-input{
+        font-size: 18px;
+    }
+    
+    .edit-server__form-input input{
+        font-size: 16px;
+    }
+
+}

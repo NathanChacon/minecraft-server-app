@@ -3,7 +3,7 @@ import { addDoc, collection, updateDoc, getDocs, where, query} from "firebase/fi
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const saveServer = async (
-  payload: { ip: string; title: string; description: string; imageFile?: File | null, userId:string }
+  payload: { ip: string; title: string; description: string; imageFile?: File | null, userId:string, isVisible:boolean}
 ): Promise<any> => {
   try {
     // Reference to the "servers" collection where we'll add the new server document
@@ -16,6 +16,7 @@ export const saveServer = async (
       description: payload.description,
       userId: payload.userId,  // Link to the user creating the server
       createdAt: new Date(),
+      isVisible: payload.isVisible,
       imageUrl: null
     }
 

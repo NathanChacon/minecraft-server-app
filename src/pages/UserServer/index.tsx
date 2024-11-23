@@ -12,16 +12,16 @@ const UserServer = () => {
     const handleUserServer = async () => {
         const userServer = await getServersByUserId(user?.uid || "");
         if (userServer?.length > 0) {
-            setServer(null);
+            setServer(userServer[0]);
         }
     };
 
     const handleAddServer = () => {
-        navigate("/create-server"); // Navigate to server creation page
+        navigate("/create-server");
     };
 
     const handleEditServer = () => {
-        navigate(`/edit-server/${server?.id}`); // Navigate to edit page
+        navigate(`/edit-server/${server?.id}`);
     };
 
     useEffect(() => {

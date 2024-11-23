@@ -14,6 +14,7 @@ import Servers from './pages/Servers';
 import Subscriptions from './pages/Subscriptions';
 import CreateServer from './pages/CreateServer';
 import UserServer from './pages/UserServer';
+import EditServer from './pages/EditServer';
 
 const App: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             <Route path="/servers" element={<Servers/>} />
             <Route path="/subscriptions" element={<Subscriptions/>} />
             <Route path="/create-server" element={<AuthGuardian><CreateServer/></AuthGuardian>} />
+            <Route path="/edit-server/:serverId" element={<AuthGuardian><EditServer/></AuthGuardian>} />
             <Route path="/my-server" element={<AuthGuardian><UserServer/></AuthGuardian>} />
           </Routes>
           </ChatProvider>

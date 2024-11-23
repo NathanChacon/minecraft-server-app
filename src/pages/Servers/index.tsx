@@ -4,6 +4,8 @@ import './style.css'
 import { getUserById } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import isValidSubscription from "../../utils/subscription";
+
 const Servers = () => {
   const {user} = useUser()
   const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null)
@@ -26,7 +28,7 @@ useEffect(() => {
           return
         }
 
-        if(userSubscriptionData && userSubscriptionData?.subscription){
+        if(isValidSubscription(userSubscriptionData)){
           //pagina meus servidores
         }
         else{

@@ -8,15 +8,23 @@ import { saveServer } from "../../api/services/server";
 import { useUser } from "../../context/UserContext";
 import { getUserById } from "../../api/services/user";
 import { useNavigate } from "react-router-dom";
-interface ServerFormData {
+import isValidSubscription from "../../utils/subscription";
+import Toggle from "../../components/Toggle";
+
+interface CreateServerData {
   serverAddress: string;
   serverTitle: string;
   serverDescription: string;
   serverBanner?: any;
+  isVisible: boolean;
 }
 
-const ServerForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<ServerFormData>();
+const CreateServer: React.FC = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm<CreateServerData>({
+    defaultValues: {
+      isVisible: true, // Default value for 'isVisible' is true
+    }
+  });
   const [file, setFile] = useState<any>(null)
   const [formattedSelectedFile, setFormattedSelectedFile] = useState<any>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -26,22 +34,20 @@ const ServerForm: React.FC = () => {
   const navigate = useNavigate()
   const {user} = useUser()
 
-
   const handleUserSubscriptionData = async () => {
     const userData = await getUserById(user?.uid || "")
     setUserSubscriptionData(userData?.subscription)
     setIsLoadingUserSubscription(false)
-}
+  }
 
   useEffect(() => {
     if(user){
         handleUserSubscriptionData()
     }
-   
-}, [user])
+  }, [user])
 
   useEffect(() => {
-    if(!isLoadingUserSubscription && !userSubscriptionData){
+    if(!isLoadingUserSubscription && !isValidSubscription(userSubscriptionData)){
         navigate('/subscriptions')
     }
   }, [userSubscriptionData, isLoadingUserSubscription])
@@ -55,8 +61,7 @@ const ServerForm: React.FC = () => {
     }
   };
 
-
-  const handleSubmitServer: SubmitHandler<ServerFormData> = async (data) => {
+  const handleSubmitServer: SubmitHandler<CreateServerData> = async (data) => {
     setIsLoadingSaveServer(true)
     try {
       const serverData = await saveServer({
@@ -74,7 +79,6 @@ const ServerForm: React.FC = () => {
     }
   };
 
-
   return (
     <>
       <Helmet>
@@ -82,7 +86,7 @@ const ServerForm: React.FC = () => {
       </Helmet>
       <section className="server-form">
         <form className="server-form__form" onSubmit={handleSubmit(handleSubmitServer)}>
-        <div className="server-form__form-input">
+          <div className="server-form__form-input">
             <span className="server-form__form-input-field">
               <div className="server-form__image-preview">
                 <img
@@ -91,11 +95,7 @@ const ServerForm: React.FC = () => {
                   className="server-form__image-preview-img"
                 />
               </div>
-
-            
-              <p
-                className="server-form__select-banner-text"
-              >
+              <p className="server-form__select-banner-text">
                 <span onClick={() => {fileInputRef.current?.click()}}>Selecione um banner</span>
               </p>
               <input
@@ -109,6 +109,7 @@ const ServerForm: React.FC = () => {
               />
             </span>
           </div>
+
           <div className="server-form__form-input">
             <p className="server-form__form-input-text">IP do Servidor:</p>
             <span className="server-form__form-input-field">
@@ -132,7 +133,13 @@ const ServerForm: React.FC = () => {
             <p className="server-form__form-input-text">Nome do Servidor:</p>
             <span className="server-form__form-input-field">
               <input
-                {...register("serverTitle", { required: "O nome do servidor é obrigatório." })}
+                {...register("serverTitle", { 
+                  required: "O nome do servidor é obrigatório.",
+                  maxLength: {
+                    value: 50,
+                    message: "O nome do servidor não pode ter mais de 50 caracteres."
+                  }
+                })}
                 placeholder="Digite o nome do servidor"
               />
               <span className={`server-form__form-input-error ${errors.serverTitle ? 'visible' : 'hidden'}`}>
@@ -144,8 +151,14 @@ const ServerForm: React.FC = () => {
           <div className="server-form__form-input">
             <p className="server-form__form-input-text">Descrição do Servidor:</p>
             <span className="server-form__form-input-field">
-              <textarea
-                {...register("serverDescription", { required: "A descrição do servidor é obrigatória." })}
+              <input
+                {...register("serverDescription", { 
+                  required: "A descrição do servidor é obrigatória.",
+                  maxLength: {
+                    value: 200,
+                    message: "A descrição do servidor não pode ter mais de 200 caracteres."
+                  }
+                })}
                 placeholder="Digite a descrição do servidor"
               />
               <span className={`server-form__form-input-error ${errors.serverDescription ? 'visible' : 'hidden'}`}>
@@ -153,6 +166,12 @@ const ServerForm: React.FC = () => {
               </span>
             </span>
           </div>
+          <div className="server-form__form-input server-form__form-input--toggle">
+            <p className="server-form__form-input-text">Visível para o público:</p>
+            <Toggle formName="isVisible" register={register}/>
+          </div>
+
+          
           <Button isLoading={isLoadingSaveServer} type="submit">Criar</Button>
         </form>
       </section>
@@ -160,4 +179,4 @@ const ServerForm: React.FC = () => {
   );
 };
 
-export default ServerForm;
+export default CreateServer;

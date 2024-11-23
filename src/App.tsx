@@ -12,7 +12,8 @@ import { ChatProvider } from './context/ChatContext';
 import ChatSideBar from './components/ChatSidebar';
 import Servers from './pages/Servers';
 import Subscriptions from './pages/Subscriptions';
-import ServerForm from './pages/ServerForm';
+import CreateServer from './pages/CreateServer';
+import UserServer from './pages/UserServer';
 
 const App: React.FC = () => {
   return (
@@ -29,7 +30,8 @@ const App: React.FC = () => {
             <Route path="/help" element={<Help />} />
             <Route path="/servers" element={<Servers/>} />
             <Route path="/subscriptions" element={<Subscriptions/>} />
-            <Route path="/server" element={<AuthGuardian><ServerForm/></AuthGuardian>} />
+            <Route path="/create-server" element={<AuthGuardian><CreateServer/></AuthGuardian>} />
+            <Route path="/my-server" element={<AuthGuardian><UserServer/></AuthGuardian>} />
           </Routes>
           </ChatProvider>
 

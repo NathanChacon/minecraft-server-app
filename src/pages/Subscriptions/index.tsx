@@ -11,10 +11,13 @@ const Subscriptions = () => {
     const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null)
     const [isLoading, setIsLoading] = useState(false)
 
+    const showSubscribeButton = !userSubscriptionData || userSubscriptionData?.status === "canceled"
+
     const handleUserSubscriptionData = async () => {
         const userData = await getUserById(user?.uid || "")
         setUserSubscriptionData(userData?.subscription)
     }
+
 
     useEffect(() => {
         if(user){
@@ -60,7 +63,7 @@ const Subscriptions = () => {
         const handleCancelSubscription = httpsCallable(functions, 'handleCancelSubscription');
     
         try{
-          await handleCancelSubscription({subscriptionId: userSubscriptionData.subscriptionId})
+          await handleCancelSubscription({subscriptionId: userSubscriptionData.id})
 
           setUserSubscriptionData(null)
           setIsLoading(false)
@@ -83,7 +86,7 @@ const Subscriptions = () => {
                 </header>
                 <div className='subscriptions__card-btn-container'>
                     {
-                        !userSubscriptionData ? <Button isLoading={isLoading} onClick={handleCreateCheckoutSession}>Assinar</Button> : <Button isLoading={isLoading} onClick={handleCancelSubscription }>Cancelar Assinatura</Button>
+                        showSubscribeButton ? <Button isLoading={isLoading} onClick={handleCreateCheckoutSession}>Assinar</Button> : <Button isLoading={isLoading} onClick={handleCancelSubscription }>Cancelar Assinatura</Button>
                     }
                     
                 </div>

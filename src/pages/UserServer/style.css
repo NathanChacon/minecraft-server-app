@@ -1,6 +1,125 @@
-.user-server{
+.user-server {
     width: 100%;
     min-height: 100vh;
     color: #F0F0F0;
     background-color: #221F26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 110px;
+}
+
+.user-server__card {
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+    background-color: #2C2F33; /* A dark gray-blue for a modern look */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Adds depth to the card */
+}
+
+.user-server__img {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-bottom: 2px solid #7289DA; /* Accent color divider */
+}
+
+.user-server__body {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between items */
+}
+
+.user-server__item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #393C43; /* Subtle contrast background for each item */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+}
+
+.user-server__item:hover {
+    background-color: #4A4E57; /* Slightly lighter on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.user-server__item p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.user-server__item p:first-child {
+    color: #7289DA; /* Accent color for labels */
+    font-weight: bold;
+}
+
+.user-server__actions {
+    display: flex;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #2C2F33;
+    border-top: 2px solid #7289DA; /* Accent color for separation */
+}
+
+.user-server__edit-btn {
+    background-color: #7289DA; /* Accent color */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.user-server__edit-btn:hover {
+    background-color: #5A6EB9;
+    transform: translateY(-2px);
+}
+
+.user-server__edit-btn:active {
+    background-color: #3E50A1;
+    transform: translateY(0);
+}
+
+
+.user-server__empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.user-server__add-btn {
+    background-color: #7289DA;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-server__add-btn:hover {
+    background-color: #5A6EB9;
+    transform: translateY(-2px);
+}
+
+.user-server__add-btn:active {
+    background-color: #3E50A1;
+    transform: translateY(0);
 }

@@ -21,3 +21,12 @@ body {
   color: #F0F0F0;
   background-color: #2C2C33;
 }
+
+
+ h1 {
+  line-height: 1.4;
+}
+
+p {
+  line-height: 1.6;
+}

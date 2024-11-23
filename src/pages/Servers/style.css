@@ -2,9 +2,14 @@
     min-height: 100vh;
     padding-top: 80px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     position: relative;
+  }
+
+  .servers__about-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 110px;
   }
   
   .servers__about {
@@ -43,8 +48,44 @@
     padding: 15px;
     margin-top: 30px;
   }
+
+  .servers-list-container{
+    padding: 100px 30px 30px 30px;
+  }
+
+  .servers-list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    
+  }
+
+.servers-list__item {
+    flex: 1;
+}
+
+  .servers-list__item .server-card{
+     width: 100%;
+     max-width: none; 
+     min-width: 300px;
+  }
   
   @media (min-width: 1050px) {
+    .servers-list__item {
+      flex: 1 1 calc(33.33% - 20px);
+      min-width: 380px;
+      max-width: calc(33.33% - 20px);
+      padding: 10px;
+  }
+  
+    .servers-list__item .server-card{
+       width: 100%;
+       max-width: none; 
+       min-width: 300px;
+    }
+
     .servers__about {
       display: flex;
       min-height: 500px;
@@ -59,7 +100,7 @@
     .servers__about-right {
       flex: 1.2;
       position: relative;
-      background: url('../../assets/minecraftServers.webp') center center no-repeat; /* Your image here */
+      background: url('../../assets/minecraftServers.webp') center center no-repeat;
       background-size: cover;
       border-radius: 10px;
       overflow: hidden;
@@ -70,7 +111,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4); /* Slight overlay for text visibility */
+      background: rgba(0, 0, 0, 0.4);
       z-index: 1;
     }
   

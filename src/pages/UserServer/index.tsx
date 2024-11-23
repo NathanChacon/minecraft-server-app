@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { getServersByUserId } from "../../api/services/server";
 import { useNavigate } from "react-router-dom";
+import ServerCard from "../../components/ServerCard";
 import './style.css';
+
 
 const UserServer = () => {
     const { user } = useUser();
@@ -31,28 +33,9 @@ const UserServer = () => {
     return (
         <section className="user-server">
             {server ? (
-                <div className="user-server__card">
-                    <img className="user-server__img" src={server.imageUrl} alt={server.title} />
-                    <ul className="user-server__body">
-                        <li className="user-server__item">
-                            <p>Nome:</p> <p>{server?.title}</p>
-                        </li>
-                        <li className="user-server__item">
-                            <p>Sobre:</p> <p>{server?.description}</p>
-                        </li>
-                        <li className="user-server__item">
-                            <p>Ip:</p> <p>{server?.ip}</p>
-                        </li>
-                        <li className="user-server__item">
-                            <p>Status:</p> <p>{server?.isVisible ?  "Visível" : "Invisível"}</p>
-                        </li>
-                    </ul>
-                    <div className="user-server__actions">
-                        <button className="user-server__edit-btn" onClick={handleEditServer}>
-                            Editar
-                        </button>
-                    </div>
-                </div>
+                <ServerCard 
+                server={{title: server.title, ip: server.ip, description: server.description, imageUrl: server.imageUrl, isVisible: server.isVisible }} 
+                action={{label: "editar", onClick: handleEditServer}}/>
             ) : (
                 <div className="user-server__empty">
                     <button className="user-server__add-btn" onClick={handleAddServer}>

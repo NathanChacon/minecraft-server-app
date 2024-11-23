@@ -5,10 +5,13 @@ import { getUserById } from "../../api/services/user";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import isValidSubscription from "../../utils/subscription";
+import { getVisibleServers } from "../../api/services/server";
+import ServerCard from "../../components/ServerCard";
 
 const Servers = () => {
   const { user } = useUser();
   const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null);
+  const [servers, setServers] = useState<any>([])
   const navigate = useNavigate();
 
   const handleUserSubscriptionData = async () => {
@@ -16,11 +19,21 @@ const Servers = () => {
     setUserSubscriptionData(userData?.subscription);
   };
 
+  const handleServers = async () => {
+    const servers =  await getVisibleServers()
+    setServers(servers)
+  }
+
   useEffect(() => {
     if (user) {
       handleUserSubscriptionData();
     }
   }, [user]);
+
+
+  useEffect(() => {
+    handleServers()
+  }, [])
 
   const handleOnClickPublishServer = () => {
     if (!user) {
@@ -29,7 +42,7 @@ const Servers = () => {
     }
 
     if (isValidSubscription(userSubscriptionData)) {
-      // Navigate to user's servers page
+      navigate("/my-server")
     } else {
       navigate('/subscriptions');
     }
@@ -37,7 +50,8 @@ const Servers = () => {
 
   return (
     <section className="servers primary-bg">
-      <section className="servers__about">
+      <section className="servers__about-container">
+      <div className="servers__about">
         <div className="servers__about-left">
           <header className="servers__about-header">
             <h1 className="servers__about-title">
@@ -61,6 +75,23 @@ const Servers = () => {
             <p>Uma experiência Minecraft personalizada, à espera de você.</p>
           </div>
         </div>
+      </div>
+      </section>
+
+
+      <section className="servers-list-container">
+          <ul className="servers-list">
+            {
+              servers.map((server:any) => {
+                return (
+                  <li  className="servers-list__item">
+                    <ServerCard server={server} showStatus={false}/>
+                  </li>
+                  
+                )
+              })
+            }
+          </ul>
       </section>
     </section>
   );

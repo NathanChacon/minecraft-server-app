@@ -142,3 +142,30 @@ export const getServersByUserId = async (userId: string): Promise<any[]> => {
       throw error; // Propagate the error to the caller
     }
   };
+
+  export const getVisibleServers = async (): Promise<any[]> => {
+    try {
+      
+      const serversCollectionRef = collection(db, "servers");
+  
+     
+      const q = query(serversCollectionRef, where("isVisible", "==", true));
+  
+      
+      const querySnapshot = await getDocs(q);
+  
+      
+      const visibleServers: any[] = [];
+  
+      
+      querySnapshot.forEach((doc) => {
+        visibleServers.push({ id: doc.id, ...doc.data() });
+      });
+  
+     
+      return visibleServers;
+    } catch (error) {
+      console.error("Error fetching visible servers: ", error);
+      throw error;
+    }
+  };

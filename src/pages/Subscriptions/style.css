@@ -1,5 +1,5 @@
-.subscriptions{
-    padding:80px 20px 20px 20px;
+.subscriptions {
+    padding: 80px 20px 20px 20px;
     min-height: 100vh;
     color: #F0F0F0;
     background-color: #221F26;
@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-.subscriptions__card{
+.subscriptions__card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,53 +19,85 @@
     max-width: 500px;
     background-color: #39363D;
     border-radius: 20px;
+
+    /* Add a subtle shadow for depth */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4), 0px 2px 4px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.subscriptions__card-btn-container{
+.subscriptions__card:hover {
+    /* Add a hover effect to enhance interactivity */
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.6), 0px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.subscriptions__card-btn-container {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
 }
 
-.subscriptions__card-btn-container .custom-button{
+.subscriptions__card-btn-container .custom-button {
     padding: 10px;
     font-size: 18px;
     width: 100%;
     max-width: 200px;
+
+    /* Add shadow to buttons */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 8px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.subscriptions__card-header{
+.subscriptions__card-btn-container .custom-button:hover {
+    /* Enhance button hover interaction */
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.subscriptions__card-header {
     text-align: center;
 }
 
-.subscriptions__card-title{
+.subscriptions__card-title {
     font-size: 18px;
+    margin-bottom: 10px;
 }
 
-.subscriptions__card-subtitle{
+.subscriptions__card-subtitle {
     font-size: 20px;
     display: flex;
     align-items: center;
 }
 
-.subscriptions__card-subtitle p{
+.subscriptions__card-subtitle p {
     padding: 0;
     margin: 0;
 }
 
-.subscriptions__card-subtitle--highlight{
+.subscriptions__card-subtitle--highlight {
     font-size: 30px;
+    color: #FFD700; /* Gold for emphasis */
 }
 
-.subscriptions__card-body{
+.subscriptions__card-body {
     background-color: #4A464D;
     border: 2px solid #838383;
     border-radius: 18px;
     padding: 20px;
+
+    /* Add a subtle shadow */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.subscriptions__card-body-list{
+.subscriptions__card-body-text {
+    margin-bottom: 15px;
+    color: #EAEAEA;
+}
+
+.subscriptions__card-body-list {
     list-style: none;
     padding: 0;
     margin: 0;

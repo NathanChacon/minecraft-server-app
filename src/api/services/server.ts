@@ -1,6 +1,8 @@
 import { db, storage } from '../config/firebase';
 import { addDoc, collection, updateDoc, getDocs, where, query, getDoc, doc} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getUserById } from './user';
+import isValidSubscription from '../../utils/subscription';
 
 export const saveServer = async (
   payload: { ip: string; title: string; description: string; imageFile?: File | null, userId:string, isVisible:boolean}
@@ -145,24 +147,23 @@ export const getServersByUserId = async (userId: string): Promise<any[]> => {
 
   export const getVisibleServers = async (): Promise<any[]> => {
     try {
-      
       const serversCollectionRef = collection(db, "servers");
-  
-     
       const q = query(serversCollectionRef, where("isVisible", "==", true));
-  
-      
       const querySnapshot = await getDocs(q);
   
-      
       const visibleServers: any[] = [];
   
-      
-      querySnapshot.forEach((doc) => {
-        visibleServers.push({ id: doc.id, ...doc.data() });
-      });
+      // Loop through servers and validate user subscription
+      for (const doc of querySnapshot.docs) {
+        const server:any = { id: doc.id, ...doc.data() };
   
-     
+        // Fetch the user data for this server
+        const userData = await getUserById(server?.userId || "");
+        if (userData && isValidSubscription(userData.subscription)) {
+          visibleServers.push(server);
+        }
+      }
+  
       return visibleServers;
     } catch (error) {
       console.error("Error fetching visible servers: ", error);

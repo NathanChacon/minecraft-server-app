@@ -84,7 +84,7 @@ const Servers = () => {
             {
               servers.map((server:any) => {
                 return (
-                  <li  className="servers-list__item">
+                  <li key={server.id}  className="servers-list__item">
                     <ServerCard server={server} showStatus={false}/>
                   </li>
                   

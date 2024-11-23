@@ -73,7 +73,7 @@ const CreateServer: React.FC = () => {
         userId: user?.uid || ""
       });
       setIsLoadingSaveServer(false)
-      console.log("Server created successfully:", serverData);
+      navigate("/my-server")
     } catch (error) {
       setIsLoadingSaveServer(false)
       console.error("Error creating server:", error);

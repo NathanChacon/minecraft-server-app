@@ -90,7 +90,7 @@ const EditServer: React.FC = () => {
         imageFile: file,
       });
       setIsLoadingSaveServer(false)
-      console.log("Server created successfully:", serverData);
+      navigate("/my-server")
     } catch (error) {
       setIsLoadingSaveServer(false)
       console.error("Error creating server:", error);

@@ -1,5 +1,4 @@
 import './style.css'
-import homeImg from '../../assets/homeImg.jpg'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/Button'
 import { Helmet } from 'react-helmet'
@@ -10,7 +9,7 @@ const Home = () => {
             <Helmet>
                 <title>Home</title>
             </Helmet>
-            <section className="home">
+            <section className="home primary-bg">
                 <div className='home__left-content'>
                     <header className="home__header">
                         <h1>Encontre Amigos para Jogar Minecraft no Brasil</h1>

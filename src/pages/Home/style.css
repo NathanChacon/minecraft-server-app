@@ -1,102 +1,140 @@
-.home{
+.home {
     min-height: 100vh;
-    color: #F0F0F0;
-    background-color: #221F26;
     display: flex;
-}
-
-.home__header h1 {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+  }
+  
+  .home__header h1 {
     font-size: 30px;
-}
-
-.home__text {
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  
+  .home__text {
     font-size: 20px;
-}
-
-.home__button-container{
-    width: 100%;
+    line-height: 1.6;
+    margin-top: 20px;
+    color: #dcdcdc;
+  }
+  
+  .home__button-container {
     display: flex;
     justify-content: center;
-    padding: 40px;
-}
-
-.home__button-container .custom-button{
-    width: 100%;
+    margin-top: 40px;
+  }
+  
+  .home__button-container .custom-button {
     max-width: 500px;
     font-size: 18px;
-    padding: 20px 6px 20px 6px;
-}
+    padding: 18px 8px;
+  }
 
-
-.home__left-content{
-        display: flex;
-        flex-direction: column;
-        padding: 100px 30px 0px 30px;
-}
-
-
-
-
-@media (min-width: 1050px) {
-    .home{
-        display: flex;
-        flex-direction: row;
-        align-items: normal;
-        text-align: left;
+  
+  .home__left-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px;
+    text-align: left;
+    z-index: 2;
+  }
+  
+  .home__right-content {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-image: url('../../assets/homeImg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 110px;
+  }
+  
+  .home__right-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  .home__header h1 {
+    font-size: 40px;
+  }
+  
+  .home__text {
+    font-size: 24px;
+  }
+  
+  .home__img {
+    width: 100%;
+    min-width: 610px;
+    height: 100%;
+    max-height: 760px;
+    object-fit: cover;
+    flex-shrink: none;
+    border-radius: 20px;
+  }
+  
+  @media (min-width: 1050px) {
+    .home {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+      padding: 0;
     }
+  
+    .home__left-content {
+      width: 45%;
+      min-width: 550px;
+      padding: 110px 30px 30px 30px;
+      align-items: flex-start;
 
-    .home__left-content{
-        width: 45%;
-        min-width: 550px;
-}
+      z-index: 2; 
+    }
+  
     .home__right-content {
-        position: relative;
-        width: 55%;
-        background-image: url('../../assets/homeImg.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
+      width: 55%;   
+      height: 100vh;
+      margin-top: 0px;
     }
-
-    .home__right-content::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 1;
-    }
-
+  
     .home__header h1 {
-        font-size: 40px;
+      font-size: 48px;
+      margin-bottom: 30px;
     }
-    
+  
     .home__text {
-        font-size: 24px;
+      font-size: 24px;
+      margin-bottom: 20px;
     }
-
-    .home__img{
-        width: 100%;
-        min-width: 610px;
-        height: 100%;
-        max-height: 760px;
-        object-fit: cover;
-        flex-shrink: none;
-        border-radius: 20px;
+  
+    .home__button-container {
+      padding: 20px 0;
+      justify-content: flex-start; /* Align button to the left */
     }
-
-    .home__button-container{
-        width: 100%;
-        display: flex;
-        justify-content: normal;
-        padding: 40px 0px 40px 0px;
+  
+    .home__button-container .custom-button {
+      padding: 20px 10px;
     }
-
-
-    .home__button-container .custom-button{
-        padding: 20px 10px 20px 10px;
+  
+    .home__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-    
-}
+  }
+  

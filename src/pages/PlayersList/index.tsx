@@ -68,7 +68,7 @@ const PlayersList: React.FC = () => {
         <title>Jogadores</title>
       </Helmet>
 
-      <section className='players'>
+    <section className='players primary-bg'>
     <header className='players__header'>
       <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
       <p className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</p>

@@ -16,7 +16,7 @@
     background-color: #B8B8B8;
     border-color: #8E8E8E;
     box-shadow: 4px 4px 0px #2A2A2A;
-    transform: translate(-2px, -2px);
+    transform: translateY(-3px);  
   }
   
 
@@ -29,6 +29,7 @@
   .custom-button:focus-visible {
     outline: 2px dashed #FFF;
   }
+
 
   .spinner {
     display: inline-block;

@@ -11,3 +11,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.primary-bg{
+  color: #F0F0F0;
+  background-color: #221F26;
+}
+
+.secondary-bg{
+  color: #F0F0F0;
+  background-color: #2C2C33;
+}

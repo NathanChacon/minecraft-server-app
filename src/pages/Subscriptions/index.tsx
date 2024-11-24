@@ -28,9 +28,15 @@ const Subscriptions = () => {
        
     }, [user])
 
+    const handleGoogleTracking = () => {
+        if(typeof window.gtag === 'function'){
+            window.gtag('event', 'ads_conversion_Iniciar_finaliza_o_de_c_1')
+        }
+    }
 
 
     const handleCreateCheckoutSession = async () => {
+        handleGoogleTracking()
         if (!user) {
             navigate("/login")
             return

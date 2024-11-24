@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+
 import PlayersList from './pages/PlayersList';
 import Home from './pages/Home';
 import Nav from './components/Nav';
@@ -16,10 +17,29 @@ import CreateServer from './pages/CreateServer';
 import UserServer from './pages/UserServer';
 import EditServer from './pages/EditServer';
 
+function PageTracking() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (typeof window.gtag === 'function') {
+        window.gtag('config', 'AW-16791423174', {
+            page_path: location.pathname,
+        });
+    }
+}, [location]);
+
+ return null
+
+}
+
 const App: React.FC = () => {
+ 
+
   return (
       <Router>
+        <PageTracking />
         <UserProvider>
+          
           <ChatProvider>
           <Nav />
           <ChatSideBar/>

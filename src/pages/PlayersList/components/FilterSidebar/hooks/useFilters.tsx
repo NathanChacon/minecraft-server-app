@@ -20,11 +20,6 @@ const useFilters = ({onFilter}: any) => {
             value: "discord",
             userField: "discordId"
         },
-        {
-            label: "ip do servidor",
-            value: "serverIp",
-            userField: "serverIp"
-        },
     ]
 
     const allRawFilters = [

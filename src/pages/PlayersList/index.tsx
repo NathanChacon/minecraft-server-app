@@ -115,20 +115,6 @@ const PlayersList: React.FC = () => {
           
           <ul className='players__card-options'>
             <li className='players__card-option'>
-              <img src={minecraftServer} className='players__card-option-img'/>
-              <p className='players__card-option-text'>IP Minecraft: </p>
-              <p className='players__card-option-value'>
-                {serverIp || "IP do servidor não disponível"}
-                {serverIp && (
-                  <CopyIcon 
-                    onClick={() => copyToClipboard(serverIp, uid)} 
-                    className='players__card-option-icon'
-                  />
-                )}
-              </p>
-            </li>
-
-            <li className='players__card-option'>
               <img src={discord} className='players__card-option-img'/>
               <p className='players__card-option-text'>Discord: </p>
               <p className='players__card-option-value'>

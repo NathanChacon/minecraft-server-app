@@ -12,7 +12,6 @@ import { Helmet } from "react-helmet";
 interface EditProfileFormData {
   name: string;
   bio?: string;
-  serverIp?: string;
   discordId?: string;
   isUserVisible?: boolean;
   gameModes?: Array<string>;
@@ -29,7 +28,6 @@ const EditProfile: React.FC = () => {
       name: userLocalStorage?.name || "",
       bio: userLocalStorage?.bio || "",
       discordId: userLocalStorage?.discordId || "",
-      serverIp: userLocalStorage?.serverIp || "",
       isUserVisible: userLocalStorage?.isUserVisible || false,
       gameModes: userLocalStorage?.gameModes || [],
       availableDays: userLocalStorage?.availableDays || []
@@ -39,11 +37,10 @@ const EditProfile: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const discordId = watch("discordId");
-  const serverIp = watch("serverIp");
 
 
-  const hasFilledRequiredFieldsToToggle = !!discordId || !!serverIp
-  const hasFieldsToEnableToggleError =  errors.discordId || errors.serverIp
+  const hasFilledRequiredFieldsToToggle = !!discordId
+  const hasFieldsToEnableToggleError =  errors.discordId
 
   const isToggleEnabled = hasFilledRequiredFieldsToToggle && !hasFieldsToEnableToggleError;
 
@@ -59,7 +56,6 @@ const EditProfile: React.FC = () => {
           name: data.name,
           bio: data?.bio || "",
           discordId: data?.discordId || null,
-          serverIp: data?.serverIp || null,
           gameModes: data?.gameModes || [],
           isUserVisible
         };
@@ -173,23 +169,6 @@ const EditProfile: React.FC = () => {
           </span>
         </div>
 
-        <div className="edit-profile__form-input">
-          <p className="edit-profile__form-input-text">Server IP:</p>
-          <span className="edit-profile__form-input-field">
-            <input 
-              {...register("serverIp", {
-                pattern: {
-                  value: /^(?:(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|((25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})|(?:[a-fA-F0-9]{1,4}:){7}[a-fA-F0-9]{1,4})(:\d{1,5})?$/,
-                  message: "IP ou domínio inválido para servidor Minecraft",
-                },
-              })} 
-              placeholder="Digite o IP do servidor"
-            />
-
-          <span className={`edit-profile__form-input-error ${errors.serverIp ? 'visible' : 'hidden'}`}>{errors?.serverIp?.message}</span>
-          </span>
-        </div>
-
         
         <div className="edit-profile__form-input">
             <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Dias disponíveis:</p>
@@ -223,7 +202,7 @@ const EditProfile: React.FC = () => {
               />
             
           </span>
-          <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID ou IP do Servidor necessários.</span>
+          <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID necessário.</span>
         </div>
           <Button type="submit"> Salvar </Button>
         </form>

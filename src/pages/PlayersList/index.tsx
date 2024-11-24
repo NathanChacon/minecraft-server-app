@@ -155,7 +155,15 @@ const PlayersList: React.FC = () => {
           
 
           <div className='players__card-button-container'>
-            {user?.uid !== uid && <Button onClick={() => {handleStartChat(uid)}}>CONVERSAR</Button>}
+            {user?.uid !== uid && <Button onClick={() => {
+              if(user && user?.uid){
+                handleStartChat(uid)
+              }
+              else{
+                navigate("/login")
+              }
+              
+              }}>CONVERSAR</Button>}
           </div>
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>

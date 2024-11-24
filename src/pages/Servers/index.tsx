@@ -84,7 +84,7 @@ const Servers = () => {
         </section>
 
         <section className="servers-list-container">
-          {false ? (
+          {servers?.length > 0 ? (
             <ul className="servers-list">
               {servers.map((server: any) => (
                 <li key={server.id} className="servers-list__item">

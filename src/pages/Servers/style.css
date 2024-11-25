@@ -9,7 +9,7 @@
   .servers__about-container{
     display: flex;
     justify-content: center;
-    padding-top: 110px;
+    padding: 110px 10px 0px 10px;
   }
   
   .servers__about {
@@ -54,22 +54,15 @@
   }
 
   .servers-list{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
     list-style: none;
-    
   }
-
-.servers-list__item {
-    flex: 1;
-}
 
   .servers-list__item .server-card{
      width: 100%;
      max-width: none; 
-     min-width: 300px;
   }
 
   .servers-list__empty {
@@ -117,15 +110,23 @@
   .servers-list__empty:hover {
     transform: scale(1.05);
   }
+
+  @media (min-width: 900px) {
+    .servers__about-container{
+      padding-top: 110px;
+    }
+    .servers-list{
+      grid-template-columns: repeat(2, 2fr);
+    }
+
+  }
   
   @media (min-width: 1050px) {
 
-    .servers-list__item {
-      flex: 1 1 calc(33.33% - 20px);
-      min-width: 380px;
-      max-width: calc(33.33% - 20px);
-      padding: 10px;
-  }
+    .servers-list{
+      grid-template-columns: repeat(3, minmax(0, 600px));
+      justify-content: center;
+    }
   
     .servers-list__item .server-card{
        width: 100%;

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.css';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.png';
 import { useUser } from '../../context/UserContext';
 import { useChatContext } from '../../context/ChatContext';
 import NotificationCircle from '../NotificationCircle';

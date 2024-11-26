@@ -135,12 +135,12 @@ const PlayersList: React.FC = () => {
 
           <div>
             <h4>Modos de jogo</h4>
-            <TagList tags={formattedGameModes?.map((mode:any) => mode?.label || "n/a") || [] } maxVisible={3} />
+            <TagList tags={formattedGameModes?.map((mode:any) => mode?.label) || [] } maxVisible={3} />
           </div>
 
           <div>
             <h4>Dias disponível</h4>
-            <TagList tags={formattedAvailableDays?.map((day:any) => day?.label || "n/a") || [] } maxVisible={3} />
+            <TagList tags={formattedAvailableDays?.map((day:any) => day?.label) || [] } maxVisible={3} />
           </div>
 
           <div>

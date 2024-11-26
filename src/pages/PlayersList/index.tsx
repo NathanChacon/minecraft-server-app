@@ -70,12 +70,16 @@ const PlayersList: React.FC = () => {
       </Helmet>
 
     <section className='players primary-bg'>
-    <header className='players__header'>
-      <h1 className='players__header-title'>Jogadores Disponíveis para Aventura</h1>
-      <p className='players__header-subtitle'>Aqui você encontra uma lista de jogadores brasileiros que também estão em busca de companheiros de aventura no Minecraft! Explore os perfis, leia as bios e escolha com quem gostaria de jogar. Se encontrar alguém com interesses parecidos, não hesite em entrar em contato!</p>
-      <p className="players__header-subtitle"> Para aparecer na lista de jogadores e ser encontrado por outros minecrafters, basta ir até o seu perfil e selecionar a opção <strong>"Ficar Visível"</strong>. Assim, você se tornará visível para outros usuários e poderá começar a fazer novas amizades no jogo!</p>
-      <Button onClick={() => {navigate("/edit-profile")}}>FICAR VISÍVEL</Button>
-    </header>
+      <header className='players__header'>
+          <h1 className='players__header-title'>Jogadores para Aventura</h1>
+          <p className='players__header-subtitle'>
+            Encontre jogadores no Minecraft! Explore perfis e entre em contato com quem combina com você.
+          </p>
+          <p className="players__header-subtitle">
+            Para aparecer na lista, ative <strong>"Ficar Visível"</strong> no seu perfil.
+          </p>
+          <Button onClick={() => {navigate("/edit-profile")}}>FICAR VISÍVEL</Button>
+      </header>
     <div className='players__filters'>
       <Button onClick={() => {
         setIsFiltersOpen((value) => !value)

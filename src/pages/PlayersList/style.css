@@ -291,6 +291,30 @@
         z-index: 1;
     }
 
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px); /* Move up */
+      }
+      100% {
+        transform: translateY(0); /* Move back down */
+      }
+    }
+
+    .players__card-ore{
+      width: 40px;
+      height: 40px;  
+    }
+    
+    .players__card-ore.players__card-ore--bounce {
+      animation: bounce 1s ease-in-out infinite alternate-reverse; /* Apply bounce animation */
+      display: inline-block;   
+  
+    }
+
+
 @media (min-width: 900px) {
 
     .players__list {

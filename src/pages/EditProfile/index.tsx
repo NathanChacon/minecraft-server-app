@@ -7,8 +7,9 @@ import UserDefaultImage from "../../components/UserDefaultImage";
 import MultiSelectDropdown from "../../components/MultiSelectDropdown";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
-import { daysOfWeek, gameModes } from "../../constants";
+import { daysOfWeek, gameModes, ores } from "../../constants";
 import { Helmet } from "react-helmet";
+
 interface EditProfileFormData {
   name: string;
   bio?: string;
@@ -16,6 +17,7 @@ interface EditProfileFormData {
   isUserVisible?: boolean;
   gameModes?: Array<string>;
   availableDays?: Array<string>;
+  ores?: Array<string>
 }
 
 const EditProfile: React.FC = () => {
@@ -30,9 +32,12 @@ const EditProfile: React.FC = () => {
       discordId: userLocalStorage?.discordId || "",
       isUserVisible: userLocalStorage?.isUserVisible || false,
       gameModes: userLocalStorage?.gameModes || [],
-      availableDays: userLocalStorage?.availableDays || []
+      availableDays: userLocalStorage?.availableDays || [],
+      ores: userLocalStorage?.ores || []
   }});
 
+
+  console.log(daysOfWeek, userLocalStorage?.availableDays)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -57,6 +62,8 @@ const EditProfile: React.FC = () => {
           bio: data?.bio || "",
           discordId: data?.discordId || null,
           gameModes: data?.gameModes || [],
+          availableDays: data?.availableDays || [],
+          ores: data?.ores || [],
           isUserVisible
         };
 
@@ -72,7 +79,7 @@ const EditProfile: React.FC = () => {
 
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try{
-      const file = event.target.files?.[0]; // Get the selected file
+      const file = event.target.files?.[0];
       if (file && file.type.startsWith("image/") && user?.uid) {
         const imageUrl = await uploadUserImage(user.uid, file);
   
@@ -187,6 +194,17 @@ const EditProfile: React.FC = () => {
               register={register}
               options={gameModes}
               formName="gameModes"
+            />
+        </div>
+
+        <div className="edit-profile__form-input">
+            <p className="edit-profile__form-input-text edit-profile__form-input-text--select">Minério Favorito:</p>
+            <MultiSelectDropdown
+              title="Selecione seu minério favorito"
+              register={register}
+              options={ores}
+              formName="ores"
+              isMultiple={false}
             />
         </div>
 

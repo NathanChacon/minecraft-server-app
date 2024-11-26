@@ -8,7 +8,7 @@ import isValidSubscription from "../../utils/subscription";
 import { getVisibleServers } from "../../api/services/server";
 import ServerCard from "../../components/ServerCard";
 import { Helmet } from "react-helmet";
-import diamond from '../../assets/mineDiamond.svg'
+import diamond from '../../assets/diamond_img.webp'
 const Servers = () => {
   const { user } = useUser();
   const [userSubscriptionData, setUserSubscriptionData] = useState<any>(null);

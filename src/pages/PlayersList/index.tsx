@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './style.css'
-import minecraftServer from '../../assets/minecraftServer.jpg';
 import discord from '../../assets/discord.png'
 import { getVisibleUsers } from '../../api/services/user';
 import { ReactComponent as CopyIcon } from '../../assets/copyIcon.svg'
@@ -10,10 +9,12 @@ import useChat from './hooks/useChat';
 import Button from '../../components/Button';
 import { useUser } from "../../context/UserContext"
 import FilterSidebar from './components/FilterSidebar';
-import { gameModes as localGameModes, daysOfWeek} from '../../constants';
+import { gameModes as localGameModes, daysOfWeek, ores} from '../../constants';
 import TagList from './components/TagsList';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import mineQuestionMarkImg from '../../assets/mineQuestionMark.svg'
+
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
@@ -88,10 +89,13 @@ const PlayersList: React.FC = () => {
           profileImg,
           bio,
           discordId,
-          serverIp,
+          ores: userOres,
           gameModes = [],
           availableDays = []
       }) => {
+
+        const selectedOre = userOres && ores.find(({value}) => value === userOres)
+
         const formattedGameModes = gameModes?.map((gameMode: any) => {
             return localGameModes.find(({value}) => value === gameMode)
         })
@@ -137,6 +141,13 @@ const PlayersList: React.FC = () => {
           <div>
             <h4>Dias disponível</h4>
             <TagList tags={formattedAvailableDays?.map((day:any) => day.label) || [] } maxVisible={3} />
+          </div>
+
+          <div>
+            <h4>Minério Favorito</h4>
+            {
+              selectedOre ? <img  className='players__card-ore players__card-ore--bounce' src={selectedOre.img}></img> : <img  className='players__card-ore' src={mineQuestionMarkImg}/>
+            }
           </div>
           
 

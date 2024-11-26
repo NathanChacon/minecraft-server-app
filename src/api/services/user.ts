@@ -75,6 +75,7 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           gameModes: userSnapshot.data()?.gameModes,
           availableDays: userSnapshot.data()?.availableDays,
           subscription: userSnapshot.data()?.subscription,
+          ores: userSnapshot.data()?.ores,
         } as IUser; // Return the user data as IUser type
       } else {
         return null;

@@ -8,7 +8,6 @@ import NotificationCircle from '../NotificationCircle';
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPerfilOpen, setIsPerfilOpen] = useState(false);
   const { user, logout } = useUser();
   const navigate = useNavigate();
 
@@ -24,10 +23,6 @@ function Nav() {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
-  };
-
-  const togglePerfilDropdown = () => {
-    setIsPerfilOpen(!isPerfilOpen);
   };
 
   const handleClickMessages = () => {

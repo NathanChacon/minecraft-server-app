@@ -50,7 +50,6 @@ const App: React.FC = () => {
       <Router>
         <PageTracking />
         <UserProvider>
-          
           <ChatProvider>
           <Nav />
           <ChatSideBar/>

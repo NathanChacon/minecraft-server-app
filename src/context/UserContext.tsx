@@ -1,6 +1,7 @@
 // src/context/UserContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setIsUserActive } from '../api/services/user';
 
 interface IUser {
   uid: string;
@@ -27,11 +28,47 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<IUser | null>(null);
   const navigate = useNavigate(); // Initialize the navigate function
 
+        // Mark user as inactive on unmount
+    const handleUserInactive = async () => {
+        const userStorage = localStorage.getItem("user")
+        const parsedUser = userStorage && JSON.parse(userStorage)
+        const uid = parsedUser?.uid || user?.uid 
+          if (uid) {
+            try {
+              await setIsUserActive(uid, false);
+              console.log("User marked as inactive");
+            } catch (error) {
+              console.error("Error marking user as inactive:", error);
+            }
+          }
+    };
+
+
+   useEffect(() => {
+      if(user && user?.uid){
+        setIsUserActive(user.uid, true)
+      }
+
+      const mutation = (event: any) => {
+        handleUserInactive()
+      }
+
+      window.addEventListener("beforeunload", mutation);
+
+      return () => {
+        window.removeEventListener("beforeunload", mutation);
+        handleUserInactive()
+       } 
+   }, [user])
+
+
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      const parsedUser = JSON.parse(savedUser)
+      setUser(parsedUser);
     }
+
   }, []);
 
   const logout = () => {

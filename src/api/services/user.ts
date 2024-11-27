@@ -22,6 +22,7 @@ interface IUser {
   gameModes: Array<string> | null;
   availableDays: Array<string> | null;
   subscription: {} | null;
+  activity?: any
 }
 
 
@@ -76,6 +77,7 @@ export const getUserById = async (uid: string): Promise<IUser | null> => {
           availableDays: userSnapshot.data()?.availableDays,
           subscription: userSnapshot.data()?.subscription,
           ores: userSnapshot.data()?.ores,
+          activity: userSnapshot.data()?.activity
         } as IUser; // Return the user data as IUser type
       } else {
         return null;
@@ -147,4 +149,24 @@ export const getVisibleUsers = async (): Promise<IUser[]> => {
 
   const querySnapshot = await getDocs(usersQuery);
   return querySnapshot.docs.map((doc) => doc.data() as IUser);
+};
+
+
+
+export const setIsUserActive = async (uid: string, isActive: boolean): Promise<void> => {
+  try {
+    const userRef = doc(db, "users", uid);
+
+    await updateDoc(userRef, {
+      activity: {
+        isActive,
+        lastTimeActive: new Date(),
+      }
+    });
+
+    console.log(`User activity updated for user ${uid}`);
+  } catch (error) {
+    console.error("Error updating user activity: ", error);
+    throw error;
+  }
 };

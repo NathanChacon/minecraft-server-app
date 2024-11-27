@@ -15,6 +15,54 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import mineQuestionMarkImg from '../../assets/mineQuestionMark.svg'
 
+
+  const PlayerActivityStatus = ({ isActive, lastTimeActive }: any) => {
+
+    const getFormattedLastSeen = (timestamp: { seconds: number, nanoseconds: number }) => {
+      const { seconds, nanoseconds } = timestamp;
+      
+      const timestampMs = (seconds * 1000) + (nanoseconds / 1000000); 
+      
+
+      const lastSeenDate = new Date(timestampMs);
+      
+   
+      const currentDate = new Date();
+      
+     
+      const diffTime = currentDate.getTime() - lastSeenDate.getTime(); 
+      
+      
+      const diffDays = Math.floor(diffTime / (1000 * 3600 * 24));
+      
+      
+      if (diffDays < 1) {
+        return `Visto por último hoje`;
+      } else if (diffDays <= 10) {
+        return `Visto por último há ${diffDays} dia${diffDays > 1 ? 's' : ''}`;
+      } else {
+        return `Visto por último há mais de 10 dias`;
+      }
+    };
+
+  const getLastActiveMessage = () => {
+    if (!lastTimeActive) return "Offline";
+    return getFormattedLastSeen(lastTimeActive)
+  };
+
+  return (
+    <section className='player-status-container'>
+      <div
+        className={`player-status ${isActive ? "player-status--online" : "player-status--offline"}`}
+        aria-label={isActive ? "Usuário online" : getLastActiveMessage()}
+      >
+        {isActive ? <span>Online</span> : <span>{getLastActiveMessage()}</span>}
+      </div>
+    </section>
+
+  );
+};
+
 const PlayersList: React.FC = () => {
   const {user} = useUser()
   const [users, setUsers] = useState<Array<any>>([])
@@ -95,8 +143,12 @@ const PlayersList: React.FC = () => {
           discordId,
           ores: userOres,
           gameModes = [],
-          availableDays = []
+          availableDays = [],
+          activity,
       }) => {
+
+        const isUserActive = activity?.isActive
+        const lastTimeActive = activity?.lastTimeActive
 
         const selectedOre = userOres && ores.find(({value}) => value === userOres)
 
@@ -109,6 +161,7 @@ const PlayersList: React.FC = () => {
       })
         return (
           <li className='players__card' key={uid}>
+           <PlayerActivityStatus isActive={isUserActive} lastTimeActive={lastTimeActive}/>
           <header className='players__card-header'>
               <PlayerProfileImage profileImg={profileImg}  name={name || defaultName}/>
               <div className=''>

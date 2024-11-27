@@ -75,9 +75,8 @@ function Nav() {
             >
               MENSAGENS {hasNotification && <NotificationCircle />}
             </button>
-            <div className="navbar__perfil" onClick={togglePerfilDropdown}>
+            <div className="navbar__perfil">
               PERFIL
-              {isPerfilOpen && (
                 <div className="navbar__perfil-dropdown">
                   <Link to="/my-server" className="navbar__item">Meu Servidor</Link>
                   <Link to="/edit-profile" className="navbar__item">Editar</Link>
@@ -85,7 +84,6 @@ function Nav() {
                     Sair
                   </button>
                 </div>
-              )}
             </div>
           </Fragment>
         ) : (

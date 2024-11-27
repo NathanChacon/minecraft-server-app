@@ -131,6 +131,15 @@
   background-color: #4e4b52;
 }
 
+.navbar__perfil:hover{
+  text-decoration: underline;
+} 
+
+.navbar__perfil:hover .navbar__perfil-dropdown {
+  display: flex;
+  flex-direction: column;
+}
+
 
 @media (min-width: 769px) {
 
@@ -181,11 +190,6 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
-  }
-
-  .navbar__perfil:hover .navbar__perfil-dropdown {
-    display: flex;
-    flex-direction: column;
   }
 
   .sidebar.open {

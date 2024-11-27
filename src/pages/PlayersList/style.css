@@ -340,6 +340,7 @@
       display: flex;
       justify-content: flex-end;
     }
+
 @media (min-width: 900px) {
 
     .players__list {
@@ -384,7 +385,7 @@
 }
 
 
-@media (min-width: 1024px) {
+@media (min-width: 1500px) {
   .players__list {
     grid-template-columns: repeat(3, minmax(0, 600px));
     justify-content: center;

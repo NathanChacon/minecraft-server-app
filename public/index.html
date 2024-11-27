@@ -33,16 +33,26 @@
     <title>MineConexão</title>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16791423174">
-      </script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16791423174"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-        gtag('config', 'AW-16791423174');
-      </script>
+      // Configure Google Ads
+      gtag('config', 'AW-16791423174', {
+        send_page_view: false
+      });
 
+      // Configure Google Analytics 4
+      gtag('config', 'G-CLVLFF5H7M', {
+        send_page_view: false
+      });
+    </script>
+
+    <!-- Custom gtag Event Function -->
     <script>
       function gtagSendEvent(url) {
         var callback = function () {

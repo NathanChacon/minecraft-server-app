@@ -19,17 +19,28 @@ import EditServer from './pages/EditServer';
 
 function PageTracking() {
   const location = useLocation();
-  
+
   useEffect(() => {
-    if (typeof window.gtag === 'function') {
-        window.gtag('config', 'AW-16791423174', {
-            page_path: location.pathname,
-        });
+    const isProduction = process.env.REACT_APP_ENV === "production"
+
+    if (isProduction && typeof window.gtag === 'function') {
+      console.log('Tracking pageview for:', location.pathname);
+
+      // Google Ads page tracking
+      window.gtag('config', 'AW-16791423174', {
+        page_path: location.pathname,
+      });
+
+      // Google Analytics 4 page tracking
+      window.gtag('config', 'G-CLVLFF5H7M', {
+        page_path: location.pathname,
+      });
+    } else if (!isProduction) {
+      console.log('Page tracking skipped. Current environment:', process.env.REACT_APP_ENV);
     }
-}, [location]);
+  }, [location]);
 
- return null
-
+  return null;
 }
 
 const App: React.FC = () => {

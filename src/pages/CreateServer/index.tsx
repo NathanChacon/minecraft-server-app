@@ -173,7 +173,7 @@ const CreateServer: React.FC = () => {
           </div>
 
           
-          <Button isLoading={isLoadingSaveServer} type="submit">Criar</Button>
+          <Button isLoading={isLoadingSaveServer} buttonType="cta" type="submit">Criar</Button>
         </form>
       </section>
     </>

@@ -23,7 +23,7 @@ const Home = () => {
                         Na página de jogadores, você vê perfis com nome, bio, Discord e IP de servidor, facilitando encontrar parceiros com interesses em comum. Conecte-se agora e inicie suas aventuras no Minecraft!
                     </p>
                     <div className='home__button-container'>
-                        <Button onClick={() => {navigate('/players')}}>ACHAR COMPANHEIROS</Button>
+                        <Button buttonType='cta' onClick={() => {navigate('/players')}}>ACHAR COMPANHEIROS</Button>
                     </div>
                 </div>
                     

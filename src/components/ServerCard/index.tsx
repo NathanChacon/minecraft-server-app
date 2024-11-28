@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css'
 import defaultImg from '../../assets/defaultServerImg.webp'
+import Button from '../Button';
 interface ServerCardProps {
   server: {
     imageUrl: string;
@@ -39,9 +40,7 @@ const ServerCard: React.FC<ServerCardProps> = ({ server, action, showStatus = tr
       {
         action && (
           <div className="server-card__actions">
-          <button className="server-card__edit-btn" onClick={action?.onClick}>
-            {action?.label}
-          </button>
+            <Button buttonType='cta'> {action?.label}</Button>
         </div>
         )
       }

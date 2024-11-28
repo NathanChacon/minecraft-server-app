@@ -126,7 +126,7 @@ const PlayersList: React.FC = () => {
           <p className="players__header-subtitle">
             Para aparecer na lista, ative <strong>"Ficar Visível"</strong> no seu perfil.
           </p>
-          <Button onClick={() => {navigate("/edit-profile")}}>FICAR VISÍVEL</Button>
+          <Button buttonType='cta' onClick={() => {navigate("/edit-profile")}}>FICAR VISÍVEL</Button>
       </header>
     <div className='players__filters'>
       <Button onClick={() => {
@@ -209,7 +209,7 @@ const PlayersList: React.FC = () => {
           
 
           <div className='players__card-button-container'>
-            {user?.uid !== uid && <Button onClick={() => {
+            {user?.uid !== uid && <Button buttonType='cta' onClick={() => {
               if(user && user?.uid){
                 handleStartChat(uid)
               }

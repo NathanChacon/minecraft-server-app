@@ -71,7 +71,7 @@ const Servers = () => {
                 Tem um servidor? Publique-o agora e alcance novos jogadores, fortalecendo sua comunidade com facilidade!
               </p>
               <div className="servers__about-button-container">
-                <Button onClick={handleOnClickPublishServer}>PUBLICAR SERVIDOR</Button>
+                <Button buttonType="cta" onClick={handleOnClickPublishServer}>PUBLICAR SERVIDOR</Button>
               </div>
             </div>
             <div className="servers__about-right">

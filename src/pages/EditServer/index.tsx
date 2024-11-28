@@ -190,7 +190,7 @@ const EditServer: React.FC = () => {
           </div>
 
           
-          <Button isLoading={isLoadingSaveServer} type="submit">Editar</Button>
+          <Button buttonType="cta" isLoading={isLoadingSaveServer} type="submit">Editar</Button>
         </form>
       </section>
     </>

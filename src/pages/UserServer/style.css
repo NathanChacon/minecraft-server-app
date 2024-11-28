@@ -102,25 +102,12 @@
     text-align: center;
 }
 
-.user-server__add-btn {
-    background-color: #7289DA;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
+.user-server__empty .custom-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
     padding: 15px 30px;
     font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.user-server__add-btn:hover {
-    background-color: #5A6EB9;
-    transform: translateY(-2px);
-}
-
-.user-server__add-btn:active {
-    background-color: #3E50A1;
-    transform: translateY(0);
 }

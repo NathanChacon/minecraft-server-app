@@ -222,7 +222,7 @@ const EditProfile: React.FC = () => {
           </span>
           <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID necessário.</span>
         </div>
-          <Button type="submit"> Salvar </Button>
+          <Button buttonType="cta" type="submit"> Salvar </Button>
         </form>
     </section>
     </>

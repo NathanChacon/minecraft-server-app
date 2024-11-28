@@ -98,7 +98,7 @@ const Subscriptions = () => {
                 </header>
                 <div className='subscriptions__card-btn-container'>
                     {
-                        showSubscribeButton ? <Button isLoading={isLoading} onClick={handleCreateCheckoutSession}>Assinar</Button> : <Button isLoading={isLoading} onClick={handleCancelSubscription }>Cancelar Assinatura</Button>
+                        showSubscribeButton ? <Button buttonType="cta" isLoading={isLoading} onClick={handleCreateCheckoutSession}>Assinar</Button> : <Button  buttonType="cta" isLoading={isLoading} onClick={handleCancelSubscription }>Cancelar Assinatura</Button>
                     }
                     
                 </div>

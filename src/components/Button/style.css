@@ -1,52 +1,56 @@
 .custom-button {
-    background-color: #A0A0A0;
-    border: 4px solid #6E6E6E;
-    color: #FFFFFF;
-    padding: 5px;
-    cursor: pointer;
-    box-shadow: 2px 2px 0px #3C3C3C;
-    letter-spacing: 1px;
-    outline: none;
-    position: relative;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-  }
-  
-
-  .custom-button:hover {
-    background-color: #B8B8B8;
-    border-color: #8E8E8E;
-    box-shadow: 4px 4px 0px #2A2A2A;
-    transform: translateY(-3px);  
-  }
-  
-
-  .custom-button:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #000000;
-  }
-  
-
-  .custom-button:focus-visible {
-    outline: 2px dashed #FFF;
-  }
-
-
-  .spinner {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid transparent;
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid #388e3cb0;
+  color: #E0E0E0;
+  padding: 10px 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  outline: none;
+  position: relative;
+  border-radius: 6px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.custom-button:hover {
+  background-color: #4A4553;
+  transform: translateY(-3px);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-button:active {
+  transform: translate(2px, 2px);
+  background-color: #2D2A35;
+  border-color: #4A4553;
+  box-shadow: 0px 0px 0px #000000;
+}
+
+.custom-button:focus-visible {
+  outline: 2px dashed #6C5F6D;
+}
+
+.custom-button--cta {
+  background-color: #3E8E41;
+  opacity: 0.9;
+  border: 2px solid #388E3C;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-button--cta:hover {
+  background-color: #66BB6A;
+  border-color: #388E3C;
+  transform: translateY(-3px);
+}
+
+.custom-button--cta:active {
+  background-color: #2D6A31;
+  border-color: #388E3C;
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+.custom-button--cta:focus-visible {
+  outline: 2px dashed #388E3C;
 }

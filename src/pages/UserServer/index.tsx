@@ -4,6 +4,7 @@ import { getServersByUserId } from "../../api/services/server";
 import { useNavigate } from "react-router-dom";
 import ServerCard from "../../components/ServerCard";
 import './style.css';
+import Button from "../../components/Button";
 
 
 const UserServer = () => {
@@ -38,9 +39,7 @@ const UserServer = () => {
                 action={{label: "editar", onClick: handleEditServer}}/>
             ) : (
                 <div className="user-server__empty">
-                    <button className="user-server__add-btn" onClick={handleAddServer}>
-                        + Adicionar Servidor
-                    </button>
+                    <Button buttonType="cta" onClick={handleAddServer}>+ Adicionar Servidor</Button>
                 </div>
             )}
         </section>

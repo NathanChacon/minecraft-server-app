@@ -126,40 +126,63 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
- .players__header{
-        position: relative;
-        padding: 20px;
-        border-radius: 20px;
-        overflow: hidden;
-        margin-bottom: 80px;
-        background-image: url('../../assets/playersListImg.jpg');
-        margin-top: 110px;
-        background-size: cover;
-        background-position: center;
-  }
+.players__header {
+  position: relative;
+  padding: 40px 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 80px;
+  margin-top: 110px;
+  background-image: url('../../assets/playersListImg.webp');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
 
-  .players__header .custom-button{
-    position: relative;
-    z-index: 2;
-    margin-top: 28px;
-    padding: 12px;
-    font-size: 16px;
-  }
+.players__header .custom-button {
+  position: relative;
+  z-index: 2;
+  margin-top: 28px;
+  padding: 12px 30px;
+  font-size: 16px;
+}
 
-  .players__header-title, .players__header-subtitle {
-    position: relative;
-    z-index: 2; 
-  }
+.players__header-title, .players__header-subtitle {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
+.players__header-title {
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
 
-    .players__header-title{
-        font-size: 30px;
-    }
+.players__header-subtitle {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
 
-    .players__header-subtitle{
-        font-size: 20px;
-        font-weight: normal;
-    }
+.players__header-subtitle strong {
+  font-weight: bold;
+}
+
+.players__header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
 
     .players__card-game-modes {
       margin-top: 10px;
@@ -258,17 +281,6 @@
         max-width: 280px;
       }
 
-      .players__header::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1;
-    }
-
     @keyframes bounce {
       0% {
         transform: translateY(0);
@@ -350,8 +362,6 @@
 
     .players__header-subtitle{
         font-size: 24px;
-        font-weight: normal;
-        max-width: 1400px;
     }
 
     .players{

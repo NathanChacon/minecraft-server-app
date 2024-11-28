@@ -37,7 +37,6 @@ const EditProfile: React.FC = () => {
   }});
 
 
-  console.log(daysOfWeek, userLocalStorage?.availableDays)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 

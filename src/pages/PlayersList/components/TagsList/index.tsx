@@ -7,7 +7,7 @@ interface TagListProps {
 }
 
 const TagList: React.FC<TagListProps> = ({ tags, maxVisible = null }) => {
-  const maxVisibleFormatted = maxVisible ? maxVisible : tags?.length - 1 
+  const maxVisibleFormatted = maxVisible ? maxVisible : tags?.length
   const visibleTags = tags.slice(0, maxVisibleFormatted);
 
   return (

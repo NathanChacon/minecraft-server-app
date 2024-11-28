@@ -7,7 +7,10 @@ const TagsHeader = ({ tags, label }: any) => {
     const [isTagsPopupVisible, setIsTagsPopupVisible] = useState(false);
     const popupRef = useRef<HTMLDivElement>(null); // Ref to track the popup element
 
+
+    
     const tagsPopup = tags?.slice(2);
+
 
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {

@@ -189,6 +189,8 @@ const PlayersList: React.FC = () => {
               </p>
             </li>
           </ul>
+
+        <section className='players__card-bottom'>
         <div className='players__card-more-info'>
         <div className="players__card-info">
           <TagsHeader label="Modos de jogo" tags={formattedGameModes}/>
@@ -209,9 +211,7 @@ const PlayersList: React.FC = () => {
             </div>
         </div>
 
-          
-
-          <div className='players__card-button-container'>
+        <div className='players__card-button-container'>
             {user?.uid !== uid && <Button buttonType='cta' onClick={() => {
               if(user && user?.uid){
                 handleStartChat(uid)
@@ -222,6 +222,12 @@ const PlayersList: React.FC = () => {
               
               }}>CONVERSAR</Button>}
           </div>
+        </section>
+        
+
+          
+
+
           {copyMessageCardId === uid && <span className="players__copy-message">Copiado!</span>}
         </li>
       )

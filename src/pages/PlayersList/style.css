@@ -340,20 +340,12 @@
    }
 
    .players__card-info{
-
-      margin-right: 40px;
       display: flex;
       flex-direction: column;
       max-width: 200px;
       position: relative;
+      width: 50%;
     }
-    
-   .players__card-info.players__card-info--ore{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .players__card-bottom{
     display: flex;
     flex-direction: column;

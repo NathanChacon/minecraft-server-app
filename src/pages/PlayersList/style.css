@@ -295,7 +295,9 @@
 
     .players__card-ore{
       width: 40px;
-      height: 40px;  
+      height: 40px;
+      object-fit: cover;
+      object-position: center;  
     }
     
     .players__card-ore.players__card-ore--bounce {
@@ -330,6 +332,28 @@
       display: flex;
       justify-content: flex-end;
     }
+
+   .players__card-more-info{
+      display: flex;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+   }
+
+   .players__card-info{
+
+      margin-right: 40px;
+      display: flex;
+      flex-direction: column;
+      max-width: 200px;
+      overflow: auto;
+    }
+
+    
+   .players__card-info.players__card-info--ore{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
   @keyframes pulse {
       0% {

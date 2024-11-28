@@ -45,9 +45,6 @@ const TagList: React.FC<TagListProps> = ({ tags, maxVisible }) => {
         )}
         {hiddenTags.length > 0 && (
           <>
-            <button className="tag-list__more-button" onClick={toggleTooltip}>
-              ...Ver Mais
-            </button>
             {isTooltipOpen && (
               <div ref={tooltipRef} className="tag-list__tooltip">
                 {hiddenTags.map((tag, index) => (

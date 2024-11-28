@@ -13,7 +13,7 @@ import { gameModes as localGameModes, daysOfWeek, ores} from '../../constants';
 import TagList from './components/TagsList';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import mineQuestionMarkImg from '../../assets/mineQuestionMark.svg'
+import mineQuestionMarkImg from '../../assets/questionMark.svg'
 
 
   const PlayerActivityStatus = ({ isActive, lastTimeActive }: any) => {
@@ -189,23 +189,28 @@ const PlayersList: React.FC = () => {
               </p>
             </li>
           </ul>
-
-          <div>
-            <h4>Modos de jogo</h4>
-            <TagList tags={formattedGameModes?.map((mode:any) => mode?.label) || [] } maxVisible={3} />
+        <div className='players__card-more-info'>
+          <div className='players__card-info'>
+              <h4>Modos de jogo</h4>
+              <TagList tags={formattedGameModes?.map((mode:any) => mode?.label) || [] } maxVisible={2} />
           </div>
 
-          <div>
-            <h4>Dias disponível</h4>
-            <TagList tags={formattedAvailableDays?.map((day:any) => day?.label) || [] } maxVisible={3} />
-          </div>
+            <div className='players__card-info'>
+              <h4>Dias disponível</h4>
+              <TagList tags={formattedAvailableDays?.map((day:any) => day?.label) || [] } maxVisible={2} />
+            </div>
 
-          <div>
-            <h4>Minério Favorito</h4>
-            {
-              selectedOre ? <img  className='players__card-ore players__card-ore--bounce' src={selectedOre.img}></img> : <img  className='players__card-ore' src={mineQuestionMarkImg}/>
-            }
-          </div>
+            <div className='players__card-info players__card-info--ore'>
+              <h4>Minério Favorito</h4>
+              <span>
+              {
+                selectedOre ? <img  className='players__card-ore players__card-ore--bounce' src={selectedOre.img}></img> : <img  className='players__card-ore' src={mineQuestionMarkImg}/>
+              }
+              </span>
+
+            </div>
+        </div>
+
           
 
           <div className='players__card-button-container'>

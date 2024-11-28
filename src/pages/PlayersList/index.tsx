@@ -10,7 +10,6 @@ import Button from '../../components/Button';
 import { useUser } from "../../context/UserContext"
 import FilterSidebar from './components/FilterSidebar';
 import { gameModes as localGameModes, daysOfWeek, ores} from '../../constants';
-import TagList from './components/TagsList';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import mineQuestionMarkImg from '../../assets/questionMark.svg'
@@ -73,7 +72,6 @@ const PlayersList: React.FC = () => {
   const {handleStartChat} = useChat()
   
   const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
-  const [isAvailableDaysPopupBisible, setIsAvailableDaysPopupVisible] = useState(false)
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null);
 
   const copyToClipboard = async (text: string, userId: string) => {
@@ -161,7 +159,6 @@ const PlayersList: React.FC = () => {
           return daysOfWeek.find(({value}) => value === day)
       })
 
-      const formattedAvailableDaysPopup = formattedAvailableDays?.slice(2)
         return (
           <li className='players__card' key={uid}>
            <PlayerActivityStatus isActive={isUserActive} lastTimeActive={lastTimeActive}/>

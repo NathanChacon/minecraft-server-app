@@ -29,7 +29,7 @@ const TagsHeader = ({ tags, label }: any) => {
         <div className="tag-header-container">
             <div className="tag-header">
                 <h4>{label}</h4>
-                {tags?.length > 2 && (
+                {tagsPopup?.length > 0 && (
                     <Button onClick={() => setIsTagsPopupVisible(true)}>ver mais</Button>
                 )}
             </div>

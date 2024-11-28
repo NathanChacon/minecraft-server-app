@@ -1,14 +1,8 @@
 .tag-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
-    height: 40px;
-  }
-  
-  .tag-list__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
+    gap: 5px;
   }
   
   .tag-list__tag {

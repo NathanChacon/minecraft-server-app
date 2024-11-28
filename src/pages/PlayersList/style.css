@@ -345,16 +345,17 @@
       display: flex;
       flex-direction: column;
       max-width: 200px;
-      overflow: auto;
+      position: relative;
     }
-
     
    .players__card-info.players__card-info--ore{
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
+ 
+
   @keyframes pulse {
       0% {
           box-shadow: 0 0 10px rgba(255, 127, 80, 0.5);

@@ -14,6 +14,7 @@ import TagList from './components/TagsList';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import mineQuestionMarkImg from '../../assets/questionMark.svg'
+import TagsHeader from './components/TagsHeader';
 
 
   const PlayerActivityStatus = ({ isActive, lastTimeActive }: any) => {
@@ -72,7 +73,7 @@ const PlayersList: React.FC = () => {
   const {handleStartChat} = useChat()
   
   const formattedUsers = filteredUsers?.length > 0 ? filteredUsers : users
-
+  const [isAvailableDaysPopupBisible, setIsAvailableDaysPopupVisible] = useState(false)
   const [copyMessageCardId, setCopyMessageCardId] = useState<string | null>(null);
 
   const copyToClipboard = async (text: string, userId: string) => {
@@ -159,6 +160,8 @@ const PlayersList: React.FC = () => {
         const formattedAvailableDays = availableDays?.map((day: any) => {
           return daysOfWeek.find(({value}) => value === day)
       })
+
+      const formattedAvailableDaysPopup = formattedAvailableDays?.slice(2)
         return (
           <li className='players__card' key={uid}>
            <PlayerActivityStatus isActive={isUserActive} lastTimeActive={lastTimeActive}/>
@@ -190,15 +193,13 @@ const PlayersList: React.FC = () => {
             </li>
           </ul>
         <div className='players__card-more-info'>
-          <div className='players__card-info'>
-              <h4>Modos de jogo</h4>
-              <TagList tags={formattedGameModes?.map((mode:any) => mode?.label) || [] } maxVisible={2} />
-          </div>
+        <div className="players__card-info">
+          <TagsHeader label="Modos de jogo" tags={formattedGameModes}/>
+        </div>
 
-            <div className='players__card-info'>
-              <h4>Dias disponível</h4>
-              <TagList tags={formattedAvailableDays?.map((day:any) => day?.label) || [] } maxVisible={2} />
-            </div>
+        <div className="players__card-info">
+          <TagsHeader label="Dias disponível" tags={formattedAvailableDays}/>
+        </div>
 
             <div className='players__card-info players__card-info--ore'>
               <h4>Minério Favorito</h4>

@@ -1,0 +1,28 @@
+
+.tag-header-container{
+  position: relative;
+}
+.tag-header{
+    display: flex;
+    align-items: center;
+  }
+  
+  
+.tag-header .custom-button{
+    margin-left: 4px;
+    padding: 5px;
+  }
+
+  .tag-header__popup{
+    position: absolute;
+    top: -100px;
+    background-color: #3E8E41;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100vw;
+    max-width: 280px;
+  }
+
+  .tag-header__popup .tag-list{
+    flex-wrap: wrap;
+  }

@@ -21,7 +21,7 @@ const useSignIn = () => {
                 setUser(newUser);
             }
             
-            navigate("/players")
+            navigate("/edit-profile")
         }
         catch(error){
             console.log("error login", error)

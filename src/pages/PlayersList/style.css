@@ -342,9 +342,9 @@
    .players__card-info{
       display: flex;
       flex-direction: column;
-      max-width: 200px;
       position: relative;
       width: 50%;
+      min-width: 200px;
     }
   .players__card-bottom{
     display: flex;

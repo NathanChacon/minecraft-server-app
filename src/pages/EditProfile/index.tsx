@@ -25,7 +25,7 @@ const EditProfile: React.FC = () => {
   const navigate = useNavigate()
   const userLocalStorage = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const { register, watch, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<EditProfileFormData>({
     defaultValues : {
       name: userLocalStorage?.name || "",
       bio: userLocalStorage?.bio || "",
@@ -40,18 +40,11 @@ const EditProfile: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const discordId = watch("discordId");
-
-
-  const hasFilledRequiredFieldsToToggle = !!discordId
-  const hasFieldsToEnableToggleError =  errors.discordId
-
-  const isToggleEnabled = hasFilledRequiredFieldsToToggle && !hasFieldsToEnableToggleError;
 
   const onSubmit: SubmitHandler<EditProfileFormData> = async (data) => {
     if (user && user.uid) {
       try {
-        const isUserVisible = isToggleEnabled ? data.isUserVisible : false;
+        const isUserVisible = data.isUserVisible;
 
         await updateUserData(user.uid, { ...data, isUserVisible });
 
@@ -131,6 +124,18 @@ const EditProfile: React.FC = () => {
                 />
           </div>
           <div className="edit-profile__form-input">
+          <span className="edit-profile__form-input-field-checkbox">
+          <p className="edit-profile__form-input-text">Ficar visível: </p>
+         
+            <input
+                    type="checkbox"
+                    className="edit-profile__checkbox"
+                    {...register("isUserVisible")}
+              />
+            
+          </span>
+        </div>
+          <div className="edit-profile__form-input">
             <p className="edit-profile__form-input-text">Seu Nome:</p>
             <span className="edit-profile__form-input-field">
               <input
@@ -205,21 +210,6 @@ const EditProfile: React.FC = () => {
               formName="ores"
               isMultiple={false}
             />
-        </div>
-
-        <div className="edit-profile__form-input">
-          <span className="edit-profile__form-input-field-checkbox">
-          <p className="edit-profile__form-input-text">Ficar visível: </p>
-         
-            <input
-                    type="checkbox"
-                    className="edit-profile__checkbox"
-                    {...register("isUserVisible")}
-                    disabled={!isToggleEnabled}
-              />
-            
-          </span>
-          <span className={`edit-profile__form-input-disclaimer ${!isToggleEnabled ? 'visible' : 'hidden'}`}>* Discord ID necessário.</span>
         </div>
           <Button buttonType="cta" type="submit"> Salvar </Button>
         </form>
